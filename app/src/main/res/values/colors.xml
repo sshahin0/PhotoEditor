@@ -43,10 +43,10 @@
     
     <!--UI Colors-->
     <color name="splash_bg_color">#ffffff</color>
-    <color name="splash_text_color">#01514e</color>
-    <color name="main_bg_start_color">#02847f</color>
-    <color name="main_bg_end_color">#01514e</color>
-    <color name="home_btn_color">#ffffff</color>
+    <color name="splash_text_color">#18191C</color>
+    <color name="main_bg_start_color">#18191C</color>
+    <color name="main_bg_end_color">#18191C</color>
+    <color name="home_btn_color">#18191C</color>
     <color name="btn_text_color">#ffffff</color>
     <color name="header_text_color">#ffffff</color>
     <color name="header_bg_start_color">#02847f</color>

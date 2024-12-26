@@ -62,8 +62,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     ImageView pipMakerBtn;
     ImageView scrapBtn;
     ImageView albumBtn;
-    ImageView mainBG;
-    ImageView pipImg;
     ImageView photoEditBtn;
     ImageView shapeBtn;
 
@@ -92,15 +90,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 //            }
 //        });
 
-        mainBG = findViewById(R.id.mainBG);
-        Glide.with(StartActivity.this)
-                .load(R.drawable.bg_main)
-                .into(mainBG);
-
-        pipImg = findViewById(R.id.pipImg);
-        Glide.with(StartActivity.this)
-                .load(R.drawable.main_pip)
-                .into(pipImg);
 
         menuBtn = findViewById(R.id.menuBtn);
         menuBtn.setOnClickListener(this);

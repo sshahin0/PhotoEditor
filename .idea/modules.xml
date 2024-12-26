@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PIP-Photo-Collage-Maker-With-Photo-Editor.iml" filepath="$PROJECT_DIR$/.idea/modules/PIP-Photo-Collage-Maker-With-Photo-Editor.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PIP-Photo-Collage-Maker-With-Photo-Editor.app.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.main.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PIP-Photo-Collage-Maker-With-Photo-Editor.imageeditlibrary.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PhotoEditor.iml" filepath="$PROJECT_DIR$/.idea/modules/PhotoEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.main.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.unitTest.iml" />
     </modules>
   </component>
 </project>
