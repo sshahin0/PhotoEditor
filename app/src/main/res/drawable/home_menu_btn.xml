@@ -5,5 +5,8 @@
     <stroke
         android:width="0dp"
         android:color="@color/home_btn_color" />
-    <solid android:color="@color/home_btn_color" />
+    <gradient
+        android:startColor="#6427E8"
+        android:endColor="#CF1CAB"
+        android:angle="90" />
 </shape>

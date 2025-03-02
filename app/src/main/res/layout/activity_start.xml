@@ -95,8 +95,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:gravity="center"
                             android:text="@string/photo_collage"
                             android:textColor="@color/btn_text_color"
                             android:textSize="@dimen/_10sdp" />
@@ -124,7 +122,6 @@
                             android:id="@+id/photoEditBtn"
                             android:layout_width="@dimen/_47sdp"
                             android:layout_height="@dimen/_47sdp"
-                            android:tint="@android:color/holo_blue_light"
                             android:background="@drawable/home_btn"
                             android:padding="@dimen/_8sdp"
                             android:src="@drawable/h_editor"
@@ -133,22 +130,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:gravity="center"
                             android:layout_gravity="center"
                             android:text="@string/photo_editor"
                             android:textColor="@color/btn_text_color"
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
-
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_margin="@dimen/_5sdp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -156,25 +148,84 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/home_btn"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/shapeBtn"
                             android:layout_width="@dimen/_47sdp"
                             android:layout_height="@dimen/_47sdp"
-                            android:background="@drawable/home_btn"
-                            android:padding="@dimen/_8sdp"
                             android:src="@drawable/h_shape"
                             app:tint="@color/btn_icon_color" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
                             android:gravity="center"
                             android:text="@string/body_shape"
                             android:textColor="@color/btn_text_color"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_3sdp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="@drawable/home_btn"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/pipMakerBtn"
+                            android:layout_width="@dimen/_47sdp"
+                            android:layout_height="@dimen/_47sdp"
+                            android:src="@drawable/h_pip"
+                            app:tint="@color/btn_icon_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/pip_collage"
+                            android:textColor="@color/btn_text_color"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_3sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/home_btn"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/scrapBtn"
+                            android:layout_width="@dimen/_47sdp"
+                            android:layout_height="@dimen/_47sdp"
+                            android:src="@drawable/h_scrap"
+                            app:tint="@color/btn_icon_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/scrap_book"
+                            android:textColor="@color/btn_text_color"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_3sdp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -183,86 +234,24 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:layout_margin="@dimen/_5sdp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/pipMakerBtn"
-                            android:layout_width="@dimen/_47sdp"
-                            android:layout_height="@dimen/_47sdp"
-                            android:background="@drawable/home_btn"
-                            android:padding="@dimen/_8sdp"
-                            android:src="@drawable/h_pip"
-                            app:tint="@color/btn_icon_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:gravity="center"
-                            android:text="@string/pip_collage"
-                            android:textColor="@color/btn_text_color"
-                            android:textSize="@dimen/_10sdp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/scrapBtn"
-                            android:layout_width="@dimen/_47sdp"
-                            android:layout_height="@dimen/_47sdp"
-                            android:background="@drawable/home_btn"
-                            android:padding="@dimen/_8sdp"
-                            android:src="@drawable/h_scrap"
-                            app:tint="@color/btn_icon_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:gravity="center"
-                            android:text="@string/scrap_book"
-                            android:textColor="@color/btn_text_color"
-                            android:textSize="@dimen/_10sdp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:background="@drawable/home_btn"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/albumBtn"
                             android:layout_width="@dimen/_47sdp"
                             android:layout_height="@dimen/_47sdp"
-                            android:background="@drawable/home_btn"
-                            android:padding="@dimen/_8sdp"
                             android:src="@drawable/h_creation"
                             app:tint="@color/btn_icon_color" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
                             android:gravity="center"
                             android:text="@string/my_creation"
                             android:textColor="@color/btn_text_color"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_3sdp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
