@@ -12,7 +12,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../imageeditlibrary/build/intermediates/javac/debug/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../imageeditlibrary/build/generated/aidl_source_output_dir/debug/out" />
