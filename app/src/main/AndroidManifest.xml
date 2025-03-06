@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.kessi.photopipcollagemaker">
+    package="com.limsphere.pe">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.kessi.photopipcollagemaker.MyApplication"
+        android:name="com.limsphere.pe.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,43 +23,43 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".shape.BodyShapeEditor"
+            android:name="com.limsphere.pe.shape.BodyShapeEditor"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.shape.SlimActivity"
+            android:name="com.limsphere.pe.shape.SlimActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".shape.WaistActivity"
+            android:name="com.limsphere.pe.shape.WaistActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".shape.HipActivity"
+            android:name="com.limsphere.pe.shape.HipActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".shape.ChestActivity"
+            android:name="com.limsphere.pe.shape.ChestActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".shape.FaceActivity"
+            android:name="com.limsphere.pe.shape.FaceActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.PrivacyActivity"
+            android:name="com.limsphere.pe.PrivacyActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
@@ -71,55 +71,55 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.ShareActivity"
+            android:name="com.limsphere.pe.ShareActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.gallery.CustomGalleryActivity"
+            android:name="com.limsphere.pe.gallery.CustomGalleryActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.Activities.ScrapBookActivity"
+            android:name="com.limsphere.pe.Activities.ScrapBookActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.Activities.ThumbListActivity"
+            android:name="com.limsphere.pe.Activities.ThumbListActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.Activities.CollageMakerlActivity"
+            android:name="com.limsphere.pe.Activities.CollageMakerlActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.Activities.PIPActivity"
+            android:name="com.limsphere.pe.Activities.PIPActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.CreationActivity"
+            android:name="com.limsphere.pe.CreationActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.Activities.AddTextItemActivity"
+            android:name="com.limsphere.pe.Activities.AddTextItemActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.SplashActivity"
+            android:name="com.limsphere.pe.SplashActivity"
             android:screenOrientation="nosensor"
             android:exported="true">
             <intent-filter>
@@ -134,7 +134,7 @@
             android:value="ttcHNDEIHmybFKMPCCg6GE0-SHHtx5Il000TufyXlDWyi71Mc4-zW-CBl96Uxs99RV8X0GbwqTWubcNU6UEfi6" />
 
         <activity
-            android:name="com.kessi.photopipcollagemaker.StartActivity"
+            android:name="com.limsphere.pe.StartActivity"
             android:launchMode="singleTask"
             android:exported="false"
             android:screenOrientation="nosensor" />

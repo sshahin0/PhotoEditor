@@ -19,7 +19,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.kessi.photopipcollagemaker"
+        applicationId "com.limsphere.pe"
 
         manifestPlaceholders = [
                 onesignal_app_id : '64b25434-c793-4922-b7f4-a66efef26ba7',
