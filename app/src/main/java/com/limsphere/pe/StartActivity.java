@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,12 +52,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     };
 
     ImageView menuBtn;
-    ImageView clgMakerBtn;
-    ImageView pipMakerBtn;
-    ImageView scrapBtn;
-    ImageView albumBtn;
-    ImageView photoEditBtn;
-    ImageView shapeBtn;
+    LinearLayout clgMakerBtn;
+    LinearLayout pipMakerBtn;
+    LinearLayout scrapBtn;
+    LinearLayout albumBtn;
+    LinearLayout photoEditBtn;
+    LinearLayout shapeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
