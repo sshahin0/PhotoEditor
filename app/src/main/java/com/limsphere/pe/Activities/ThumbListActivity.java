@@ -154,7 +154,7 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
         //create QuickAction. Use QuickAction.VERTICAL or QuickAction.HORIZONTAL param to define layout
         //orientation
         mQuickAction = new QuickAction(this, QuickAction.VERTICAL);
-        mQuickAction.setPopupBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        mQuickAction.setPopupBackgroundColor(getResources().getColor(R.color.dark_gray));
         //add action items into QuickAction
         String[] filterTexts = getResources().getStringArray(R.array.frame_count);
         if (mFrameImages) {

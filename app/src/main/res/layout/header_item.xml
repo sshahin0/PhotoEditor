@@ -11,7 +11,7 @@
     android:layoutDirection="locale"
     android:textDirection="locale"
     android:textSize="24sp"
-    android:textColor="@android:color/black"
+    android:textColor="@android:color/darker_gray"
     app:slm_headerDisplay="inline|sticky"
     app:slm_isHeader="true"
     app:slm_section_headerMarginStart="56dip"
