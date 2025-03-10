@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.limsphere.pe.Activities.CollageMakerlActivity;
+import com.limsphere.pe.Activities.CollageMakerActivity;
 import com.limsphere.pe.R;
 
 
@@ -48,7 +48,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 selectPos = position;
-                ((CollageMakerlActivity) context).setBGColor(color);
+                ((CollageMakerActivity) context).setBGColor(color);
                 notifyDataSetChanged();
             }
         });

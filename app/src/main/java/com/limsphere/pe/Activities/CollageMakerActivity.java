@@ -46,7 +46,7 @@ import java.util.ArrayList;
 
 
 
-public class CollageMakerlActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener {
+public class CollageMakerActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener {
     private static final int REQUEST_SELECT_PHOTO = 1001;
     private static float MAX_SPACE;
     private static float MAX_CORNER;
@@ -84,9 +84,9 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MAX_SPACE = ImageUtils.pxFromDp(CollageMakerlActivity.this, 30);
-        MAX_CORNER = ImageUtils.pxFromDp(CollageMakerlActivity.this, 60);
-        DEFAULT_SPACE = ImageUtils.pxFromDp(CollageMakerlActivity.this, 2);
+        MAX_SPACE = ImageUtils.pxFromDp(CollageMakerActivity.this, 30);
+        MAX_CORNER = ImageUtils.pxFromDp(CollageMakerActivity.this, 60);
+        DEFAULT_SPACE = ImageUtils.pxFromDp(CollageMakerActivity.this, 2);
 
 
         //restore old params
@@ -170,7 +170,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageMakerlActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((ImageView)findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
                 ((TextView)findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
@@ -185,7 +185,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageMakerlActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((ImageView)findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
                 ((TextView)findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
@@ -201,7 +201,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV1)).setColorFilter(ContextCompat.getColor(CollageMakerlActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((ImageView)findViewById(R.id.tabIV1)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
                 ((TextView)findViewById(R.id.tabTxt1)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
@@ -218,13 +218,13 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
         } catch (IOException e) {
             e.printStackTrace();
         }
-        StickerAdapter adapter = new StickerAdapter(CollageMakerlActivity.this, emojies);
+        StickerAdapter adapter = new StickerAdapter(CollageMakerActivity.this, emojies);
         stickerRecycler.setAdapter(adapter);
 
         bgColorRecycler = findViewById(R.id.bgColorRecycler);
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         colors = getResources().getStringArray(R.array.color_array);
-        ColorAdapter cadapter = new ColorAdapter(CollageMakerlActivity.this, colors);
+        ColorAdapter cadapter = new ColorAdapter(CollageMakerActivity.this, colors);
         bgColorRecycler.setAdapter(cadapter);
 
         bgcolor = findViewById(R.id.bgcolor);
@@ -232,7 +232,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageMakerlActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((ImageView)findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
                 ((TextView)findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
@@ -247,7 +247,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageMakerlActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((ImageView)findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
                 ((TextView)findViewById(R.id.tabTxt4)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
@@ -259,10 +259,10 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
     void startActivityes(Intent intent, int requestCode) {
         if (!AdManager.isloadMAX) {
             AdManager.adCounter++;
-            AdManager.showInterAd(CollageMakerlActivity.this, intent, requestCode);
+            AdManager.showInterAd(CollageMakerActivity.this, intent, requestCode);
         } else {
             AdManager.adCounter++;
-            AdManager.showMaxInterstitial(CollageMakerlActivity.this, intent, requestCode);
+            AdManager.showMaxInterstitial(CollageMakerActivity.this, intent, requestCode);
         }
     }
 
@@ -312,7 +312,7 @@ public class CollageMakerlActivity extends BaseTemplateDetailActivity implements
                 ImageEntity entity = new ImageEntity(Uri.fromFile(mypath), getResources());
                 entity.setInitScaleFactor(0.5f);
                 entity.setSticker(false);
-                entity.load(CollageMakerlActivity.this,
+                entity.load(CollageMakerActivity.this,
                         (mPhotoView.getWidth() - entity.getWidth()) / 2,
                         (mPhotoView.getHeight() - entity.getHeight()) / 2, 0);
                 mPhotoView.addImageEntity(entity);

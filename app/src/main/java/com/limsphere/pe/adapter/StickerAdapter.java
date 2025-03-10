@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.limsphere.pe.Activities.CollageMakerlActivity;
+import com.limsphere.pe.Activities.CollageMakerActivity;
 import com.limsphere.pe.R;
 
 
@@ -44,7 +44,7 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.ViewHold
         holder.emoji_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CollageMakerlActivity) context).setEmojiesSticker(sticker);
+                ((CollageMakerActivity) context).setEmojiesSticker(sticker);
             }
         });
     }

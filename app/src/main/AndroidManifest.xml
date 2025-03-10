@@ -95,7 +95,7 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.limsphere.pe.Activities.CollageMakerlActivity"
+            android:name="com.limsphere.pe.Activities.CollageMakerActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
             android:launchMode="singleTask"/>

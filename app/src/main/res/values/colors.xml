@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/main_bg_start_color</color>
-    <color name="colorPrimaryDark">#111111</color>
+    <color name="colorPrimary">#dcdbdb</color>
+    <color name="colorPrimaryDark">#bcb9b9</color>
     <color name="colorAccent">@color/main_bg_start_color</color>
 
     <color name="accentColor">#FF4081</color>
@@ -47,7 +47,7 @@
     <color name="main_bg_start_color">#f7f1ed</color>
     <color name="main_bg_end_color">#fcf3ec</color>
     <color name="home_btn_color">#18191C</color>
-    <color name="btn_text_color">#ffffff</color>
+    <color name="btn_text_color">#000000</color>
     <color name="header_text_color">#ffffff</color>
     <color name="header_bg_start_color">#02847f</color>
     <color name="header_bg_end_color">#01514e</color>

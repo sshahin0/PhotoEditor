@@ -226,7 +226,7 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
                 }
                 Intent intent = null;
                 if (mFrameImages) {
-                    intent = new Intent(this, CollageMakerlActivity.class);
+                    intent = new Intent(this, CollageMakerActivity.class);
                 } else {
                     intent = new Intent(this, PIPActivity.class);
                 }
