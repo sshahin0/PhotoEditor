@@ -26,10 +26,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.limsphere.pe.adapter.ColorAdapter;
 import com.limsphere.pe.R;
+import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.adapter.StickerAdapter;
 import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
+import com.limsphere.pe.model.RatioItem;
 import com.limsphere.pe.model.TemplateItem;
 import com.limsphere.pe.multitouch.controller.ImageEntity;
 import com.limsphere.pe.utils.AdManager;
@@ -43,7 +45,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class CollageMakerActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener {
@@ -57,23 +59,31 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
     private FrameImageView mSelectedFrameImageView;
     private FramePhotoLayout mFramePhotoLayout;
     private LinearLayout mSpaceLayout;
+    private LinearLayout mRatioLayout;
+    private LinearLayout mMainMenuLayout;
+    private ImageView mMenuBackBtn;
     private SeekBar mSpaceBar;
     private SeekBar mCornerBar;
     private float mSpace = DEFAULT_SPACE;
     private float mCorner = 0;
     //Background
-    private int mBackgroundColor = Color.WHITE;
+    private int mBackgroundColor = Color.BLACK;
     private Bitmap mBackgroundImage;
     private Uri mBackgroundUri = null;
     //Saved instance state
     private Bundle mSavedInstanceState;
 
-    private ImageView back, ratio, save;
+    private ImageView back, save;
+    private LinearLayout ratio;
     private LinearLayout layout, sticker, adjust, bgcolor, textBtn;
     private FrameLayout templateLayout;
     private RecyclerView stickerRecycler, bgColorRecycler;
     private String[] emojies;
     private String[] colors;
+
+    private RecyclerView mRatioRecycleView;
+    private RatioAdapter mRatioAdapter;
+    private List<RatioItem> mRatioItemList;
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -152,7 +162,36 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
         ratio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickRatio();
+//                clickRatio();
+
+                mRatioLayout.setVisibility(View.VISIBLE);
+                mMainMenuLayout.setVisibility(View.GONE);
+
+                mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
+                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageMakerActivity.this,
+                        LinearLayoutManager.HORIZONTAL, false));
+
+                // Create data
+                mRatioItemList = new ArrayList<>();
+                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34)); // Replace with actual image resource
+                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54));
+                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169));
+                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916));
+                mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb));
+                mRatioItemList.add(new RatioItem("Insta", R.drawable.ratio_instagram));
+                mRatioItemList.add(new RatioItem("pInt", R.drawable.ratio_pinterest));
+
+                // Create and set the adapter
+                mRatioAdapter = new RatioAdapter(mRatioItemList);
+                mRatioRecycleView.setAdapter(mRatioAdapter);
+            }
+        });
+        mMenuBackBtn = findViewById(R.id.menu_back);
+        mMenuBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRatioLayout.setVisibility(View.GONE);
+                mMainMenuLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -196,6 +235,8 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
         });
 
         mSpaceLayout = findViewById(R.id.spaceLayout);
+        mRatioLayout = findViewById(R.id.ratio_layout);
+        mMainMenuLayout = findViewById(R.id.main_menu);
         adjust = findViewById(R.id.adjust);
         adjust.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,7 +328,9 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
         templateLayout.setVisibility(View.GONE);
         bgColorRecycler.setVisibility(View.GONE);
         mSpaceLayout.setVisibility(View.GONE);
+        mRatioLayout.setVisibility(View.GONE);
         stickerRecycler.setVisibility(View.GONE);
+        mMainMenuLayout.setVisibility(View.VISIBLE);
     }
 
     public void setEmojiesSticker(String name) {

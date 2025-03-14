@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: com.unity3d.ads:unity-ads:4.14.0@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/jars/libs/omsdk-android-1.4.9-release.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/jars/libs/unity-scaradapter-2100.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/jars/libs/unity-scaradapter-2300.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/jars/libs/unity-scaradapter-common.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/29772794ef3b9f00be634fc9abd1a016/transformed/jetified-unity-ads-4.14.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unity3d.ads/unity-ads/4.14.0/df59700738188ace9765bd6a8d18a3dc181a0b0f/unity-ads-4.14.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unity3d.ads/unity-ads/4.14.0/a69a7729af508c472b541345d9a56f8fa1342d96/unity-ads-4.14.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

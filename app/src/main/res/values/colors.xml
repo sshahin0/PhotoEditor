@@ -52,4 +52,6 @@
     <color name="header_bg_start_color">#02847f</color>
     <color name="header_bg_end_color">#01514e</color>
     <color name="btn_icon_color">#26D1FF</color>
+    <color name="menu_bg_color">#272727</color>
+    <color name="menu_back_bg_color">#3c3c3c</color>
 </resources>

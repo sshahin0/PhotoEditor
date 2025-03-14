@@ -112,7 +112,7 @@
     <string name="scrap_book">Scrap Book</string>
     <string name="my_creation">My Creation</string>
     <string name="layout">Layout</string>
-    <string name="adjust">Adjust</string>
+    <string name="border">Border</string>
     <string name="bg_color">Bg Color</string>
     <string name="photo_collage_header">Photo Collage</string>
     <string name="str_sticker">Sticker</string>
@@ -137,7 +137,7 @@
     <!--MAX ad ids-->
     <string name="max_banner">58f5fda1b1cbb2f4</string>
     <string name="max_interstitial">9fd803c6de418363</string>
-
+    <string name="str_ratio">Ratio</string>
 
 
 </resources>
