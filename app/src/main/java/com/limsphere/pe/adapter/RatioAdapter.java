@@ -16,9 +16,15 @@ import java.util.List;
 public class RatioAdapter extends RecyclerView.Adapter<RatioAdapter.ItemViewHolder> {
 
     private List<RatioItem> itemList;
+    private OnItemClickListener mItemClickListener;
 
-    public RatioAdapter(List<RatioItem> itemList) {
+    public RatioAdapter(List<RatioItem> itemList, OnItemClickListener onClickListener) {
         this.itemList = itemList;
+        this.mItemClickListener = onClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onRatioItemClick(int ratioItem);
     }
 
     @Override
@@ -32,6 +38,11 @@ public class RatioAdapter extends RecyclerView.Adapter<RatioAdapter.ItemViewHold
         RatioItem currentItem = itemList.get(position);
         holder.titleTextView.setText(currentItem.getTitle());
         holder.imageView.setImageResource(currentItem.getImageResourceId());
+        holder.imageView.setOnClickListener(v -> {
+            if (mItemClickListener != null) {
+                mItemClickListener.onRatioItemClick(currentItem.getRatioKey());  // Notify activity when an item is clicked
+            }
+        });
     }
 
     @Override

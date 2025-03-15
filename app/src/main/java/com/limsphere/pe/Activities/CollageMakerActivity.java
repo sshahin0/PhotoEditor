@@ -14,16 +14,19 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.limsphere.pe.adapter.ColorAdapter;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.RatioAdapter;
@@ -48,7 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CollageMakerActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener {
+public class CollageMakerActivity extends BaseTemplateDetailActivity
+        implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener {
     private static final int REQUEST_SELECT_PHOTO = 1001;
     private static float MAX_SPACE;
     private static float MAX_CORNER;
@@ -173,16 +177,16 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
 
                 // Create data
                 mRatioItemList = new ArrayList<>();
-                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34)); // Replace with actual image resource
-                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54));
-                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169));
-                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916));
-                mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb));
-                mRatioItemList.add(new RatioItem("Insta", R.drawable.ratio_instagram));
-                mRatioItemList.add(new RatioItem("pInt", R.drawable.ratio_pinterest));
+                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34, RATIO_3_4)); // Replace with actual image resource
+                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54, RATIO_5_4));
+                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169, RATIO_16_9));
+                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916, RATIO_9_16));
+                mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
+                mRatioItemList.add(new RatioItem("Insta", R.drawable.ratio_instagram, RATIO_insta));
+                mRatioItemList.add(new RatioItem("pInt", R.drawable.ratio_pinterest, RATIO_pInt));
 
                 // Create and set the adapter
-                mRatioAdapter = new RatioAdapter(mRatioItemList);
+                mRatioAdapter = new RatioAdapter(mRatioItemList, CollageMakerActivity.this);
                 mRatioRecycleView.setAdapter(mRatioAdapter);
             }
         });
@@ -209,13 +213,13 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView)findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+                ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
                 templateLayout.setVisibility(View.VISIBLE);
 
-                startActivityes(null,0);
+                startActivityes(null, 0);
             }
         });
 
@@ -224,13 +228,13 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView)findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+                ((ImageView) findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
                 stickerRecycler.setVisibility(View.VISIBLE);
 
-                startActivityes(null,0);
+                startActivityes(null, 0);
             }
         });
 
@@ -242,13 +246,13 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV1)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView)findViewById(R.id.tabTxt1)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+                ((ImageView) findViewById(R.id.tabIV1)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) findViewById(R.id.tabTxt1)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
                 mSpaceLayout.setVisibility(View.VISIBLE);
 
-                startActivityes(null,0);
+                startActivityes(null, 0);
             }
         });
 
@@ -273,13 +277,13 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView)findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+                ((ImageView) findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
                 bgColorRecycler.setVisibility(View.VISIBLE);
 
-                startActivityes(null,0);
+                startActivityes(null, 0);
             }
         });
 
@@ -288,8 +292,8 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
             @Override
             public void onClick(View v) {
                 setUnpressBtn();
-                ((ImageView)findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView)findViewById(R.id.tabTxt4)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+                ((ImageView) findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageMakerActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+                ((TextView) findViewById(R.id.tabTxt4)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
                 textButtonClick();
@@ -307,21 +311,21 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
         }
     }
 
-    void setUnpressBtn(){
-        ((ImageView)findViewById(R.id.tabIV)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView)findViewById(R.id.tabTxt)).setTextColor(Color.WHITE);
+    void setUnpressBtn() {
+        ((ImageView) findViewById(R.id.tabIV)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt)).setTextColor(Color.WHITE);
 
-        ((ImageView)findViewById(R.id.tabIV1)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView)findViewById(R.id.tabTxt1)).setTextColor(Color.WHITE);
+        ((ImageView) findViewById(R.id.tabIV1)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt1)).setTextColor(Color.WHITE);
 
-        ((ImageView)findViewById(R.id.tabIV2)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView)findViewById(R.id.tabTxt2)).setTextColor(Color.WHITE);
+        ((ImageView) findViewById(R.id.tabIV2)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt2)).setTextColor(Color.WHITE);
 
-        ((ImageView)findViewById(R.id.tabIV3)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView)findViewById(R.id.tabTxt3)).setTextColor(Color.WHITE);
+        ((ImageView) findViewById(R.id.tabIV3)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt3)).setTextColor(Color.WHITE);
 
-        ((ImageView)findViewById(R.id.tabIV4)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView)findViewById(R.id.tabTxt4)).setTextColor(Color.WHITE);
+        ((ImageView) findViewById(R.id.tabIV4)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt4)).setTextColor(Color.WHITE);
     }
 
     void hideControls() {
@@ -481,7 +485,68 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
                     viewWidth = (int) (viewHeight * goldenRatio);
                 }
             }
+        } else if (mLayoutRatio == RATIO_3_4) {
+            if (viewWidth * 3 > viewHeight * 4) {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = viewHeight * 4 / 3;
+            } else {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = viewWidth * 3 / 4;
+            }
         }
+        else if (mLayoutRatio == RATIO_5_4) {
+            if (viewWidth * 4 > viewHeight * 5) {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = viewHeight * 5 / 4;
+            } else {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = viewWidth * 4 / 5;
+            }
+        }
+        else if (mLayoutRatio == RATIO_16_9) {
+            if (viewWidth * 9 > viewHeight * 16) {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = viewHeight * 16 / 9;
+            } else {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = viewWidth * 9 / 16;
+            }
+        }
+        else if (mLayoutRatio == RATIO_9_16) {
+            if (viewHeight * 9 > viewWidth * 16) {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = viewWidth * 16 / 9;
+            } else {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = viewHeight * 9 / 16;
+            }
+        }
+        else if (mLayoutRatio == RATIO_fb) {
+            if (viewWidth * 1 > viewHeight * 1.91) {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = (int) (viewHeight * 1.91);
+            } else {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = (int) (viewWidth / 1.91);
+            }
+        }
+        else if (mLayoutRatio == RATIO_insta) {
+            if (viewWidth > viewHeight) {
+                viewWidth = viewHeight;
+            } else {
+                viewHeight = viewWidth;
+            }
+        }
+        else if (mLayoutRatio == RATIO_pInt) {
+            if (viewWidth * 3 > viewHeight * 2) {
+                // If the width is too wide, adjust the width based on the height
+                viewWidth = viewHeight * 2 / 3;
+            } else {
+                // If the height is too tall, adjust the height based on the width
+                viewHeight = viewWidth * 3 / 2;
+            }
+        }
+
         mOutputScale = ImageUtils.calculateOutputScaleFactor(viewWidth, viewHeight);
         mFramePhotoLayout.build(viewWidth, viewHeight, mOutputScale, mSpace, mCorner);
         if (mSavedInstanceState != null) {
@@ -577,4 +642,12 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity implements 
     }
 
 
+    /**
+     * @param itemName
+     */
+    @Override
+    public void onRatioItemClick(int itemName) {
+//        Toast.makeText(this, itemName, Toast.LENGTH_LONG).show();
+        clickRatio(itemName);
+    }
 }

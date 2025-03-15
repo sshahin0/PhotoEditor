@@ -1,10 +1,8 @@
 package com.limsphere.pe.Activities;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -56,6 +54,13 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     protected static final int RATIO_SQUARE = 0;
     protected static final int RATIO_FIT = 1;
     protected static final int RATIO_GOLDEN = 2;
+    protected static final int RATIO_3_4 = 3;
+    protected static final int RATIO_5_4 = 4;
+    protected static final int RATIO_16_9 = 5;
+    protected static final int RATIO_9_16 = 6;
+    protected static final int RATIO_fb = 7;
+    protected static final int RATIO_insta = 8;
+    protected static final int RATIO_pInt = 9;
     //action id
     private static final int ID_EDIT = 1;
     private static final int ID_DELETE = 2;
@@ -347,27 +352,30 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     }
 
 
-    public void clickRatio(){
-        if (mRatioDialog == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            String[] layoutRatioName = new String[]{getString(R.string.photo_editor_square), getString(R.string.fit),
-                    getString(R.string.golden_ratio),};
-
-            builder.setTitle(R.string.select_ratio);
-            builder.setSingleChoiceItems(layoutRatioName, mPref.getInt(RATIO_KEY, 0),
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPref.edit().putInt(RATIO_KEY, which).commit();
-                            mLayoutRatio = which;
-                            dialog.dismiss();
-                            buildLayout(mSelectedTemplateItem);
-                        }
-                    });
-            mRatioDialog = builder.create();
-        }
-        mRatioDialog.show();
+    public void clickRatio(int itemName){
+        mPref.edit().putInt(RATIO_KEY, itemName).commit();
+        mLayoutRatio = itemName;
+        buildLayout(mSelectedTemplateItem);
+//        if (mRatioDialog == null) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            String[] layoutRatioName = new String[]{getString(R.string.photo_editor_square), getString(R.string.fit),
+//                    getString(R.string.golden_ratio),};
+//
+//            builder.setTitle(R.string.select_ratio);
+//            builder.setSingleChoiceItems(layoutRatioName, mPref.getInt(RATIO_KEY, 0),
+//                    new DialogInterface.OnClickListener() {
+//
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            mPref.edit().putInt(RATIO_KEY, which).commit();
+//                            mLayoutRatio = which;
+//                            dialog.dismiss();
+//                            buildLayout(mSelectedTemplateItem);
+//                        }
+//                    });
+//            mRatioDialog = builder.create();
+//        }
+//        mRatioDialog.show();
     }
 
 
