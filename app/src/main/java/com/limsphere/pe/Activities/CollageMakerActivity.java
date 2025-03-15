@@ -647,7 +647,6 @@ public class CollageMakerActivity extends BaseTemplateDetailActivity
      */
     @Override
     public void onRatioItemClick(int itemName) {
-//        Toast.makeText(this, itemName, Toast.LENGTH_LONG).show();
         clickRatio(itemName);
     }
 }

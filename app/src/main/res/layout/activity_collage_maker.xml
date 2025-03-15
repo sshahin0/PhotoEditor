@@ -118,6 +118,33 @@
             android:layout_height="@dimen/_52sdp" />
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/ratio_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@color/menu_bg_color"
+        android:layout_alignBottom="@+id/editoption"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/menu_back"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:background="@drawable/menu_back_bg"
+            android:src="@mipmap/menu_back"
+            app:tint="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ratio_recycle_View"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10sdp" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stickerRecycler"
         android:layout_width="match_parent"
@@ -286,32 +313,6 @@
                     android:textColor="#fff"
                     android:textSize="@dimen/_9sdp" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ratio_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
-            android:background="@color/menu_bg_color"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/menu_back"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:background="@drawable/menu_back_bg"
-                android:src="@mipmap/menu_back"
-                app:tint="@color/white" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ratio_recycle_View"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/_10sdp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
