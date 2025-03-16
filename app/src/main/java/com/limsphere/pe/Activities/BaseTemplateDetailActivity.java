@@ -51,16 +51,19 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     private static final String TAG = BaseTemplateDetailActivity.class.getSimpleName();
     private static final String PREF_NAME = "templateDetailPref";
     private static final String RATIO_KEY = "ratio";
-    protected static final int RATIO_SQUARE = 0;
-    protected static final int RATIO_FIT = 1;
-    protected static final int RATIO_GOLDEN = 2;
-    protected static final int RATIO_3_4 = 3;
-    protected static final int RATIO_5_4 = 4;
-    protected static final int RATIO_16_9 = 5;
-    protected static final int RATIO_9_16 = 6;
-    protected static final int RATIO_fb = 7;
-    protected static final int RATIO_insta = 8;
-    protected static final int RATIO_pInt = 9;
+    public static final int RATIO_1_1 = 0;
+    public static final int RATIO_FIT = 1;
+    public static final int RATIO_GOLDEN = 2;
+    public static final int RATIO_3_4 = 3;
+    public static final int RATIO_4_3 = 11;
+    public static final int RATIO_5_4 = 4;
+    public static final int RATIO_4_5 = 10;
+    public static final int RATIO_16_9 = 5;
+    public static final int RATIO_9_16 = 6;
+    public static final int RATIO_1_2 = 12;
+    public static final int RATIO_fb = 7;
+    public static final int RATIO_3_2 = 8;
+    public static final int RATIO_2_3 = 9;
     //action id
     private static final int ID_EDIT = 1;
     private static final int ID_DELETE = 2;
@@ -81,7 +84,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
     protected List<String> mSelectedPhotoPaths = new ArrayList<>();
     private Dialog mRatioDialog;
     private SharedPreferences mPref;
-    protected int mLayoutRatio = RATIO_SQUARE;
+    protected int mLayoutRatio = RATIO_1_1;
     private ImageEntity mSelectedEntity = null;
     private QuickAction mTextQuickAction;
     private QuickAction mStickerQuickAction;
@@ -108,7 +111,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         Logger.d(TAG, "onCreate, savedInstanceState=" + savedInstanceState);
         setContentView(getLayoutId());
         mPref = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        mLayoutRatio = mPref.getInt(RATIO_KEY, RATIO_SQUARE);
+        mLayoutRatio = mPref.getInt(RATIO_KEY, RATIO_1_1);
         mImageInTemplateCount = getIntent().getIntExtra(ThumbListActivity.EXTRA_IMAGE_IN_TEMPLATE_COUNT, 0);
         mIsFrameImage = getIntent().getBooleanExtra(ThumbListActivity.EXTRA_IS_FRAME_IMAGE, true);
         final int selectedItemIndex = getIntent().getIntExtra(ThumbListActivity.EXTRA_SELECTED_TEMPLATE_INDEX, 0);

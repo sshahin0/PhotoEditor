@@ -23,6 +23,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.ColorAdapter;
@@ -167,18 +168,26 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 mMainMenuLayout.setVisibility(View.GONE);
                 mMenuBack.setVisibility(View.VISIBLE);
 
-                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
-                        LinearLayoutManager.HORIZONTAL, false));
+                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+                mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
+
+//                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
+//                        LinearLayoutManager.HORIZONTAL, false));
 
                 // Create data
                 mRatioItemList = new ArrayList<>();
+                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_11, RATIO_1_1)); // Replace with actual image resource
                 mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34, RATIO_3_4)); // Replace with actual image resource
+                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_43, RATIO_4_3)); // Replace with actual image resource
                 mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54, RATIO_5_4));
+                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_45, RATIO_5_4));
                 mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169, RATIO_16_9));
                 mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916, RATIO_9_16));
+                mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_12, RATIO_1_2));
                 mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
-                mRatioItemList.add(new RatioItem("Insta", R.drawable.ratio_instagram, RATIO_insta));
-                mRatioItemList.add(new RatioItem("pInt", R.drawable.ratio_pinterest, RATIO_pInt));
+                mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_32, RATIO_3_2));
+                mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_23, RATIO_2_3));
+                mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_2_3));
 
                 // Create and set the adapter
                 mRatioAdapter = new RatioAdapter(mRatioItemList, CollageActivity.this);
@@ -452,7 +461,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         int viewWidth = mContainerLayout.getWidth();
         int viewHeight = mContainerLayout.getHeight();
-        if (mLayoutRatio == RATIO_SQUARE) {
+        if (mLayoutRatio == RATIO_1_1) {
             if (viewWidth > viewHeight) {
                 viewWidth = viewHeight;
             } else {
@@ -513,13 +522,13 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 // If the height is too tall, adjust the height based on the width
                 viewHeight = (int) (viewWidth / 1.91);
             }
-        } else if (mLayoutRatio == RATIO_insta) {
+        } /*else if (mLayoutRatio == RATIO_insta) {
             if (viewWidth > viewHeight) {
                 viewWidth = viewHeight;
             } else {
                 viewHeight = viewWidth;
             }
-        } else if (mLayoutRatio == RATIO_pInt) {
+        }*/ else if (mLayoutRatio == RATIO_2_3) {
             if (viewWidth * 3 > viewHeight * 2) {
                 // If the width is too wide, adjust the width based on the height
                 viewWidth = viewHeight * 2 / 3;
