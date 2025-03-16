@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:padding="@dimen/_5sdp"
+        android:padding="@dimen/_1sdp"
         android:scaleType="fitCenter" />
 
     <View

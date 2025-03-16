@@ -115,8 +115,8 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         final ArrayList<String> extraImagePaths = getIntent().getStringArrayListExtra(ThumbListActivity.EXTRA_IMAGE_PATHS);
         //pref
         mPreferences = getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE);
-        mContainerLayout = (RelativeLayout) findViewById(R.id.containerLayout);
-        mTemplateView = (RecyclerView) findViewById(R.id.templateView);
+        mContainerLayout = findViewById(R.id.containerLayout);
+        mTemplateView = findViewById(R.id.templateView);
         mPhotoView = new PhotoView(this);
         mPhotoView.setOnDoubleClickListener(this);
         createQuickAction();

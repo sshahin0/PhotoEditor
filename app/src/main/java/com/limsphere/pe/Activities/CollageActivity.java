@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,13 +24,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.limsphere.pe.adapter.ColorAdapter;
 import com.limsphere.pe.R;
+import com.limsphere.pe.adapter.ColorAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.adapter.StickerAdapter;
-import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
+import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.model.RatioItem;
 import com.limsphere.pe.model.TemplateItem;
 import com.limsphere.pe.multitouch.controller.ImageEntity;
@@ -61,10 +60,8 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private FrameImageView mSelectedFrameImageView;
     private FramePhotoLayout mFramePhotoLayout;
     private LinearLayout mSpaceLayout;
-    private LinearLayout mRatioLayout;
+    private ImageView mMenuBack;
     private LinearLayout mMainMenuLayout;
-    private ImageView mMenuBackBtn;
-    private ImageView mMenuBackLayoutBtn;
     private SeekBar mSpaceBar;
     private SeekBar mCornerBar;
     private float mSpace = DEFAULT_SPACE;
@@ -79,7 +76,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private ImageView back, save;
     private LinearLayout ratio;
     private LinearLayout layout, sticker, adjust, bgcolor, textBtn;
-    private LinearLayout templateLayout;
     private RecyclerView stickerRecycler, bgColorRecycler;
     private String[] emojies;
     private String[] colors;
@@ -114,6 +110,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         }
 
         mSpaceBar = (SeekBar) findViewById(R.id.spaceBar);
+        mMenuBack = findViewById(R.id.menu_back);
         mSpaceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -162,15 +159,14 @@ public class CollageActivity extends BaseTemplateDetailActivity
         });
 
         ratio = findViewById(R.id.ratio);
+        mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
         ratio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                clickRatio();
-
-                mRatioLayout.setVisibility(View.VISIBLE);
+                mRatioRecycleView.setVisibility(View.VISIBLE);
                 mMainMenuLayout.setVisibility(View.GONE);
+                mMenuBack.setVisibility(View.VISIBLE);
 
-                mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
                 mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
                         LinearLayoutManager.HORIZONTAL, false));
 
@@ -189,14 +185,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 mRatioRecycleView.setAdapter(mRatioAdapter);
             }
         });
-        mMenuBackBtn = findViewById(R.id.menu_back);
-        mMenuBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRatioLayout.setVisibility(View.GONE);
-                mMainMenuLayout.setVisibility(View.VISIBLE);
-            }
-        });
 
         save = findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +194,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
             }
         });
 
-        templateLayout = findViewById(R.id.templateLayout);
         layout = findViewById(R.id.layout);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,18 +204,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
                 hideControls();
                 mMainMenuLayout.setVisibility(View.GONE);
-                templateLayout.setVisibility(View.VISIBLE);
+                mTemplateView.setVisibility(View.VISIBLE);
+                mMenuBack.setVisibility(View.VISIBLE);
 
                 startActivityes(null, 0);
-            }
-        });
-
-        mMenuBackLayoutBtn = findViewById(R.id.menu_back_layout);
-        mMenuBackLayoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                templateLayout.setVisibility(View.GONE);
-                mMainMenuLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -248,7 +227,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
         });
 
         mSpaceLayout = findViewById(R.id.spaceLayout);
-        mRatioLayout = findViewById(R.id.ratio_layout);
         mMainMenuLayout = findViewById(R.id.main_menu);
         adjust = findViewById(R.id.adjust);
         adjust.setOnClickListener(new View.OnClickListener() {
@@ -338,12 +316,13 @@ public class CollageActivity extends BaseTemplateDetailActivity
     }
 
     void hideControls() {
-        templateLayout.setVisibility(View.GONE);
+        mTemplateView.setVisibility(View.GONE);
         bgColorRecycler.setVisibility(View.GONE);
         mSpaceLayout.setVisibility(View.GONE);
-        mRatioLayout.setVisibility(View.GONE);
         stickerRecycler.setVisibility(View.GONE);
+        mRatioRecycleView.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(View.VISIBLE);
+        mMenuBack.setVisibility(View.VISIBLE);
     }
 
     public void setEmojiesSticker(String name) {
@@ -651,5 +630,9 @@ public class CollageActivity extends BaseTemplateDetailActivity
     @Override
     public void onRatioItemClick(int itemName) {
         clickRatio(itemName);
+    }
+
+    public void onMenuBackclicked(View view) {
+        hideControls();
     }
 }
