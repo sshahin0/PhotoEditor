@@ -176,18 +176,18 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
                 // Create data
                 mRatioItemList = new ArrayList<>();
-                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_11, RATIO_1_1)); // Replace with actual image resource
-                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34, RATIO_3_4)); // Replace with actual image resource
-                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_43, RATIO_4_3)); // Replace with actual image resource
+                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_11, RATIO_1_1));
+                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34, RATIO_3_4));
+                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_43, RATIO_4_3));
                 mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54, RATIO_5_4));
-                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_45, RATIO_5_4));
+                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_45, RATIO_4_5));
                 mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169, RATIO_16_9));
                 mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916, RATIO_9_16));
                 mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_12, RATIO_1_2));
                 mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
                 mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_32, RATIO_3_2));
                 mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_23, RATIO_2_3));
-                mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_2_3));
+                mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
 
                 // Create and set the adapter
                 mRatioAdapter = new RatioAdapter(mRatioItemList, CollageActivity.this);
@@ -459,87 +459,63 @@ public class CollageActivity extends BaseTemplateDetailActivity
             mContainerLayout.setBackgroundColor(mBackgroundColor);
         }
 
+        switch (mLayoutRatio) {
+            case RATIO_1_1:
+                updateRatioParams(1, 1);
+                break;
+            case RATIO_1_2:
+                updateRatioParams(1, 2);
+                break;
+            case RATIO_2_3:
+                updateRatioParams(2, 3);
+                break;
+            case RATIO_3_2:
+                updateRatioParams(3, 2);
+                break;
+            case RATIO_3_4:
+                updateRatioParams(3, 4);
+                break;
+            case RATIO_4_3:
+                updateRatioParams(4, 3);
+                break;
+            case RATIO_4_5:
+                updateRatioParams(4, 5);
+                break;
+            case RATIO_5_4:
+                updateRatioParams(5, 4);
+                break;
+            case RATIO_9_16:
+                updateRatioParams(9, 16);
+                break;
+            case RATIO_16_9:
+                updateRatioParams(16, 9);
+                break;
+            case RATIO_3_1:
+                // This is for twitter
+                updateRatioParams(3, 1);
+                break;
+            case RATIO_fb:
+                updateRatioParams(1, 1.91);
+                break;
+        }
+        //reset space and corner seek bars
+        mSpaceBar.setProgress((int) (MAX_SPACE_PROGRESS * mSpace / MAX_SPACE));
+        mCornerBar.setProgress((int) (MAX_CORNER_PROGRESS * mCorner / MAX_CORNER));
+    }
+
+    private void updateRatioParams(double ratio1, double ratio2) {
         int viewWidth = mContainerLayout.getWidth();
         int viewHeight = mContainerLayout.getHeight();
-        if (mLayoutRatio == RATIO_1_1) {
-            if (viewWidth > viewHeight) {
-                viewWidth = viewHeight;
-            } else {
-                viewHeight = viewWidth;
-            }
-        } else if (mLayoutRatio == RATIO_GOLDEN) {
-            final double goldenRatio = 1.61803398875;
-            if (viewWidth <= viewHeight) {
-                if (viewWidth * goldenRatio >= viewHeight) {
-                    viewWidth = (int) (viewHeight / goldenRatio);
-                } else {
-                    viewHeight = (int) (viewWidth * goldenRatio);
-                }
-            } else if (viewHeight <= viewWidth) {
-                if (viewHeight * goldenRatio >= viewWidth) {
-                    viewHeight = (int) (viewWidth / goldenRatio);
-                } else {
-                    viewWidth = (int) (viewHeight * goldenRatio);
-                }
-            }
-        } else if (mLayoutRatio == RATIO_3_4) {
-            if (viewWidth * 3 > viewHeight * 4) {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = viewHeight * 4 / 3;
-            } else {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = viewWidth * 3 / 4;
-            }
-        } else if (mLayoutRatio == RATIO_5_4) {
-            if (viewWidth * 4 > viewHeight * 5) {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = viewHeight * 5 / 4;
-            } else {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = viewWidth * 4 / 5;
-            }
-        } else if (mLayoutRatio == RATIO_16_9) {
-            if (viewWidth * 9 > viewHeight * 16) {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = viewHeight * 16 / 9;
-            } else {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = viewWidth * 9 / 16;
-            }
-        } else if (mLayoutRatio == RATIO_9_16) {
-            if (viewHeight * 9 > viewWidth * 16) {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = viewWidth * 16 / 9;
-            } else {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = viewHeight * 9 / 16;
-            }
-        } else if (mLayoutRatio == RATIO_fb) {
-            if (viewWidth * 1 > viewHeight * 1.91) {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = (int) (viewHeight * 1.91);
-            } else {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = (int) (viewWidth / 1.91);
-            }
-        } /*else if (mLayoutRatio == RATIO_insta) {
-            if (viewWidth > viewHeight) {
-                viewWidth = viewHeight;
-            } else {
-                viewHeight = viewWidth;
-            }
-        }*/ else if (mLayoutRatio == RATIO_2_3) {
-            if (viewWidth * 3 > viewHeight * 2) {
-                // If the width is too wide, adjust the width based on the height
-                viewWidth = viewHeight * 2 / 3;
-            } else {
-                // If the height is too tall, adjust the height based on the width
-                viewHeight = viewWidth * 3 / 2;
-            }
+
+        if (viewWidth > viewHeight) {
+            viewWidth = (int) ((viewHeight * ratio1) / ratio2);
+        } else {
+            viewHeight = (int) ((viewWidth * ratio2) / ratio1);
         }
 
         mOutputScale = ImageUtils.calculateOutputScaleFactor(viewWidth, viewHeight);
         mFramePhotoLayout.build(viewWidth, viewHeight, mOutputScale, mSpace, mCorner);
+
         if (mSavedInstanceState != null) {
             mFramePhotoLayout.restoreInstanceState(mSavedInstanceState);
             mSavedInstanceState = null;
@@ -551,9 +527,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
         //add sticker view
         mContainerLayout.removeView(mPhotoView);
         mContainerLayout.addView(mPhotoView, params);
-        //reset space and corner seek bars
-        mSpaceBar.setProgress((int) (MAX_SPACE_PROGRESS * mSpace / MAX_SPACE));
-        mCornerBar.setProgress((int) (MAX_CORNER_PROGRESS * mCorner / MAX_CORNER));
     }
 
     @Override

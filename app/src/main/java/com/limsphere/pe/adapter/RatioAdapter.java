@@ -39,52 +39,53 @@ public class RatioAdapter extends RecyclerView.Adapter<RatioAdapter.ItemViewHold
         RatioItem currentItem = itemList.get(position);
 
         ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
-        switch (currentItem.getRatioKey()) {
-            case BaseTemplateDetailActivity.RATIO_1_1:
-                params.width = 120;
-                params.height = 120;
-                break;
-            case BaseTemplateDetailActivity.RATIO_1_2:
-                params.width = 60;
-                params.height = 120;
-                break;
-            case BaseTemplateDetailActivity.RATIO_2_3:
-                params.width = 80;
-                params.height = 120;
-                break;
-            case BaseTemplateDetailActivity.RATIO_3_2:
-                params.width = 120;
-                params.height = 80;
-                break;
-            case BaseTemplateDetailActivity.RATIO_3_4:
-                params.width = 90;
-                params.height = 120;
-                break;
-            case BaseTemplateDetailActivity.RATIO_4_3:
-                params.width = 120;
-                params.height = 90;
-                break;
-            case BaseTemplateDetailActivity.RATIO_4_5:
-                params.width = 96;
-                params.height = 120;
-                break;
-            case BaseTemplateDetailActivity.RATIO_5_4:
-                params.width = 120;
-                params.height = 96;
-                break;
-            case BaseTemplateDetailActivity.RATIO_9_16:
-                params.width = 200;
-                params.height = 50;
-                break;
-            case BaseTemplateDetailActivity.RATIO_16_9:
-                params.width = 200;
-                params.height = 50;
-                break;
-            default:
-                params.width = 80;
-                params.height = 80;
-        }
-        holder.imageView.setLayoutParams(params);
+
+//        switch (currentItem.getRatioKey()) {
+//            case BaseTemplateDetailActivity.RATIO_1_1:
+//                params.width = 120;
+//                params.height = 120;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_1_2:
+//                params.width = 60;
+//                params.height = 120;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_2_3:
+//                params.width = 80;
+//                params.height = 120;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_3_2:
+//                params.width = 120;
+//                params.height = 80;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_3_4:
+//                params.width = 90;
+//                params.height = 120;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_4_3:
+//                params.width = 120;
+//                params.height = 90;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_4_5:
+//                params.width = 96;
+//                params.height = 120;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_5_4:
+//                params.width = 120;
+//                params.height = 96;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_9_16:
+//                params.width = 200;
+//                params.height = 50;
+//                break;
+//            case BaseTemplateDetailActivity.RATIO_16_9:
+//                params.width = 200;
+//                params.height = 50;
+//                break;
+//            default:
+//                params.width = 80;
+//                params.height = 80;
+//        }
+//        holder.imageView.setLayoutParams(params);
 
         holder.titleTextView.setText(currentItem.getTitle());
         holder.imageView.setImageResource(currentItem.getImageResourceId());
