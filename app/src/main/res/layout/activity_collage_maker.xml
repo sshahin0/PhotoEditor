@@ -133,7 +133,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ratio_recycle_View"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_10sdp"
             android:visibility="gone" />
     </LinearLayout>

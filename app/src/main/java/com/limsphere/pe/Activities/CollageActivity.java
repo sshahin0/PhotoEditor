@@ -171,26 +171,26 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
                 mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
 
-//                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
-//                        LinearLayoutManager.HORIZONTAL, false));
+                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
+                        LinearLayoutManager.HORIZONTAL, false));
 
                 // Create data
                 mRatioItemList = new ArrayList<>();
-                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_11, RATIO_1_1));
-                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_34, RATIO_3_4));
-                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_43, RATIO_4_3));
-                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_54, RATIO_5_4));
-                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_45, RATIO_4_5));
-                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_169, RATIO_16_9));
-                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_916, RATIO_9_16));
-                mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_12, RATIO_1_2));
+                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_1_1, RATIO_1_1));
+                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_3_4, RATIO_3_4));
+                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_4_3, RATIO_4_3));
+                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_5_4, RATIO_5_4));
+                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_4_5, RATIO_4_5));
+                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_9_16, RATIO_9_16));
+                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_16_9, RATIO_16_9));
+                mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_1_2, RATIO_1_2));
                 mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
-                mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_32, RATIO_3_2));
-                mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_23, RATIO_2_3));
+                mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_3_2, RATIO_3_2));
+                mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
                 mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
 
                 // Create and set the adapter
-                mRatioAdapter = new RatioAdapter(mRatioItemList, CollageActivity.this);
+                mRatioAdapter = new RatioAdapter(CollageActivity.this, mRatioItemList, CollageActivity.this);
                 mRatioRecycleView.setAdapter(mRatioAdapter);
             }
         });
