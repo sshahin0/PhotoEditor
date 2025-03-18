@@ -466,6 +466,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 updateRatioParams(1, 2);
                 break;
             case RATIO_2_3:
+                //pinterest
                 updateRatioParams(2, 3);
                 break;
             case RATIO_3_2:
