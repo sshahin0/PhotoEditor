@@ -22,7 +22,7 @@ android {
         applicationId "com.limsphere.pe"
 
         manifestPlaceholders = [
-                onesignal_app_id : '64b25434-c793-4922-b7f4-a66efef26ba7',
+                onesignal_app_id               : '64b25434-c793-4922-b7f4-a66efef26ba7',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -75,4 +75,7 @@ dependencies {
     implementation 'com.applovin:applovin-sdk:11.0.0'
     //implementation 'com.applovin.mediation:facebook-adapter:+'
     implementation 'com.applovin.mediation:unityads-adapter:+'
+    implementation 'com.google.android.material:material:1.9.0'
+
+
 }

@@ -54,4 +54,5 @@
     <color name="btn_icon_color">#26D1FF</color>
     <color name="menu_bg_color">#272727</color>
     <color name="menu_back_bg_color">#3c3c3c</color>
+    <color name="ratio_text_color">#555555</color>
 </resources>

@@ -23,7 +23,6 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.ColorAdapter;
@@ -61,7 +60,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private FrameImageView mSelectedFrameImageView;
     private FramePhotoLayout mFramePhotoLayout;
     private LinearLayout mSpaceLayout;
-    private ImageView mMenuBack;
     private LinearLayout mMainMenuLayout;
     private SeekBar mSpaceBar;
     private SeekBar mCornerBar;
@@ -82,6 +80,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private String[] colors;
 
     private RecyclerView mRatioRecycleView;
+    private LinearLayout mSubMenuParent;
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
 
@@ -111,7 +110,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         }
 
         mSpaceBar = (SeekBar) findViewById(R.id.spaceBar);
-        mMenuBack = findViewById(R.id.menu_back);
+        mSubMenuParent = findViewById(R.id.sub_menu_parent);
         mSpaceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -166,10 +165,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
             public void onClick(View v) {
                 mRatioRecycleView.setVisibility(View.VISIBLE);
                 mMainMenuLayout.setVisibility(View.GONE);
-                mMenuBack.setVisibility(View.VISIBLE);
+                mSubMenuParent.setVisibility(View.VISIBLE);
 
-                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-                mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
+//                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+//                mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
 
                 mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
                         LinearLayoutManager.HORIZONTAL, false));
@@ -214,7 +213,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 hideControls();
                 mMainMenuLayout.setVisibility(View.GONE);
                 mTemplateView.setVisibility(View.VISIBLE);
-                mMenuBack.setVisibility(View.VISIBLE);
+                mSubMenuParent.setVisibility(View.VISIBLE);
 
                 startActivityes(null, 0);
             }
@@ -331,7 +330,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         stickerRecycler.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(View.VISIBLE);
-        mMenuBack.setVisibility(View.VISIBLE);
+        mSubMenuParent.setVisibility(View.GONE);
     }
 
     public void setEmojiesSticker(String name) {
@@ -495,7 +494,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 updateRatioParams(3, 1);
                 break;
             case RATIO_fb:
-                updateRatioParams(1, 1.91);
+                updateRatioParams(16, 9);
                 break;
         }
         //reset space and corner seek bars

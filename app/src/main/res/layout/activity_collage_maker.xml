@@ -107,11 +107,12 @@
     <LinearLayout
         android:id="@+id/sub_menu_parent"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="@dimen/_70sdp"
         android:layout_alignBottom="@+id/editoption"
         android:background="@color/menu_bg_color"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/menu_back"
@@ -119,9 +120,8 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:background="@drawable/menu_back_bg"
-            android:src="@mipmap/menu_back"
             android:onClick="onMenuBackclicked"
-            android:visibility="gone"
+            android:src="@mipmap/menu_back"
             app:tint="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -133,7 +133,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ratio_recycle_View"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_height="@dimen/_100sdp"
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_10sdp"
             android:visibility="gone" />
