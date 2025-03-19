@@ -118,7 +118,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
         //pref
         mPreferences = getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE);
         mContainerLayout = findViewById(R.id.containerLayout);
-        mTemplateView = findViewById(R.id.templateView);
+        mTemplateView = findViewById(R.id.collage_template_rv);
         mPhotoView = new PhotoView(this);
         mPhotoView.setOnDoubleClickListener(this);
         createQuickAction();

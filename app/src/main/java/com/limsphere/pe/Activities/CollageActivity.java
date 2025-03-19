@@ -73,16 +73,16 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private Bundle mSavedInstanceState;
 
     private ImageView back, save;
-    private LinearLayout ratio;
-    private LinearLayout layout, sticker, adjust, bgcolor, textBtn;
+    private LinearLayout layout, sticker, bgcolor, textBtn;
     private RecyclerView stickerRecycler, bgColorRecycler;
     private String[] emojies;
     private String[] colors;
 
     private RecyclerView mRatioRecycleView;
-//    private LinearLayout mSubMenuParent;
+    //    private LinearLayout mSubMenuParent;
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
+    private LinearLayout mLayoutHeaders;
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -158,96 +158,36 @@ public class CollageActivity extends BaseTemplateDetailActivity
             }
         });
 
-        ratio = findViewById(R.id.ratio);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
-        ratio.setOnClickListener(v -> {
-            mRatioRecycleView.setVisibility(View.VISIBLE);
-            mTemplateView.setVisibility(View.GONE);
-//                mMainMenuLayout.setVisibility(View.GONE);
-//                mSubMenuParent.setVisibility(View.VISIBLE);
-
-//                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-//                mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
-
-            mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
-                    LinearLayoutManager.HORIZONTAL, false));
-
-            // Create data
-            mRatioItemList = new ArrayList<>();
-            mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_1_1, RATIO_1_1));
-            mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_3_4, RATIO_3_4));
-            mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_4_3, RATIO_4_3));
-            mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_5_4, RATIO_5_4));
-            mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_4_5, RATIO_4_5));
-            mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_9_16, RATIO_9_16));
-            mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_16_9, RATIO_16_9));
-            mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_1_2, RATIO_1_2));
-            mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
-            mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_3_2, RATIO_3_2));
-            mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
-            mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
-
-            // Create and set the adapter
-            mRatioAdapter = new RatioAdapter(CollageActivity.this, mRatioItemList, CollageActivity.this);
-            mRatioRecycleView.setAdapter(mRatioAdapter);
-        });
 
         save = findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                asyncSaveAndShare();
-            }
-        });
+        save.setOnClickListener(v -> asyncSaveAndShare());
 
         layout = findViewById(R.id.layout);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUnpressBtn();
-                ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        mLayoutHeaders = findViewById(R.id.layout_headers);
+        layout.setOnClickListener(v -> {
+            hideControls();
+            mLayoutHeaders.setVisibility(View.VISIBLE);
 
-                hideControls();
-//                mMainMenuLayout.setVisibility(View.GONE);
-                mTemplateView.setVisibility(View.VISIBLE);
-//                mSubMenuParent.setVisibility(View.VISIBLE);
-
-                startActivityes(null, 0);
-            }
+            ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+            ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+            showRatioUI();
         });
 
         sticker = findViewById(R.id.sticker);
-        sticker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUnpressBtn();
-                ((ImageView) findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView) findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        sticker.setOnClickListener(v -> {
+            setUnpressBtn();
+            ((ImageView) findViewById(R.id.tabIV2)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+            ((TextView) findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
-                hideControls();
-                stickerRecycler.setVisibility(View.VISIBLE);
+            hideControls();
+            stickerRecycler.setVisibility(View.VISIBLE);
 
-                startActivityes(null, 0);
-            }
+//            startActivityes(null, 0);
         });
 
-        mSpaceLayout = findViewById(R.id.spaceLayout);
+        mSpaceLayout = findViewById(R.id.border_layout);
         mMainMenuLayout = findViewById(R.id.main_menu);
-        adjust = findViewById(R.id.adjust);
-        adjust.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUnpressBtn();
-                ((ImageView) findViewById(R.id.tabIV1)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView) findViewById(R.id.tabTxt1)).setTextColor(getResources().getColor(R.color.btn_icon_color));
-
-                hideControls();
-                mSpaceLayout.setVisibility(View.VISIBLE);
-
-                startActivityes(null, 0);
-            }
-        });
 
         stickerRecycler = findViewById(R.id.stickerRecycler);
         stickerRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -276,7 +216,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 hideControls();
                 bgColorRecycler.setVisibility(View.VISIBLE);
 
-                startActivityes(null, 0);
+//                startActivityes(null, 0);
             }
         });
 
@@ -294,6 +234,50 @@ public class CollageActivity extends BaseTemplateDetailActivity
         });
     }
 
+    private void showBorderUI() {
+        mSpaceLayout.setVisibility(View.VISIBLE);
+//        startActivityes(null, 0); called ads
+    }
+
+    private void showLayoutUI() {
+        setUnpressBtn();
+        hideControls();
+        ((TextView) findViewById(R.id.tv_header_layout)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        mLayoutHeaders.setVisibility(View.VISIBLE);
+        mTemplateView.setVisibility(View.VISIBLE);
+//        startActivityes(null, 0); called ads
+    }
+
+    private void showRatioUI() {
+        setUnpressBtn();
+        ((TextView) findViewById(R.id.tv_header_ratio)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        mLayoutHeaders.setVisibility(View.VISIBLE);
+        mRatioRecycleView.setVisibility(View.VISIBLE);
+        mTemplateView.setVisibility(View.GONE);
+
+        mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
+                LinearLayoutManager.HORIZONTAL, false));
+
+        // Create data
+        mRatioItemList = new ArrayList<>();
+        mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_1_1, RATIO_1_1));
+        mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_3_4, RATIO_3_4));
+        mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_4_3, RATIO_4_3));
+        mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_5_4, RATIO_5_4));
+        mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_4_5, RATIO_4_5));
+        mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_9_16, RATIO_9_16));
+        mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_16_9, RATIO_16_9));
+        mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_1_2, RATIO_1_2));
+        mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
+        mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_3_2, RATIO_3_2));
+        mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
+        mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
+
+        // Create and set the adapter
+        mRatioAdapter = new RatioAdapter(CollageActivity.this, mRatioItemList, CollageActivity.this);
+        mRatioRecycleView.setAdapter(mRatioAdapter);
+    }
+
     void startActivityes(Intent intent, int requestCode) {
         if (!AdManager.isloadMAX) {
             AdManager.adCounter++;
@@ -308,9 +292,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
         ((ImageView) findViewById(R.id.tabIV)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(R.id.tabTxt)).setTextColor(Color.WHITE);
 
-        ((ImageView) findViewById(R.id.tabIV1)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
-        ((TextView) findViewById(R.id.tabTxt1)).setTextColor(Color.WHITE);
-
         ((ImageView) findViewById(R.id.tabIV2)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(R.id.tabTxt2)).setTextColor(Color.WHITE);
 
@@ -319,6 +300,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         ((ImageView) findViewById(R.id.tabIV4)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(R.id.tabTxt4)).setTextColor(Color.WHITE);
+
+        ((TextView) findViewById(R.id.tv_header_layout)).setTextColor(Color.WHITE);
+        ((TextView) findViewById(R.id.tv_header_ratio)).setTextColor(Color.WHITE);
+        ((TextView) findViewById(R.id.tv_header_border)).setTextColor(Color.WHITE);
     }
 
     void hideControls() {
@@ -327,8 +312,8 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mSpaceLayout.setVisibility(View.GONE);
         stickerRecycler.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
+        mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(View.VISIBLE);
-//        mSubMenuParent.setVisibility(View.GONE);
     }
 
     public void setEmojiesSticker(String name) {
@@ -395,7 +380,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
             mFramePhotoLayout.saveInstanceState(outState);
         }
     }
-
 
     @Override
     protected int getLayoutId() {
@@ -610,5 +594,21 @@ public class CollageActivity extends BaseTemplateDetailActivity
     @Override
     public void onRatioItemClick(int itemName) {
         clickRatio(itemName);
+    }
+
+    public void onLayoutTabClicked(View view) {
+        showLayoutUI();
+    }
+
+    public void onRatioTabClicked(View view) {
+        showRatioUI();
+    }
+
+    public void onBorderTabClicked(View view) {
+        hideControls();
+        setUnpressBtn();
+        ((TextView) findViewById(R.id.tv_header_border)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        mLayoutHeaders.setVisibility(View.VISIBLE);
+        showBorderUI();
     }
 }

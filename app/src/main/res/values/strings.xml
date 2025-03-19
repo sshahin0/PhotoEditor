@@ -138,6 +138,9 @@
     <string name="max_banner">58f5fda1b1cbb2f4</string>
     <string name="max_interstitial">9fd803c6de418363</string>
     <string name="str_ratio">Ratio</string>
+    <string name="collage_title_layout">Layout</string>
+    <string name="collage_title_ratio">Ratio</string>
+    <string name="collage_title_border">Border</string>
 
 
 </resources>
