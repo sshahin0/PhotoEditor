@@ -44,85 +44,18 @@
         android:id="@+id/containerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/editoption"
-        android:layout_below="@+id/toolbar" />
-
-    <LinearLayout
-        android:id="@+id/spaceLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editoption"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/collage_border_icon"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:src="@mipmap/collage_border"
-                app:tint="@color/materialcolorpicker__blue" />
-
-            <SeekBar
-                android:id="@+id/spaceBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:foregroundTint="@color/materialcolorpicker__green"
-                android:progressBackgroundTint="@color/btn_icon_color"
-                android:thumbTint="@color/red" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/collage_radius_icon"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:src="@mipmap/collage_radius"
-                app:tint="@color/materialcolorpicker__blue" />
-
-            <SeekBar
-                android:id="@+id/cornerBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:progressBackgroundTint="@color/btn_icon_color" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_above="@+id/sub_menu_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/_5sdp" />
 
     <LinearLayout
         android:id="@+id/sub_menu_parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp"
-        android:layout_alignBottom="@+id/editoption"
-        android:background="@color/menu_bg_color"
+        android:layout_above="@+id/editoption"
+        android:background="@color/sub_menu_bg_color"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/menu_back"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@drawable/menu_back_bg"
-            android:onClick="onMenuBackclicked"
-            android:src="@mipmap/menu_back"
-            app:tint="@color/white" />
+        android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/templateView"
@@ -137,24 +70,77 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/_10sdp"
             android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stickerRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bgColorRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_52sdp"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/spaceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/collage_border_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:src="@mipmap/collage_border"
+                    app:tint="@color/materialcolorpicker__blue" />
+
+                <SeekBar
+                    android:id="@+id/spaceBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:foregroundTint="@color/materialcolorpicker__green"
+                    android:progressBackgroundTint="@color/btn_icon_color"
+                    android:thumbTint="@color/red" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/collage_radius_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:src="@mipmap/collage_radius"
+                    app:tint="@color/materialcolorpicker__blue" />
+
+                <SeekBar
+                    android:id="@+id/cornerBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:progressBackgroundTint="@color/btn_icon_color" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stickerRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_above="@+id/editoption"
-        android:layout_marginBottom="5dp"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bgColorRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_52sdp"
-        android:layout_above="@+id/editoption"
-        android:layout_marginBottom="5dp"
-        android:visibility="gone" />
-
 
     <LinearLayout
         android:id="@+id/editoption"

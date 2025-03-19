@@ -80,7 +80,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private String[] colors;
 
     private RecyclerView mRatioRecycleView;
-    private LinearLayout mSubMenuParent;
+//    private LinearLayout mSubMenuParent;
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
 
@@ -110,7 +110,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         }
 
         mSpaceBar = (SeekBar) findViewById(R.id.spaceBar);
-        mSubMenuParent = findViewById(R.id.sub_menu_parent);
+//        mSubMenuParent = findViewById(R.id.sub_menu_parent);
         mSpaceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -160,38 +160,36 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         ratio = findViewById(R.id.ratio);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
-        ratio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRatioRecycleView.setVisibility(View.VISIBLE);
-                mMainMenuLayout.setVisibility(View.GONE);
-                mSubMenuParent.setVisibility(View.VISIBLE);
+        ratio.setOnClickListener(v -> {
+            mRatioRecycleView.setVisibility(View.VISIBLE);
+            mTemplateView.setVisibility(View.GONE);
+//                mMainMenuLayout.setVisibility(View.GONE);
+//                mSubMenuParent.setVisibility(View.VISIBLE);
 
 //                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
 //                mRatioRecycleView.setLayoutManager(staggeredGridLayoutManager);
 
-                mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
-                        LinearLayoutManager.HORIZONTAL, false));
+            mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
+                    LinearLayoutManager.HORIZONTAL, false));
 
-                // Create data
-                mRatioItemList = new ArrayList<>();
-                mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_1_1, RATIO_1_1));
-                mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_3_4, RATIO_3_4));
-                mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_4_3, RATIO_4_3));
-                mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_5_4, RATIO_5_4));
-                mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_4_5, RATIO_4_5));
-                mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_9_16, RATIO_9_16));
-                mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_16_9, RATIO_16_9));
-                mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_1_2, RATIO_1_2));
-                mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
-                mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_3_2, RATIO_3_2));
-                mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
-                mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
+            // Create data
+            mRatioItemList = new ArrayList<>();
+            mRatioItemList.add(new RatioItem("1 : 1", R.drawable.ratio_1_1, RATIO_1_1));
+            mRatioItemList.add(new RatioItem("3 : 4", R.drawable.ratio_3_4, RATIO_3_4));
+            mRatioItemList.add(new RatioItem("4 : 3", R.drawable.ratio_4_3, RATIO_4_3));
+            mRatioItemList.add(new RatioItem("5 : 4", R.drawable.ratio_5_4, RATIO_5_4));
+            mRatioItemList.add(new RatioItem("4 : 5", R.drawable.ratio_4_5, RATIO_4_5));
+            mRatioItemList.add(new RatioItem("9 : 16", R.drawable.ratio_9_16, RATIO_9_16));
+            mRatioItemList.add(new RatioItem("16 : 9", R.drawable.ratio_16_9, RATIO_16_9));
+            mRatioItemList.add(new RatioItem("1 : 2", R.drawable.ratio_1_2, RATIO_1_2));
+            mRatioItemList.add(new RatioItem("FB", R.drawable.ratio_fb, RATIO_fb));
+            mRatioItemList.add(new RatioItem("3 : 2", R.drawable.ratio_3_2, RATIO_3_2));
+            mRatioItemList.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
+            mRatioItemList.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
 
-                // Create and set the adapter
-                mRatioAdapter = new RatioAdapter(CollageActivity.this, mRatioItemList, CollageActivity.this);
-                mRatioRecycleView.setAdapter(mRatioAdapter);
-            }
+            // Create and set the adapter
+            mRatioAdapter = new RatioAdapter(CollageActivity.this, mRatioItemList, CollageActivity.this);
+            mRatioRecycleView.setAdapter(mRatioAdapter);
         });
 
         save = findViewById(R.id.save);
@@ -211,9 +209,9 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
-                mMainMenuLayout.setVisibility(View.GONE);
+//                mMainMenuLayout.setVisibility(View.GONE);
                 mTemplateView.setVisibility(View.VISIBLE);
-                mSubMenuParent.setVisibility(View.VISIBLE);
+//                mSubMenuParent.setVisibility(View.VISIBLE);
 
                 startActivityes(null, 0);
             }
@@ -330,7 +328,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         stickerRecycler.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(View.VISIBLE);
-        mSubMenuParent.setVisibility(View.GONE);
+//        mSubMenuParent.setVisibility(View.GONE);
     }
 
     public void setEmojiesSticker(String name) {
@@ -612,9 +610,5 @@ public class CollageActivity extends BaseTemplateDetailActivity
     @Override
     public void onRatioItemClick(int itemName) {
         clickRatio(itemName);
-    }
-
-    public void onMenuBackclicked(View view) {
-        hideControls();
     }
 }

@@ -39,8 +39,8 @@
     <color name="slide_menu_icon">#6d6d6d</color>
     <color name="common_text_color">#6d6d6d</color>
     <color name="common_background_color">#eeeeee</color>
-    
-    
+
+
     <!--UI Colors-->
     <color name="splash_bg_color">#ffffff</color>
     <color name="splash_text_color">#d6d1cd</color>
@@ -53,6 +53,6 @@
     <color name="header_bg_end_color">#01514e</color>
     <color name="btn_icon_color">#26D1FF</color>
     <color name="menu_bg_color">#272727</color>
-    <color name="menu_back_bg_color">#3c3c3c</color>
     <color name="ratio_text_color">#555555</color>
+    <color name="sub_menu_bg_color">#1D1D1D</color>
 </resources>
