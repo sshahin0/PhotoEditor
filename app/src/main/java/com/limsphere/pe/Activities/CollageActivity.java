@@ -166,9 +166,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         layout = findViewById(R.id.layout);
         mLayoutHeaders = findViewById(R.id.layout_headers);
         layout.setOnClickListener(v -> {
-            hideControls();
-            mLayoutHeaders.setVisibility(View.VISIBLE);
-            showRatioUI();
+            showLayoutUI();
         });
 
         sticker = findViewById(R.id.sticker);
@@ -229,6 +227,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 textButtonClick();
             }
         });
+        showLayoutUI();
     }
 
     private void showBorderUI() {
