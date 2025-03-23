@@ -168,9 +168,6 @@ public class CollageActivity extends BaseTemplateDetailActivity
         layout.setOnClickListener(v -> {
             hideControls();
             mLayoutHeaders.setVisibility(View.VISIBLE);
-
-            ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-            ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
             showRatioUI();
         });
 
@@ -236,11 +233,17 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
     private void showBorderUI() {
         mSpaceLayout.setVisibility(View.VISIBLE);
+        ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+
 //        startActivityes(null, 0); called ads
     }
 
     private void showLayoutUI() {
         setUnpressBtn();
+        ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+
         hideControls();
         ((TextView) findViewById(R.id.tv_header_layout)).setTextColor(getResources().getColor(R.color.btn_icon_color));
         mLayoutHeaders.setVisibility(View.VISIBLE);
@@ -251,6 +254,11 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private void showRatioUI() {
         setUnpressBtn();
         ((TextView) findViewById(R.id.tv_header_ratio)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        ((TextView) findViewById(R.id.tv_header_ratio)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+
+        ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+
         mLayoutHeaders.setVisibility(View.VISIBLE);
         mRatioRecycleView.setVisibility(View.VISIBLE);
         mTemplateView.setVisibility(View.GONE);
