@@ -213,7 +213,15 @@ public class CollageActivity extends BaseTemplateDetailActivity
                             tab.setIcon(R.drawable.sticker_category_3);  // Replace with actual drawable
                         } else if (categoryName.equals("cat4")) {
                             tab.setIcon(R.drawable.sticker_category_4);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat5")) {
+                        } else if (categoryName.equals("cat6")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat7")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat8")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat9")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat10")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
                         } else {
                             tab.setIcon(R.drawable.sticker_category_1);   // Default icon

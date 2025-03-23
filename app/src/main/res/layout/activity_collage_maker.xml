@@ -108,6 +108,7 @@
                 android:layout_height="@dimen/_30sdp"
                 android:background="@color/menu_bg_color"
                 app:tabIndicatorColor="@color/btn_icon_color"
+                app:tabMode="scrollable"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@android:color/white" />
 
