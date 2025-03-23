@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_collage_maker.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_thumb_list.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/filter_action_bar.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_sticker_category.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/header_item.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_category.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_preview_pip_hor.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_preview_template_hor.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_sticker.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_template.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/piclist_activity_album.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/ratio_item.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/sticker_row_item.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="Implemented Sticker UI and functionalities.">
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=8b8050c3)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PhotoEditor" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sshahin0&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sshahin0/PhotoEditor.git&quot;,
+    &quot;accountId&quot;: &quot;f145011c-7902-4b98-9e24-620feae0550f&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/imageeditlibrary/build.gradle" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2tj4zan8mb5iCkNFmRNA0pLhdUe" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "ApkExportedModule": "PhotoEditor.app",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "OverrideImplement.generate.javadoc": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/Users/android/Documents/Projects/Android/PhotoEditor/app/src/main/res/drawable",
+    "last_opened_file_path": "/Users/android/Documents/Projects/Android/PhotoEditor/app/src/main/res/drawable",
+    "project.structure.last.edited": "Suggestions",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.scopes"
+  }
+}]]></component>
+  <component name="PsdUISettings">
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.limsphere.pe.model" />
+      <recent name="com.limsphere.pe.adapter" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="PhotoEditor.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="" />
+      <created>1740852413262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740852413262</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Logo updated">
+      <option name="closed" value="true" />
+      <created>1741287942350</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741287942350</updated>
+    </task>
+    <task id="LOCAL-00002" summary="App repackaged and refactored.">
+      <option name="closed" value="true" />
+      <created>1741291639946</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741291639946</updated>
+    </task>
+    <task id="LOCAL-00003" summary="App repackaged and refactored.">
+      <option name="closed" value="true" />
+      <created>1741291693478</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741291693478</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Buttin area expanded">
+      <option name="closed" value="true" />
+      <created>1741384497938</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741384497938</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Collage templete screen updated">
+      <option name="closed" value="true" />
+      <created>1741465041621</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741465041621</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Deleted test packages">
+      <option name="closed" value="true" />
+      <created>1741465407438</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741465407438</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Main theme window block problem fixed">
+      <option name="closed" value="true" />
+      <created>1741466618807</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1741466618807</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Border icon added on collage">
+      <option name="closed" value="true" />
+      <created>1741633529111</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1741633529111</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Issue fixed : Sticker list empt space remove">
+      <option name="closed" value="true" />
+      <created>1741717429569</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1741717429569</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Implemented ratio UI">
+      <option name="closed" value="true" />
+      <created>1741996324270</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1741996324270</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Implemented ratio functionalities">
+      <option name="closed" value="true" />
+      <created>1742073204804</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1742073204804</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Collage Ratio layout updated.">
+      <option name="closed" value="true" />
+      <created>1742074244575</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742074244575</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Collage menu UI changed">
+      <option name="closed" value="true" />
+      <created>1742148698344</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742148698344</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Layout menu code refactored">
+      <option name="closed" value="true" />
+      <created>1742152228298</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1742152228298</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Ratio UI updated">
+      <option name="closed" value="true" />
+      <created>1742165579869</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1742165579869</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Ration item added and code refactored">
+      <option name="closed" value="true" />
+      <created>1742245824985</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1742245824985</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Ratio functionality updated">
+      <option name="closed" value="true" />
+      <created>1742254375952</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1742254375952</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Ratio functionality and UI updated">
+      <option name="closed" value="true" />
+      <created>1742327672518</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1742327672518</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Ratio functionality and UI updated">
+      <option name="closed" value="true" />
+      <created>1742333318275</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1742333318275</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Sub menu redesinged, now above on main menu">
+      <option name="closed" value="true" />
+      <created>1742413333016</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1742413333016</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Implemented Menu submenu with tab for collage layout">
+      <option name="closed" value="true" />
+      <created>1742422475992</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1742422475992</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Layout submenu design completed">
+      <option name="closed" value="true" />
+      <created>1742755807253</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742755807254</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Layout submenu design completed">
+      <option name="closed" value="true" />
+      <created>1742755825607</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1742755825607</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Default selected item changed to templete from ratio">
+      <option name="closed" value="true" />
+      <created>1742757740077</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1742757740077</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Implemented Sticker UI and functionalities.">
+      <option name="closed" value="true" />
+      <created>1742766345738</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742766345738</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Logo updated" />
+    <MESSAGE value="App repackaged and refactored." />
+    <MESSAGE value="Buttin area expanded" />
+    <MESSAGE value="Collage templete screen updated" />
+    <MESSAGE value="Deleted test packages" />
+    <MESSAGE value="Main theme window block problem fixed" />
+    <MESSAGE value="Border icon added on collage" />
+    <MESSAGE value="Issue fixed : Sticker list empt space remove" />
+    <MESSAGE value="Implemented ratio UI" />
+    <MESSAGE value="Implemented ratio functionalities" />
+    <MESSAGE value="Collage Ratio layout updated." />
+    <MESSAGE value="Collage menu UI changed" />
+    <MESSAGE value="Layout menu code refactored" />
+    <MESSAGE value="Ratio UI updated" />
+    <MESSAGE value="Ration item added and code refactored" />
+    <MESSAGE value="Ratio functionality updated" />
+    <MESSAGE value="Ratio functionality and UI updated" />
+    <MESSAGE value="Sub menu redesinged, now above on main menu" />
+    <MESSAGE value="Implemented Menu submenu with tab for collage layout" />
+    <MESSAGE value="Layout submenu design completed" />
+    <MESSAGE value="Default selected item changed to templete from ratio" />
+    <MESSAGE value="Implemented Sticker UI and functionalities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Sticker UI and functionalities." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/PIPActivity.java</url>
+          <line>290</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/multitouch/controller/ImageEntity.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="AndroidRunConfigurationType">
+        <watch expression="holder.imageView.getWidth()" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="play_dynamic_filters_status">
+    <option name="appIdToCheckInfo">
+      <map>
+        <entry key="com.kessi.imageeditlibrary.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1742763507093" />
+          </value>
+        </entry>
+        <entry key="com.kessi.photopipcollagemaker">
+          <value>
+            <CheckInfo lastCheckTimestamp="1741284525925" />
+          </value>
+        </entry>
+        <entry key="com.kessi.photopipcollagemaker.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1741284525925" />
+          </value>
+        </entry>
+        <entry key="com.limsphere.pe">
+          <value>
+            <CheckInfo lastCheckTimestamp="1742749260944" />
+          </value>
+        </entry>
+        <entry key="com.limsphere.pe.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1742749260944" />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
