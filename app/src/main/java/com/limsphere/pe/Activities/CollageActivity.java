@@ -1,5 +1,7 @@
 package com.limsphere.pe.Activities;
 
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,15 +25,19 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.ColorAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
-import com.limsphere.pe.adapter.StickerAdapter;
+import com.limsphere.pe.adapter.TabAdapter;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
 import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.model.RatioItem;
+import com.limsphere.pe.model.StickerCategory;
 import com.limsphere.pe.model.TemplateItem;
 import com.limsphere.pe.multitouch.controller.ImageEntity;
 import com.limsphere.pe.utils.AdManager;
@@ -39,6 +45,7 @@ import com.limsphere.pe.utils.FileUtils;
 import com.limsphere.pe.utils.ImageDecoder;
 import com.limsphere.pe.utils.ImageUtils;
 import com.limsphere.pe.utils.ResultContainer;
+import com.limsphere.pe.utils.StickerLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -73,8 +80,8 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private Bundle mSavedInstanceState;
 
     private ImageView back, save;
-    private LinearLayout layout, sticker, bgcolor, textBtn;
-    private RecyclerView stickerRecycler, bgColorRecycler;
+    private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView;
+    private RecyclerView stickerRecycler, bgColorRecycler, mStickerHeaders;
     private String[] emojies;
     private String[] colors;
 
@@ -83,6 +90,11 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
     private LinearLayout mLayoutHeaders;
+
+    private ViewPager2 viewPager;
+    private TabLayout tabLayout;
+    private TabAdapter tabAdapter;
+    private List<StickerCategory> stickerCategories;
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -160,6 +172,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
 
+        mStickerLayoutView = findViewById(R.id.sticker_view_ll);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+
         save = findViewById(R.id.save);
         save.setOnClickListener(v -> asyncSaveAndShare());
 
@@ -176,7 +192,44 @@ public class CollageActivity extends BaseTemplateDetailActivity
             ((TextView) findViewById(R.id.tabTxt2)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
             hideControls();
-            stickerRecycler.setVisibility(View.VISIBLE);
+//            mStickerHeaders.setVisibility(View.VISIBLE);
+//            stickerRecycler.setVisibility(View.VISIBLE);
+//
+//            try {
+//                String stickersJson = StickerJsonGenerator.generateStickersJson(this);
+//
+//                Log.d("Generated JSON", stickersJson);
+//            } catch (JSONException | IOException e) {
+//                e.printStackTrace();
+//            }
+
+            mStickerLayoutView.setVisibility(VISIBLE);
+            stickerCategories = StickerLoader.loadStickers(this);
+            tabAdapter = new TabAdapter(this, stickerCategories);
+            viewPager.setAdapter(tabAdapter);
+
+            // Attach tabs to ViewPager2
+            new TabLayoutMediator(tabLayout, viewPager,
+                    (tab, position) -> {
+                        // Set the icon for each tab (replace with your own drawable resource)
+                        String categoryName = tabAdapter.getCategoryName(position);
+
+                        // Example: Set a custom image for each tab based on the category name
+                        if (categoryName.equals("cat1")) {
+                            tab.setIcon(R.drawable.sticker_category_1);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat2")) {
+                            tab.setIcon(R.drawable.sticker_category_2);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat3")) {
+                            tab.setIcon(R.drawable.sticker_category_3);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat4")) {
+                            tab.setIcon(R.drawable.sticker_category_4);  // Replace with actual drawable
+                        } else if (categoryName.equals("cat5")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else {
+                            tab.setIcon(R.drawable.sticker_category_1);   // Default icon
+                        }
+                    }
+            ).attach();
 
 //            startActivityes(null, 0);
         });
@@ -185,14 +238,24 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mMainMenuLayout = findViewById(R.id.main_menu);
 
         stickerRecycler = findViewById(R.id.stickerRecycler);
-        stickerRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        try {
-            emojies = getAssets().list("stickers");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        StickerAdapter adapter = new StickerAdapter(CollageActivity.this, emojies);
-        stickerRecycler.setAdapter(adapter);
+
+//        mStickerHeaders = findViewById(R.id.sticker_headers);
+//        mStickerHeaders.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
+//        StickerHeaderAdapter stickerHeaderAdapter = new StickerHeaderAdapter(CollageActivity.this, emojies, CollageActivity.this);
+//        mStickerHeaders.setAdapter(stickerHeaderAdapter);
+
+//        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+//        stickerRecycler.setLayoutManager(layoutManager);
+//
+//        try {
+//            emojies = getAssets().list("stickers");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        StickerAdapter adapter = new StickerAdapter(CollageActivity.this, emojies);
+//        stickerRecycler.setAdapter(adapter);
 
         bgColorRecycler = findViewById(R.id.bgColorRecycler);
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -209,7 +272,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 ((TextView) findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
-                bgColorRecycler.setVisibility(View.VISIBLE);
+                bgColorRecycler.setVisibility(VISIBLE);
 
 //                startActivityes(null, 0);
             }
@@ -231,7 +294,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     }
 
     private void showBorderUI() {
-        mSpaceLayout.setVisibility(View.VISIBLE);
+        mSpaceLayout.setVisibility(VISIBLE);
         ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
@@ -245,8 +308,8 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         hideControls();
         ((TextView) findViewById(R.id.tv_header_layout)).setTextColor(getResources().getColor(R.color.btn_icon_color));
-        mLayoutHeaders.setVisibility(View.VISIBLE);
-        mTemplateView.setVisibility(View.VISIBLE);
+        mLayoutHeaders.setVisibility(VISIBLE);
+        mTemplateView.setVisibility(VISIBLE);
 //        startActivityes(null, 0); called ads
     }
 
@@ -258,8 +321,8 @@ public class CollageActivity extends BaseTemplateDetailActivity
         ((ImageView) findViewById(R.id.tabIV)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(R.id.tabTxt)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
-        mLayoutHeaders.setVisibility(View.VISIBLE);
-        mRatioRecycleView.setVisibility(View.VISIBLE);
+        mLayoutHeaders.setVisibility(VISIBLE);
+        mRatioRecycleView.setVisibility(VISIBLE);
         mTemplateView.setVisibility(View.GONE);
 
         mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
@@ -317,10 +380,13 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mTemplateView.setVisibility(View.GONE);
         bgColorRecycler.setVisibility(View.GONE);
         mSpaceLayout.setVisibility(View.GONE);
-        stickerRecycler.setVisibility(View.GONE);
+//        stickerRecycler.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mLayoutHeaders.setVisibility(View.GONE);
-        mMainMenuLayout.setVisibility(View.VISIBLE);
+        mMainMenuLayout.setVisibility(VISIBLE);
+//        mStickerHeaders.setVisibility(View.GONE);
+        mStickerLayoutView.setVisibility(View.GONE);
+
     }
 
     public void setEmojiesSticker(String name) {
@@ -615,7 +681,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         hideControls();
         setUnpressBtn();
         ((TextView) findViewById(R.id.tv_header_border)).setTextColor(getResources().getColor(R.color.btn_icon_color));
-        mLayoutHeaders.setVisibility(View.VISIBLE);
+        mLayoutHeaders.setVisibility(VISIBLE);
         showBorderUI();
     }
 }
