@@ -158,7 +158,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
             }
         }
 
-        mTemplateAdapter = new HorizontalPreviewTemplateAdapter(mTemplateItemList, this, mIsFrameImage);
+        mTemplateAdapter = new HorizontalPreviewTemplateAdapter(BaseTemplateDetailActivity.this, mTemplateItemList, this, mIsFrameImage);
         //Show templates
         mTemplateView.setHasFixedSize(true);
         mTemplateView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

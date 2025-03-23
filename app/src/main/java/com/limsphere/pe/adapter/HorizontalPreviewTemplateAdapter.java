@@ -1,5 +1,6 @@
 package com.limsphere.pe.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,10 @@ public class HorizontalPreviewTemplateAdapter extends RecyclerView.Adapter<Horiz
     String ASSET_PREFIX = "assets://";
     public static class PreviewTemplateViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
-        private View mSelectedView;
 
         PreviewTemplateViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.imageView);
-            mSelectedView = itemView.findViewById(R.id.selectedView);
         }
     }
 
@@ -31,11 +30,13 @@ public class HorizontalPreviewTemplateAdapter extends RecyclerView.Adapter<Horiz
     private ArrayList<TemplateItem> mTemplateItems;
     private OnPreviewTemplateClickListener mListener;
     boolean isPip;
+    private Context mContext;
 
-    public HorizontalPreviewTemplateAdapter(ArrayList<TemplateItem> items, OnPreviewTemplateClickListener listener, boolean isPip) {
+    public HorizontalPreviewTemplateAdapter(Context context, ArrayList<TemplateItem> items, OnPreviewTemplateClickListener listener, boolean isPip) {
         mTemplateItems = items;
         mListener = listener;
         this.isPip = isPip;
+        this.mContext = context;
     }
 
     @Override
@@ -54,9 +55,9 @@ public class HorizontalPreviewTemplateAdapter extends RecyclerView.Adapter<Horiz
         String file = mTemplateItems.get(position).getPreview().substring(ASSET_PREFIX.length());
         Glide.with(holder.mImageView.getContext()).load(Uri.parse("file:///android_asset/".concat(file))).into(holder.mImageView);
         if (mTemplateItems.get(position).isSelected()) {
-            holder.mSelectedView.setVisibility(View.VISIBLE);
+            holder.mImageView.setBackgroundColor(mContext.getResources().getColor(R.color.btn_icon_color));
         } else {
-            holder.mSelectedView.setVisibility(View.GONE);
+            holder.mImageView.setBackgroundColor(mContext.getResources().getColor(R.color.sub_menu_bg_color));
         }
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
