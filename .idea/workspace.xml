@@ -40,6 +40,11 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_color.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_preview_pip_hor.xml">
         <config>
           <theme>@style/AppTheme</theme>
@@ -81,37 +86,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="Added Functionalities for unlimited category.">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_applovin_mediation_unityads_adapter_4_14_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_javalite_3_25_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_kotlin_lite_3_25_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_unity3d_ads_unity_ads_4_14_1_aar.xml" afterDir="false" />
+    <list default="true" id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="Set stickers to preview">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_color.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_applovin_mediation_unityads_adapter_4_14_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_javalite_3_21_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_kotlin_lite_3_21_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_unity3d_ads_unity_ads_4_14_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.unitTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.unitTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/BaseTemplateDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/BaseTemplateDetailActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/fragment/StickerCategoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/fragment/StickerCategoryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/adapter/StickerAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/adapter/StickerGridAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/adapter/StickerGridAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_sticker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_sticker.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/adapter/ColorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/adapter/ColorAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_collage_maker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_collage_maker.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,8 +135,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -518,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742767287425</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Set stickers to preview">
+      <option name="closed" value="true" />
+      <created>1742932054128</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1742932054128</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -556,7 +551,8 @@
     <MESSAGE value="Implemented Sticker UI and functionalities." />
     <MESSAGE value="Refactored source code" />
     <MESSAGE value="Added Functionalities for unlimited category." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Functionalities for unlimited category." />
+    <MESSAGE value="Set stickers to preview" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set stickers to preview" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

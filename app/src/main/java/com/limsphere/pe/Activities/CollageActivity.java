@@ -76,7 +76,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView;
     private RecyclerView bgColorRecycler;
     private String[] emojies;
-    private String[] colors;
+    private String[] mBgSolidColorsStrings;
 
     private RecyclerView mRatioRecycleView;
     //    private LinearLayout mSubMenuParent;
@@ -230,9 +230,16 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
         bgColorRecycler = findViewById(R.id.bgColorRecycler);
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        colors = getResources().getStringArray(R.array.color_array);
-        ColorAdapter cadapter = new ColorAdapter(CollageActivity.this, colors);
-        bgColorRecycler.setAdapter(cadapter);
+        mBgSolidColorsStrings = getResources().getStringArray(R.array.color_array);
+
+        List<Integer> colors = new ArrayList<>();
+        // Convert Hex Strings to Color Integers
+        for (String color : mBgSolidColorsStrings) {
+            colors.add(Color.parseColor(color));
+        }
+
+        ColorAdapter adapter = new ColorAdapter(this, colors);
+        bgColorRecycler.setAdapter(adapter);
 
         bgcolor = findViewById(R.id.bgcolor);
         bgcolor.setOnClickListener(new View.OnClickListener() {

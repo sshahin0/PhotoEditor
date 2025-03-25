@@ -2,72 +2,71 @@ package com.limsphere.pe.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.limsphere.pe.Activities.CollageActivity;
 import com.limsphere.pe.R;
 
+import java.util.List;
 
-public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
-    Context context;
-    String[] colors;
-    int selectPos = 8;
-    public ColorAdapter(Context context, String[] colors) {
-        this.context = context;
-        this.colors = colors;
+public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
+
+    private List<Integer> colorList;
+    private Context mContext;
+    private int selectedPosition = RecyclerView.NO_POSITION;
+
+    public ColorAdapter(Context context, List<Integer> colorList) {
+        this.mContext = context;
+        this.colorList = colorList;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.color_row_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+    public ColorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_color, parent, false);
+        return new ColorViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        final String color = colors[position];
-        holder.colorImg.setBackgroundColor(Color.parseColor(color));
+    public void onBindViewHolder(@NonNull ColorViewHolder holder, int position) {
+        int color = colorList.get(position);
 
-        if (position == selectPos) {
-            holder.mSelectedView.setVisibility(View.VISIBLE);
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.OVAL); // Make it a circle
+        drawable.setColor(color);
+
+        if (position == selectedPosition) {
+            drawable.setStroke(8, this.mContext.getResources().getColor(R.color.btn_icon_color)); // Blue stroke if selected
         } else {
-            holder.mSelectedView.setVisibility(View.GONE);
+            drawable.setStroke(0, Color.TRANSPARENT);
         }
 
-        holder.color_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectPos = position;
-                ((CollageActivity) context).setBGColor(color);
-                notifyDataSetChanged();
-            }
+        holder.colorView.setBackground(drawable);
+
+        holder.itemView.setOnClickListener(v -> {
+            int previousPosition = selectedPosition;
+            selectedPosition = position;
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
         });
     }
 
     @Override
     public int getItemCount() {
-        return colors.length;
+        return colorList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        CardView color_layout;
-        ImageView colorImg;
-        private View mSelectedView;
-        public ViewHolder(@NonNull View itemView) {
+    public static class ColorViewHolder extends RecyclerView.ViewHolder {
+        View colorView;
+
+        public ColorViewHolder(@NonNull View itemView) {
             super(itemView);
-            color_layout = itemView.findViewById(R.id.color_layout);
-            colorImg = itemView.findViewById(R.id.colorImg);
-            mSelectedView = itemView.findViewById(R.id.selectedView);
+            colorView = itemView.findViewById(R.id.color_view);
         }
     }
 }
