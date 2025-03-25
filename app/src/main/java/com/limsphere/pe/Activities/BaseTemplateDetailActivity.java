@@ -70,7 +70,7 @@ public abstract class BaseTemplateDetailActivity extends BasePhotoActivity imple
 
     protected RelativeLayout mContainerLayout;
     protected RecyclerView mTemplateView;
-    protected PhotoView mPhotoView;
+    public PhotoView mPhotoView;
     protected float mOutputScale = 1;
     protected View mAddImageView;
     protected Animation mAnimation;

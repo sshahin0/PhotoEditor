@@ -4,7 +4,6 @@ import static android.view.View.VISIBLE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,7 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,18 +37,13 @@ import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.model.RatioItem;
 import com.limsphere.pe.model.StickerCategory;
 import com.limsphere.pe.model.TemplateItem;
-import com.limsphere.pe.multitouch.controller.ImageEntity;
 import com.limsphere.pe.utils.AdManager;
 import com.limsphere.pe.utils.FileUtils;
 import com.limsphere.pe.utils.ImageDecoder;
 import com.limsphere.pe.utils.ImageUtils;
-import com.limsphere.pe.utils.ResultContainer;
 import com.limsphere.pe.utils.StickerLoader;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -358,59 +351,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mTemplateView.setVisibility(View.GONE);
         bgColorRecycler.setVisibility(View.GONE);
         mSpaceLayout.setVisibility(View.GONE);
-//        stickerRecycler.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
-//        mStickerHeaders.setVisibility(View.GONE);
         mStickerLayoutView.setVisibility(View.GONE);
-
-    }
-
-    public void setEmojiesSticker(String name) {
-        InputStream inputStream = null;
-        try {
-            // get input stream
-            inputStream = getAssets().open("stickers/" + name);
-            // load image as Drawable
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-            File path = new File(Environment.getExternalStorageDirectory() + "/Download/stickers");
-            if (!path.isDirectory()) {
-                path.mkdirs();
-            }
-            File mypath = new File(path.getAbsolutePath(), name);
-
-//            FileOutputStream fos = null;
-            try {
-//                fos = new FileOutputStream(mypath);
-                // Use the compress method on the BitMap object to write image to the OutputStream
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(mypath));
-                ImageEntity entity = new ImageEntity(Uri.fromFile(mypath), getResources());
-                entity.setInitScaleFactor(0.5f);
-                entity.setSticker(false);
-                entity.load(CollageActivity.this,
-                        (mPhotoView.getWidth() - entity.getWidth()) / 2,
-                        (mPhotoView.getHeight() - entity.getHeight()) / 2, 0);
-                mPhotoView.addImageEntity(entity);
-                if (ResultContainer.getInstance().getImageEntities() != null) {
-                    ResultContainer.getInstance().getImageEntities().add(entity);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-//                try {
-//                    if (fos != null) {
-//                        fos.close();
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-            }
-        } catch (IOException ex) {
-            return;
-        }
-        hideControls();
     }
 
     public void setBGColor(String color) {
