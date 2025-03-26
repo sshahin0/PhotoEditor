@@ -20,7 +20,13 @@
         <item>10</item>
     </string-array>
 
-    <string-array name="color_array">
+    <!-- Categories -->
+    <string-array name="categories">
+        <item>Solid Colors</item>
+        <item>Gradient Colors</item>
+    </string-array>
+
+    <string-array name="solid_color_list">
         <item>#fbaa27</item>
         <item>#e3a07e</item>
         <item>#a2d376</item>
@@ -39,5 +45,18 @@
         <item>#ffc6ff</item>
         <item>#f9dcc4</item>
         <item>#ee5b61</item>
+    </string-array>
+
+    <string-array name="gradient_list">
+        <item>#FF0000,#FFFF00</item>  <!-- Red to Yellow -->
+        <item>#00FF00,#0000FF</item>  <!-- Green to Blue -->
+        <item>#0000FF,#FF00FF</item>  <!-- Blue to Magenta -->
+        <item>#FFFF00,#00FFFF</item>  <!-- Yellow to Cyan -->
+        <item>#00FFFF,#FF0000</item>  <!-- Cyan to Red -->
+        <item>#FF00FF,#00FF00</item>  <!-- Magenta to Green -->
+        <item>#A52A2A,#808080</item>  <!-- Brown to Gray -->
+        <item>#800080,#FFA500</item>  <!-- Purple to Orange -->
+        <item>#008000,#000000</item>  <!-- Dark Green to Black -->
+        <item>#FFA500,#FFFFFF</item>  <!-- Orange to White -->
     </string-array>
 </resources>

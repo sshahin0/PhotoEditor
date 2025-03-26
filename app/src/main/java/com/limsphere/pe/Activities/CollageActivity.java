@@ -4,11 +4,14 @@ import static android.view.View.VISIBLE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +31,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.limsphere.pe.R;
-import com.limsphere.pe.adapter.ColorAdapter;
+import com.limsphere.pe.adapter.BgColorAdapter;
+import com.limsphere.pe.adapter.BgGradientAdapter;
+import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.adapter.StickerTabAdapter;
 import com.limsphere.pe.frame.FrameImageView;
@@ -45,11 +50,12 @@ import com.limsphere.pe.utils.StickerLoader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class CollageActivity extends BaseTemplateDetailActivity
-        implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener {
+        implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BgColorAdapter.OnColorClickListener {
     private static final int REQUEST_SELECT_PHOTO = 1001;
     private static float MAX_SPACE;
     private static float MAX_CORNER;
@@ -73,10 +79,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private Bundle mSavedInstanceState;
 
     private ImageView back, save;
-    private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView;
-    private RecyclerView bgColorRecycler;
-    private String[] emojies;
-    private String[] mBgSolidColorsStrings;
+    private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView, mBgColorView;
+    private RecyclerView mBgColorRecycler, mBgCatRecycler;
+    private BgGradientAdapter gradientColorAdapter;
+
 
     private RecyclerView mRatioRecycleView;
     //    private LinearLayout mSubMenuParent;
@@ -88,6 +94,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     private TabLayout mStickerTablayout;
     private StickerTabAdapter mStickerTabAdapter;
     private List<StickerCategory> stickerCategories;
+    private BgColorAdapter solidColorAdapter;
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -198,23 +205,25 @@ public class CollageActivity extends BaseTemplateDetailActivity
                         String categoryName = mStickerTabAdapter.getCategoryName(position);
 
                         // Example: Set a custom image for each tab based on the category name
-                        if (categoryName.equals("cat1")) {
+                        if (categoryName.equals("activity")) {
                             tab.setIcon(R.drawable.sticker_category_1);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat2")) {
+                        } else if (categoryName.equals("birthday")) {
                             tab.setIcon(R.drawable.sticker_category_2);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat3")) {
+                        } else if (categoryName.equals("celebration")) {
                             tab.setIcon(R.drawable.sticker_category_3);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat4")) {
+                        } else if (categoryName.equals("comic")) {
                             tab.setIcon(R.drawable.sticker_category_4);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat6")) {
+                        } else if (categoryName.equals("emoji")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat7")) {
+                        } else if (categoryName.equals("emotion")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat8")) {
+                        } else if (categoryName.equals("food")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat9")) {
+                        } else if (categoryName.equals("love")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("cat10")) {
+                        } else if (categoryName.equals("romance")) {
+                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                        } else if (categoryName.equals("accessories")) {
                             tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
                         } else {
                             tab.setIcon(R.drawable.sticker_category_1);   // Default icon
@@ -228,18 +237,36 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mSpaceLayout = findViewById(R.id.border_layout);
         mMainMenuLayout = findViewById(R.id.main_menu);
 
-        bgColorRecycler = findViewById(R.id.bgColorRecycler);
-        bgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mBgSolidColorsStrings = getResources().getStringArray(R.array.color_array);
+        mBgColorView = findViewById(R.id.collage_bg_ll);
+        mBgColorRecycler = findViewById(R.id.collage_bg_colors_rv);
+        mBgCatRecycler = findViewById(R.id.collage_bg_cat_rv);
+        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        // Setup category RecyclerView
+        mBgCatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        List<Integer> colors = new ArrayList<>();
-        // Convert Hex Strings to Color Integers
-        for (String color : mBgSolidColorsStrings) {
-            colors.add(Color.parseColor(color));
-        }
+        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat);
 
-        ColorAdapter adapter = new ColorAdapter(this, colors);
-        bgColorRecycler.setAdapter(adapter);
+        CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(this, categoryImages, position -> {
+            if (position == 0) {
+                loadSolidColors();
+            } else {
+                loadGradientColors();
+            }
+        });
+
+        mBgCatRecycler.setAdapter(categoryAdapter);
+
+        // Setup default color RecyclerView
+//        mBgColorRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        loadSolidColors();
+//        List<Integer> colors = new ArrayList<>();
+//        // Convert Hex Strings to Color Integers
+//        for (String color : mBgSolidColorsStrings) {
+//            colors.add(Color.parseColor(color));
+//        }
+//
+//        ColorAdapter adapter = new ColorAdapter(this, colors);
+//        bgColorRecycler.setAdapter(adapter);
 
         bgcolor = findViewById(R.id.bgcolor);
         bgcolor.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +277,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
                 ((TextView) findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
                 hideControls();
-                bgColorRecycler.setVisibility(VISIBLE);
+                mBgColorView.setVisibility(VISIBLE);
 
 //                startActivityes(null, 0);
             }
@@ -269,6 +296,30 @@ public class CollageActivity extends BaseTemplateDetailActivity
             }
         });
         showLayoutUI();
+    }
+
+    private void loadSolidColors() {
+        List<Integer> colors = new ArrayList<>();
+        for (String color : getResources().getStringArray(R.array.solid_color_list)) {
+            colors.add(Color.parseColor(color));
+        }
+
+        solidColorAdapter = new BgColorAdapter(this, colors, this);
+        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mBgColorRecycler.setAdapter(solidColorAdapter);
+    }
+
+    private void loadGradientColors() {
+        List<int[]> gradients = new ArrayList<>();
+        for (String gradient : getResources().getStringArray(R.array.gradient_list)) {
+            String[] colors = gradient.split(",");
+            int[] gradientColors = {Color.parseColor(colors[0]), Color.parseColor(colors[1])};
+            gradients.add(gradientColors);
+        }
+
+        gradientColorAdapter = new BgGradientAdapter(this, gradients, this);
+        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        mBgColorRecycler.setAdapter(gradientColorAdapter);
     }
 
     private void showBorderUI() {
@@ -356,19 +407,12 @@ public class CollageActivity extends BaseTemplateDetailActivity
 
     void hideControls() {
         mTemplateView.setVisibility(View.GONE);
-        bgColorRecycler.setVisibility(View.GONE);
+        mBgColorView.setVisibility(View.GONE);
         mSpaceLayout.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
         mStickerLayoutView.setVisibility(View.GONE);
-    }
-
-    public void setBGColor(String color) {
-        recycleBackgroundImage();
-        mBackgroundColor = Color.parseColor(color);
-        mContainerLayout.setBackgroundColor(mBackgroundColor);
-        hideControls();
     }
 
     @Override
@@ -612,5 +656,54 @@ public class CollageActivity extends BaseTemplateDetailActivity
         ((TextView) findViewById(R.id.tv_header_border)).setTextColor(getResources().getColor(R.color.btn_icon_color));
         mLayoutHeaders.setVisibility(VISIBLE);
         showBorderUI();
+    }
+
+    /**
+     * @param colorCode
+     */
+    @Override
+    public void onSolidColorClick(String colorCode) {
+        recycleBackgroundImage();
+        mBackgroundColor = Color.parseColor(colorCode);
+        mContainerLayout.setBackgroundColor(mBackgroundColor);
+//        hideControls();
+    }
+
+    /**
+     * @param startColor
+     * @param endColor
+     */
+    @Override
+    public void onGradientColorClick(String startColor, String endColor) {
+        recycleBackgroundImage();
+
+        int startColor1 = Color.parseColor(startColor);
+        int endColor1 = Color.parseColor(endColor);
+
+//        int[] colors = {Color.parseColor("#1E90FF"), Color.parseColor("#87CEFA")};
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{startColor1, endColor1}
+        );
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.bg_gradient_cat);
+
+//        mBackgroundImage = drawableToBitmap(gradientDrawable);
+        mContainerLayout.setBackground(gradientDrawable);
+
+        mBackgroundImage = gradientDrawableToBitmap(gradientDrawable, 500,500);
+    }
+
+    // Method to convert GradientDrawable to Bitmap
+    private Bitmap gradientDrawableToBitmap(GradientDrawable drawable, int width, int height) {
+        // Create a Bitmap with specified width and height
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        // Create a Canvas and set the Bitmap to it
+        Canvas canvas = new Canvas(bitmap);
+        // Set bounds for the drawable
+        drawable.setBounds(0, 0, width, height);
+        // Draw the drawable onto the canvas
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

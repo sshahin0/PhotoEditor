@@ -44,17 +44,17 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
 
         LinearLayout adContainer = findViewById(R.id.banner_container);
 
-        if (!AdManager.isloadMAX) {
-            //admob
-            AdManager.initAd(ShareActivity.this);
-            AdManager.adptiveBannerAd(ShareActivity.this, adContainer);
-            AdManager.loadInterAd(ShareActivity.this);
-        } else {
-            //MAX + Fb Ads
-            AdManager.initMAX(ShareActivity.this);
-            AdManager.maxBannerAdaptive(ShareActivity.this, adContainer);
-            AdManager.maxInterstital(ShareActivity.this);
-        }
+//        if (!AdManager.isloadMAX) {
+//            //admob
+//            AdManager.initAd(ShareActivity.this);
+//            AdManager.adptiveBannerAd(ShareActivity.this, adContainer);
+//            AdManager.loadInterAd(ShareActivity.this);
+//        } else {
+//            //MAX + Fb Ads
+//            AdManager.initMAX(ShareActivity.this);
+//            AdManager.maxBannerAdaptive(ShareActivity.this, adContainer);
+//            AdManager.maxInterstital(ShareActivity.this);
+//        }
     }
 
     @Override

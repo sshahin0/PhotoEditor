@@ -54,7 +54,7 @@ public class StickerCategoryFragment extends Fragment implements StickerGridAdap
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sticker_category, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewStickers);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 6));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         StickerGridAdapter adapter = new StickerGridAdapter(getContext(), mStickerUrls, this);
         recyclerView.setAdapter(adapter);
