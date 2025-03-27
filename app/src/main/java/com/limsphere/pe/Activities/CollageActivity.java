@@ -4,7 +4,6 @@ import static android.view.View.VISIBLE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,8 +54,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CollageActivity extends BaseTemplateDetailActivity
-        implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BgColorAdapter.OnColorClickListener {
+public class CollageActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BgColorAdapter.OnColorClickListener {
     private static final int REQUEST_SELECT_PHOTO = 1001;
     private static float MAX_SPACE;
     private static float MAX_CORNER;
@@ -126,8 +126,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mSpace = MAX_SPACE * seekBar.getProgress() / MAX_SPACE_PROGRESS;
-                if (mFramePhotoLayout != null)
-                    mFramePhotoLayout.setSpace(mSpace, mCorner);
+                if (mFramePhotoLayout != null) mFramePhotoLayout.setSpace(mSpace, mCorner);
             }
 
             @Override
@@ -146,8 +145,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mCorner = MAX_CORNER * seekBar.getProgress() / MAX_CORNER_PROGRESS;
-                if (mFramePhotoLayout != null)
-                    mFramePhotoLayout.setSpace(mSpace, mCorner);
+                if (mFramePhotoLayout != null) mFramePhotoLayout.setSpace(mSpace, mCorner);
             }
 
             @Override
@@ -207,37 +205,35 @@ public class CollageActivity extends BaseTemplateDetailActivity
             mStickerViewPager.setAdapter(mStickerTabAdapter);
 
             // Attach tabs to ViewPager2
-            new TabLayoutMediator(mStickerTablayout, mStickerViewPager,
-                    (tab, position) -> {
-                        // Set the icon for each tab (replace with your own drawable resource)
-                        String categoryName = mStickerTabAdapter.getCategoryName(position);
+            new TabLayoutMediator(mStickerTablayout, mStickerViewPager, (tab, position) -> {
+                // Set the icon for each tab (replace with your own drawable resource)
+                String categoryName = mStickerTabAdapter.getCategoryName(position);
 
-                        // Example: Set a custom image for each tab based on the category name
-                        if (categoryName.equals("activity")) {
-                            tab.setIcon(R.drawable.sticker_category_1);  // Replace with actual drawable
-                        } else if (categoryName.equals("birthday")) {
-                            tab.setIcon(R.drawable.sticker_category_2);  // Replace with actual drawable
-                        } else if (categoryName.equals("celebration")) {
-                            tab.setIcon(R.drawable.sticker_category_3);  // Replace with actual drawable
-                        } else if (categoryName.equals("comic")) {
-                            tab.setIcon(R.drawable.sticker_category_4);  // Replace with actual drawable
-                        } else if (categoryName.equals("emoji")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("emotion")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("food")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("love")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("romance")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else if (categoryName.equals("accessories")) {
-                            tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
-                        } else {
-                            tab.setIcon(R.drawable.sticker_category_1);   // Default icon
-                        }
-                    }
-            ).attach();
+                // Example: Set a custom image for each tab based on the category name
+                if (categoryName.equals("activity")) {
+                    tab.setIcon(R.drawable.sticker_category_1);  // Replace with actual drawable
+                } else if (categoryName.equals("birthday")) {
+                    tab.setIcon(R.drawable.sticker_category_2);  // Replace with actual drawable
+                } else if (categoryName.equals("celebration")) {
+                    tab.setIcon(R.drawable.sticker_category_3);  // Replace with actual drawable
+                } else if (categoryName.equals("comic")) {
+                    tab.setIcon(R.drawable.sticker_category_4);  // Replace with actual drawable
+                } else if (categoryName.equals("emoji")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else if (categoryName.equals("emotion")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else if (categoryName.equals("food")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else if (categoryName.equals("love")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else if (categoryName.equals("romance")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else if (categoryName.equals("accessories")) {
+                    tab.setIcon(R.drawable.sticker_category_5);  // Replace with actual drawable
+                } else {
+                    tab.setIcon(R.drawable.sticker_category_1);   // Default icon
+                }
+            }).attach();
 
 //            startActivityes(null, 0);
         });
@@ -309,7 +305,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
     }
 
     private void loadGallaryForBg() {
-
+        mPickMediaLauncher.launch(new androidx.activity.result.PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
     }
 
     private void loadSolidColors() {
@@ -368,8 +364,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         mRatioRecycleView.setVisibility(VISIBLE);
         mTemplateView.setVisibility(View.GONE);
 
-        mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this,
-                LinearLayoutManager.HORIZONTAL, false));
+        mRatioRecycleView.setLayoutManager(new LinearLayoutManager(CollageActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
         // Create data
         mRatioItemList = new ArrayList<>();
@@ -460,8 +455,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
             Canvas canvas = new Canvas(result);
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             if (mBackgroundImage != null && !mBackgroundImage.isRecycled()) {
-                canvas.drawBitmap(mBackgroundImage, new Rect(0, 0, mBackgroundImage.getWidth(), mBackgroundImage.getHeight()),
-                        new Rect(0, 0, result.getWidth(), result.getHeight()), paint);
+                canvas.drawBitmap(mBackgroundImage, new Rect(0, 0, mBackgroundImage.getWidth(), mBackgroundImage.getHeight()), new Rect(0, 0, result.getWidth(), result.getHeight()), paint);
             } else {
                 canvas.drawColor(mBackgroundColor);
             }
@@ -694,15 +688,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
         int startColor1 = Color.parseColor(startColor);
         int endColor1 = Color.parseColor(endColor);
 
-//        int[] colors = {Color.parseColor("#1E90FF"), Color.parseColor("#87CEFA")};
-        GradientDrawable gradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{startColor1, endColor1}
-        );
-
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.bg_gradient_cat);
-
-//        mBackgroundImage = drawableToBitmap(gradientDrawable);
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{startColor1, endColor1});
         mContainerLayout.setBackground(gradientDrawable);
 
         mBackgroundImage = gradientDrawableToBitmap(gradientDrawable, 500, 500);
@@ -720,4 +706,12 @@ public class CollageActivity extends BaseTemplateDetailActivity
         drawable.draw(canvas);
         return bitmap;
     }
+
+    private final ActivityResultLauncher<androidx.activity.result.PickVisualMediaRequest> mPickMediaLauncher = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+        if (uri != null) {
+            recycleBackgroundImage();
+            mBackgroundImage = ImageDecoder.decodeUriToBitmap(this, uri);
+            mContainerLayout.setBackground(new BitmapDrawable(getResources(), mBackgroundImage));
+        }
+    });
 }
