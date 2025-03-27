@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -253,12 +252,14 @@ public class CollageActivity extends BaseTemplateDetailActivity
         // Setup category RecyclerView
         mBgCatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat);
+        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat);
 
         CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(this, categoryImages, position -> {
             if (position == 0) {
+                loadGallaryForBg();
+            } else if (position == 1) {
                 loadSolidColors();
-            } else {
+            } else if (position == 2) {
                 loadGradientColors();
             }
         });
@@ -305,6 +306,10 @@ public class CollageActivity extends BaseTemplateDetailActivity
             }
         });
         showLayoutUI();
+    }
+
+    private void loadGallaryForBg() {
+
     }
 
     private void loadSolidColors() {
@@ -700,7 +705,7 @@ public class CollageActivity extends BaseTemplateDetailActivity
 //        mBackgroundImage = drawableToBitmap(gradientDrawable);
         mContainerLayout.setBackground(gradientDrawable);
 
-        mBackgroundImage = gradientDrawableToBitmap(gradientDrawable, 500,500);
+        mBackgroundImage = gradientDrawableToBitmap(gradientDrawable, 500, 500);
     }
 
     // Method to convert GradientDrawable to Bitmap

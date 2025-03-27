@@ -46,17 +46,17 @@ public class CollageBgCategoryAdapter extends RecyclerView.Adapter<CollageBgCate
 
         float radiusInPx = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                10, // 10dp
+                5, // 10dp
                 context.getResources().getDisplayMetrics()
         );
 
         // Create a dynamic blue border for selected category
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
-//        drawable.setCornerRadius(radiusInPx);
+        drawable.setCornerRadius(radiusInPx);
 
         if (position == selectedPosition) {
-            drawable.setStroke(4, context.getResources().getColor(R.color.btn_icon_color)); // Blue border when selected
+            drawable.setStroke(8, context.getResources().getColor(R.color.btn_icon_color)); // Blue border when selected
         } else {
             drawable.setStroke(0, Color.TRANSPARENT);
         }
