@@ -196,6 +196,15 @@ public class CollageActivity extends BaseTemplateDetailActivity
             mStickerLayoutView.setVisibility(VISIBLE);
             stickerCategories = StickerLoader.loadStickers(this);
             mStickerTabAdapter = new StickerTabAdapter(this, stickerCategories);
+
+            mStickerViewPager.setClipToPadding(false);
+            mStickerViewPager.setClipChildren(false);
+            mStickerViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+            mStickerViewPager.setPageTransformer((page, position) -> {
+                float scale = Math.max(0.85f, 1 - Math.abs(position)); // Adjust scaling
+                page.setScaleY(scale);
+                page.setTranslationX(-position * page.getWidth() * 0.1f); // Adjust translation if needed
+            });
             mStickerViewPager.setAdapter(mStickerTabAdapter);
 
             // Attach tabs to ViewPager2
