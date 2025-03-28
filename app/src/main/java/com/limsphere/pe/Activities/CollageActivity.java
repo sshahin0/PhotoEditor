@@ -36,6 +36,7 @@ import com.limsphere.pe.adapter.BgGradientAdapter;
 import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.adapter.StickerTabAdapter;
+import com.limsphere.pe.colorpicker.ColorPickerDialog;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
 import com.limsphere.pe.gallery.CustomGalleryActivity;
@@ -54,7 +55,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CollageActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BgColorAdapter.OnColorClickListener {
+public class CollageActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BgColorAdapter.OnColorClickListener, ColorPickerDialog.OnColorChangedListener {
     private static final int REQUEST_SELECT_PHOTO = 1001;
     private static float MAX_SPACE;
     private static float MAX_CORNER;
@@ -248,7 +249,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         // Setup category RecyclerView
         mBgCatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat);
+        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat, R.drawable.bg_color_chooser_cat);
 
         CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(this, categoryImages, position -> {
             if (position == 0) {
@@ -257,6 +258,8 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
                 loadSolidColors();
             } else if (position == 2) {
                 loadGradientColors();
+            } else if (position == 3) {
+                loadColorPicker();
             }
         });
 
@@ -302,6 +305,18 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             }
         });
         showLayoutUI();
+    }
+
+    private void loadColorPicker() {
+        ColorPickerDialog mColorPickerDialog;
+        mColorPickerDialog = new ColorPickerDialog(CollageActivity.this, Color.RED);
+        mColorPickerDialog.setOnColorChangedListener(CollageActivity.this);
+
+
+        mColorPickerDialog.setOldColor(Color.RED);
+        if (!mColorPickerDialog.isShowing()) {
+            mColorPickerDialog.show();
+        }
     }
 
     private void loadGallaryForBg() {
@@ -714,4 +729,14 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             mContainerLayout.setBackground(new BitmapDrawable(getResources(), mBackgroundImage));
         }
     });
+
+    /**
+     * @param color
+     */
+    @Override
+    public void onColorChanged(int color) {
+        recycleBackgroundImage();
+        mBackgroundColor = color;
+        mContainerLayout.setBackgroundColor(mBackgroundColor);
+    }
 }

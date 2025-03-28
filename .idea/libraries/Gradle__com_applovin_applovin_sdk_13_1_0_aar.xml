@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.applovin:applovin-sdk:13.1.0@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/jars/libs/omsdk-android-1.4.12-release.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/color-picker-view-master/gradle/wrapper/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/Downloads/color-picker-view-master/gradle/wrapper/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/color-picker-view-master/gradle/wrapper/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/res" />
+      <root url="jar://$USER_HOME$/Downloads/color-picker-view-master/gradle/wrapper/caches/transforms-3/ff4105a8a1694d0f2b6d7059cfb1ff56/transformed/jetified-applovin-sdk-13.1.0/jars/libs/omsdk-android-1.4.12-release.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.applovin/applovin-sdk/13.1.0/44e43f97b3abe8642f1ef4ebdaa9591e8ecf2cf1/applovin-sdk-13.1.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/color-picker-view-master/gradle/wrapper/caches/modules-2/files-2.1/com.applovin/applovin-sdk/13.1.0/44e43f97b3abe8642f1ef4ebdaa9591e8ecf2cf1/applovin-sdk-13.1.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
