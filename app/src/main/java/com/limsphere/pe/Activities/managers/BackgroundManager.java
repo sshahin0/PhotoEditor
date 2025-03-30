@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.limsphere.pe.R;
-import com.limsphere.pe.adapter.BgColorAdapter;
-import com.limsphere.pe.adapter.BgGradientAdapter;
+import com.limsphere.pe.adapter.BgColorGradientAdapter;
 import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
+import com.limsphere.pe.utils.ColorUtils;
 import com.limsphere.pe.utils.ImageDecoder;
 
 import java.util.ArrayList;
@@ -40,12 +40,7 @@ public class BackgroundManager {
     private Bitmap backgroundImage;
     private Uri backgroundUri = null;
 
-    public BackgroundManager(Context context,
-                             RelativeLayout containerLayout,
-                             LinearLayout bgColorView,
-                             RecyclerView bgColorRecycler,
-                             RecyclerView bgCatRecycler,
-                             ColorPickerViewParent colorChooser) {
+    public BackgroundManager(Context context, RelativeLayout containerLayout, LinearLayout bgColorView, RecyclerView bgColorRecycler, RecyclerView bgCatRecycler, ColorPickerViewParent colorChooser) {
         this.context = context;
         this.containerLayout = containerLayout;
         this.bgColorView = bgColorView;
@@ -54,66 +49,36 @@ public class BackgroundManager {
         this.colorChooser = colorChooser;
     }
 
-    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener,
-                                       BgColorAdapter.OnColorClickListener colorClickListener) {
+    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener, BgColorGradientAdapter.OnColorClickListener colorClickListener) {
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         bgCatRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        List<Integer> categoryImages = Arrays.asList(
-                R.drawable.bg_gallery_cat,
-                R.drawable.bg_solid_cat,
-                R.drawable.bg_gradient_cat,
-                R.drawable.bg_color_chooser_cat);
+        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat, R.drawable.bg_color_chooser_cat);
 
-        CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(
-                context,
-                categoryImages,
-                position -> {
-                    switch (position) {
-                        case 0:
-                            galleryListener.onGalleryRequested();
-                            break;
-                        case 1:
-                            loadSolidColors(colorClickListener);
-                            break;
-                        case 2:
-                            loadGradientColors(colorClickListener);
-                            break;
-                        case 3:
-                            loadColorPicker();
-                            break;
-                    }
-                });
+        CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(context, categoryImages, position -> {
+            switch (position) {
+                case 0:
+                    galleryListener.onGalleryRequested();
+                    break;
+                case 1:
+                    loadSolidColors(colorClickListener);
+                    break;
+                case 2:
+                    loadGradientColors(colorClickListener);
+                    break;
+                case 3:
+                    loadColorPicker();
+                    break;
+            }
+        });
 
         bgCatRecycler.setAdapter(categoryAdapter);
         loadSolidColors(colorClickListener);
     }
 
-    private void handleBackgroundCategorySelection(int position,
-                                                   BackgroundGalleryListener galleryListener,
-                                                   BgColorAdapter.OnColorClickListener colorClickListener) {
-        switch (position) {
-            case 0:
-                galleryListener.onGalleryRequested();
-                break;
-            case 1:
-                loadSolidColors(colorClickListener);
-                break;
-            case 2:
-                loadGradientColors(colorClickListener);
-                break;
-            case 3:
-                loadColorPicker();
-                break;
-        }
-    }
-
     private void loadColorPicker() {
         bgColorView.setVisibility(View.GONE); // Hide color list
-        colorChooser.setVisibility(View.VISIBLE); // Show color picker
-
-        // Reset color picker to current background color
-//        colorChooser.setColor(backgroundColor);
+        colorChooser.setVisibility(View.VISIBLE);
 
         colorChooser.setOnColorChangedListener(new ColorPickerViewParent.OnColorChangedListener() {
             @Override
@@ -136,26 +101,20 @@ public class BackgroundManager {
         containerLayout.setBackground(new BitmapDrawable(context.getResources(), backgroundImage));
     }
 
-    private void loadSolidColors(BgColorAdapter.OnColorClickListener colorClickListener) {
-        List<Integer> colors = new ArrayList<>();
-        for (String color : context.getResources().getStringArray(R.array.solid_color_list)) {
-            colors.add(Color.parseColor(color));
-        }
-
-        BgColorAdapter solidColorAdapter = new BgColorAdapter(context, colors, colorClickListener);
-        bgColorRecycler.setAdapter(solidColorAdapter);
+    private void loadSolidColors(BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+        List<Object> colorItems = new ArrayList<>(ColorUtils.loadSolidColors(context));
+        showColorList(colorItems, colorClickListener);
     }
 
-    private void loadGradientColors(BgColorAdapter.OnColorClickListener colorClickListener) {
-        List<int[]> gradients = new ArrayList<>();
-        for (String gradient : context.getResources().getStringArray(R.array.gradient_list)) {
-            String[] colors = gradient.split(",");
-            int[] gradientColors = {Color.parseColor(colors[0]), Color.parseColor(colors[1])};
-            gradients.add(gradientColors);
-        }
+    private void showColorList(List<Object> colorItems, BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+        BgColorGradientAdapter adapter = new BgColorGradientAdapter(context, colorItems, colorClickListener);
 
-        BgGradientAdapter gradientColorAdapter = new BgGradientAdapter(context, gradients, colorClickListener);
-        bgColorRecycler.setAdapter(gradientColorAdapter);
+        bgColorRecycler.setAdapter(adapter);
+    }
+
+    private void loadGradientColors(BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+        List<Object> colorItems = new ArrayList<>(ColorUtils.loadGradientColors(context));
+        showColorList(colorItems, colorClickListener);
     }
 
     public void setSolidColor(int color) {
@@ -170,9 +129,7 @@ public class BackgroundManager {
         int startColorValue = Color.parseColor(startColor);
         int endColorValue = Color.parseColor(endColor);
 
-        GradientDrawable gradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{startColorValue, endColorValue});
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{startColorValue, endColorValue});
 
         containerLayout.setBackground(gradientDrawable);
         backgroundImage = gradientDrawableToBitmap(gradientDrawable, 500, 500);

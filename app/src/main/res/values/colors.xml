@@ -30,7 +30,6 @@
     <color name="bottom_bg_view_topbar">#FFF200</color>
     <color name="backgroundColor">#E8E8E0</color>
     <color name="backgroundColorPress">#DBDBD3</color>
-    <color name="red">#FF3B00</color>
     <color name="red_press">#990000</color>
     <color name="dark_gray">#4C535B</color>
     <color name="dark_gray_press">#ff7e8a97</color>
@@ -55,4 +54,34 @@
     <color name="menu_bg_color">#272727</color>
     <color name="ratio_text_color">#555555</color>
     <color name="sub_menu_bg_color">#1D1D1D</color>
+
+    <!-- Basic colors -->
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
+    <color name="magenta">#FF00FF</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="brown">#A52A2A</color>
+    <color name="gray">#808080</color>
+    <color name="purple">#800080</color>
+    <color name="dark_green">#008000</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#fbaa27</color>
+    <color name="peach">#e3a07e</color>
+    <color name="light_green">#a2d376</color>
+    <color name="coral">#e37e7e</color>
+    <color name="mint">#76d399</color>
+    <color name="sky_blue">#768cd3</color>
+    <color name="light_red">#ffadad</color>
+    <color name="light_orange">#ffd6a5</color>
+    <color name="lemon">#fdffb6</color>
+    <color name="light_mint">#caffbf</color>
+    <color name="light_cyan">#9bf6ff</color>
+    <color name="periwinkle">#a0c4ff</color>
+    <color name="lavender">#bdb2ff</color>
+    <color name="pink">#ffc6ff</color>
+    <color name="cream">#f9dcc4</color>
+    <color name="bright_red">#ee5b61</color>
 </resources>

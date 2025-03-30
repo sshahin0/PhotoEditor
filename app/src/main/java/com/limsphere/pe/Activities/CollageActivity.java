@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.limsphere.pe.Activities.managers.BackgroundManager;
 import com.limsphere.pe.Activities.managers.StickerManager;
 import com.limsphere.pe.R;
-import com.limsphere.pe.adapter.BgColorAdapter;
+import com.limsphere.pe.adapter.BgColorGradientAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
@@ -141,17 +141,10 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mColorChooser = findViewById(R.id.color_picker_view_parent);
         mBgColorView = findViewById(R.id.collage_bg_ll);
 
-        backgroundManager = new BackgroundManager(
-                this,
-                mContainerLayout,
-                mBgColorView,
-                findViewById(R.id.collage_bg_colors_rv),
-                findViewById(R.id.collage_bg_cat_rv),
-                mColorChooser
-        );
+        backgroundManager = new BackgroundManager(this, mContainerLayout, mBgColorView, findViewById(R.id.collage_bg_colors_rv), findViewById(R.id.collage_bg_cat_rv), mColorChooser);
         mColorChooser.setVisibility(View.GONE);
 
-        backgroundManager.setupBackgroundOptions(this, new BgColorAdapter.OnColorClickListener() {
+        backgroundManager.setupBackgroundOptions(this, new BgColorGradientAdapter.OnColorClickListener() {
             @Override
             public void onSolidColorClick(String colorCode) {
                 backgroundManager.setSolidColor(Color.parseColor(colorCode));
@@ -165,11 +158,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
         // Initialize StickerManager
         stickerManager = new StickerManager(this);
-        stickerManager.initializeViews(
-                findViewById(R.id.sticker_view_ll),
-                findViewById(R.id.viewPager),
-                findViewById(R.id.tabLayout)
-        );
+        stickerManager.initializeViews(findViewById(R.id.sticker_view_ll), findViewById(R.id.viewPager), findViewById(R.id.tabLayout));
     }
 
     private void setupSeekBars() {
