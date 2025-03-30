@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,13 +26,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.limsphere.pe.Activities.managers.BackgroundManager;
 import com.limsphere.pe.Activities.managers.StickerManager;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.BgColorAdapter;
-import com.limsphere.pe.adapter.BgGradientAdapter;
-import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
-import com.limsphere.pe.colorpicker.ColorPickerDialog;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
@@ -42,19 +39,13 @@ import com.limsphere.pe.model.RatioItem;
 import com.limsphere.pe.model.TemplateItem;
 import com.limsphere.pe.utils.AdManager;
 import com.limsphere.pe.utils.FileUtils;
-import com.limsphere.pe.utils.ImageDecoder;
 import com.limsphere.pe.utils.ImageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class CollageActivity extends BaseTemplateDetailActivity implements
-        FramePhotoLayout.OnQuickActionClickListener,
-        RatioAdapter.OnItemClickListener,
-        BgColorAdapter.OnColorClickListener,
-        ColorPickerDialog.OnColorChangedListener {
+public class CollageActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BackgroundManager.BackgroundGalleryListener {
 
     // Constants
     private static final int REQUEST_SELECT_PHOTO = 1001;
@@ -74,27 +65,20 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
     private SeekBar mSpaceBar;
     private SeekBar mCornerBar;
 
-    // Background properties
-    private int mBackgroundColor = Color.BLACK;
-    private Bitmap mBackgroundImage;
-    private Uri mBackgroundUri = null;
-
     // State management
     private Bundle mSavedInstanceState;
 
     // UI Views
     private ImageView back, save;
-    private LinearLayout layout, sticker, bgcolor, textBtn, mBgColorView;
-    private ColorPickerViewParent mColorChooser;
-    private RecyclerView mBgColorRecycler, mBgCatRecycler;
-    private BgGradientAdapter gradientColorAdapter;
+    private LinearLayout layout, sticker, bgcolor, textBtn;
     private RecyclerView mRatioRecycleView;
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
-    private LinearLayout mLayoutHeaders;
-    private BgColorAdapter solidColorAdapter;
+    private LinearLayout mLayoutHeaders, mBgColorView;
+    private ColorPickerViewParent mColorChooser;
 
-    // Sticker Manager
+    // Managers
+    private BackgroundManager backgroundManager;
     private StickerManager stickerManager;
 
     // Layout parameters
@@ -103,8 +87,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
     private int width = 0, height = 0;
 
     // ActivityResult launchers
-    private final ActivityResultLauncher<androidx.activity.result.PickVisualMediaRequest> mPickMediaLauncher =
-            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), this::handleMediaPickResult);
+    private final ActivityResultLauncher<androidx.activity.result.PickVisualMediaRequest> mPickMediaLauncher = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), this::handleMediaPickResult);
 
     @Override
     protected boolean isShowingAllTemplates() {
@@ -117,9 +100,9 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         initializeDimensions();
         restoreInstanceState(savedInstanceState);
         initializeViews();
+        setupManagers();
         setupSeekBars();
         setupButtons();
-        setupBackgroundOptions();
         showLayoutUI();
     }
 
@@ -134,19 +117,13 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         if (savedInstanceState != null) {
             mSpace = savedInstanceState.getFloat("mSpace");
             mCorner = savedInstanceState.getFloat("mCorner");
-            mBackgroundColor = savedInstanceState.getInt("mBackgroundColor");
-            mBackgroundUri = savedInstanceState.getParcelable("mBackgroundUri");
             mSavedInstanceState = savedInstanceState;
-            if (mBackgroundUri != null) {
-                mBackgroundImage = ImageDecoder.decodeUriToBitmap(this, mBackgroundUri);
-            }
         }
     }
 
     private void initializeViews() {
         mSpaceBar = findViewById(R.id.spaceBar);
         mCornerBar = findViewById(R.id.cornerBar);
-        mColorChooser = findViewById(R.id.color_picker_view_parent);
         back = findViewById(R.id.btnBack);
         save = findViewById(R.id.save);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
@@ -155,11 +132,36 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         sticker = findViewById(R.id.sticker);
         mSpaceLayout = findViewById(R.id.border_layout);
         mMainMenuLayout = findViewById(R.id.main_menu);
-        mBgColorView = findViewById(R.id.collage_bg_ll);
-        mBgColorRecycler = findViewById(R.id.collage_bg_colors_rv);
-        mBgCatRecycler = findViewById(R.id.collage_bg_cat_rv);
         bgcolor = findViewById(R.id.bgcolor);
         textBtn = findViewById(R.id.textBtn);
+    }
+
+    private void setupManagers() {
+        // Initialize BackgroundManager
+        mColorChooser = findViewById(R.id.color_picker_view_parent);
+        mBgColorView = findViewById(R.id.collage_bg_ll);
+
+        backgroundManager = new BackgroundManager(
+                this,
+                mContainerLayout,
+                mBgColorView,
+                findViewById(R.id.collage_bg_colors_rv),
+                findViewById(R.id.collage_bg_cat_rv),
+                mColorChooser
+        );
+        mColorChooser.setVisibility(View.GONE);
+
+        backgroundManager.setupBackgroundOptions(this, new BgColorAdapter.OnColorClickListener() {
+            @Override
+            public void onSolidColorClick(String colorCode) {
+                backgroundManager.setSolidColor(Color.parseColor(colorCode));
+            }
+
+            @Override
+            public void onGradientColorClick(String startColor, String endColor) {
+                backgroundManager.setGradientColor(startColor, endColor);
+            }
+        });
 
         // Initialize StickerManager
         stickerManager = new StickerManager(this);
@@ -204,98 +206,16 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         textBtn.setOnClickListener(v -> showTextUI());
     }
 
-    private void setupBackgroundOptions() {
-        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mBgCatRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        List<Integer> categoryImages = Arrays.asList(
-                R.drawable.bg_gallery_cat,
-                R.drawable.bg_solid_cat,
-                R.drawable.bg_gradient_cat,
-                R.drawable.bg_color_chooser_cat);
-
-        CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(
-                this,
-                categoryImages,
-                this::handleBackgroundCategorySelection);
-
-        mBgCatRecycler.setAdapter(categoryAdapter);
-        loadSolidColors();
-    }
-
-    private void handleBackgroundCategorySelection(int position) {
-        switch (position) {
-            case 0:
-                loadGalleryForBg();
-                break;
-            case 1:
-                loadSolidColors();
-                break;
-            case 2:
-                loadGradientColors();
-                break;
-            case 3:
-                loadColorPicker();
-                break;
-        }
-    }
-
-    private void loadColorPicker() {
-        hideControls();
-        mColorChooser.setVisibility(VISIBLE);
-        mColorChooser.setOnColorChangedListener(new ColorPickerViewParent.OnColorChangedListener() {
-            @Override
-            public void onColorChanged(int color) {
-                recycleBackgroundImage();
-                mBackgroundColor = color;
-                mContainerLayout.setBackgroundColor(mBackgroundColor);
-                mBgColorView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onCrossPressed() {
-                hideControls();
-                mBgColorView.setVisibility(VISIBLE);
-            }
-        });
-    }
-
-    private void loadGalleryForBg() {
-        mPickMediaLauncher.launch(new androidx.activity.result.PickVisualMediaRequest.Builder()
-                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                .build());
+    // Implement BackgroundGalleryListener
+    @Override
+    public void onGalleryRequested() {
+        mPickMediaLauncher.launch(new androidx.activity.result.PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
     }
 
     private void handleMediaPickResult(Uri uri) {
         if (uri != null) {
-            recycleBackgroundImage();
-            mBackgroundImage = ImageDecoder.decodeUriToBitmap(this, uri);
-            mContainerLayout.setBackground(new BitmapDrawable(getResources(), mBackgroundImage));
+            backgroundManager.setBackgroundFromUri(uri);
         }
-    }
-
-    private void loadSolidColors() {
-        List<Integer> colors = new ArrayList<>();
-        for (String color : getResources().getStringArray(R.array.solid_color_list)) {
-            colors.add(Color.parseColor(color));
-        }
-
-        solidColorAdapter = new BgColorAdapter(this, colors, this);
-        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        mBgColorRecycler.setAdapter(solidColorAdapter);
-    }
-
-    private void loadGradientColors() {
-        List<int[]> gradients = new ArrayList<>();
-        for (String gradient : getResources().getStringArray(R.array.gradient_list)) {
-            String[] colors = gradient.split(",");
-            int[] gradientColors = {Color.parseColor(colors[0]), Color.parseColor(colors[1])};
-            gradients.add(gradientColors);
-        }
-
-        gradientColorAdapter = new BgGradientAdapter(this, gradients, this);
-        mBgColorRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        mBgColorRecycler.setAdapter(gradientColorAdapter);
     }
 
     private void showBorderUI() {
@@ -323,7 +243,10 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         setUnpressAllButtons();
         setTabPressed(R.id.tabIV3, R.id.tabTxt3);
         hideControls();
-        mBgColorView.setVisibility(VISIBLE);
+        backgroundManager.showBackgroundUI();
+
+        // Ensure color picker is hidden when showing background UI
+        backgroundManager.hideColorPicker();
     }
 
     private void showTextUI() {
@@ -381,28 +304,23 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
     }
 
     private void setUnpressAllButtons() {
-        // Reset all tab buttons
         setTabUnpressed(R.id.tabIV, R.id.tabTxt);
         setTabUnpressed(R.id.tabIV2, R.id.tabTxt2);
         setTabUnpressed(R.id.tabIV3, R.id.tabTxt3);
         setTabUnpressed(R.id.tabIV4, R.id.tabTxt4);
 
-        // Reset all headers
         setHeaderUnpressed(R.id.tv_header_layout);
         setHeaderUnpressed(R.id.tv_header_ratio);
         setHeaderUnpressed(R.id.tv_header_border);
     }
 
     private void setTabPressed(int imageViewId, int textViewId) {
-        ((ImageView) findViewById(imageViewId)).setColorFilter(
-                ContextCompat.getColor(this, R.color.btn_icon_color),
-                android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((ImageView) findViewById(imageViewId)).setColorFilter(ContextCompat.getColor(this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(textViewId)).setTextColor(getResources().getColor(R.color.btn_icon_color));
     }
 
     private void setTabUnpressed(int imageViewId, int textViewId) {
-        ((ImageView) findViewById(imageViewId)).setColorFilter(Color.WHITE,
-                android.graphics.PorterDuff.Mode.MULTIPLY);
+        ((ImageView) findViewById(imageViewId)).setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
         ((TextView) findViewById(textViewId)).setTextColor(Color.WHITE);
     }
 
@@ -416,13 +334,12 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
 
     private void hideControls() {
         mTemplateView.setVisibility(View.GONE);
-        mBgColorView.setVisibility(View.GONE);
+        backgroundManager.hideBackgroundUI();
         mSpaceLayout.setVisibility(View.GONE);
         mRatioRecycleView.setVisibility(View.GONE);
         mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
         stickerManager.hideStickerUI();
-        mColorChooser.setVisibility(View.GONE);
     }
 
     @Override
@@ -430,8 +347,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         super.onSaveInstanceState(outState);
         outState.putFloat("mSpace", mSpace);
         outState.putFloat("mCornerBar", mCorner);
-        outState.putInt("mBackgroundColor", mBackgroundColor);
-        outState.putParcelable("mBackgroundUri", mBackgroundUri);
         if (mFramePhotoLayout != null) {
             mFramePhotoLayout.saveInstanceState(outState);
         }
@@ -455,13 +370,10 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
             // Draw background
-            if (mBackgroundImage != null && !mBackgroundImage.isRecycled()) {
-                canvas.drawBitmap(mBackgroundImage,
-                        new Rect(0, 0, mBackgroundImage.getWidth(), mBackgroundImage.getHeight()),
-                        new Rect(0, 0, result.getWidth(), result.getHeight()),
-                        paint);
+            if (backgroundManager.getBackgroundImage() != null && !backgroundManager.getBackgroundImage().isRecycled()) {
+                canvas.drawBitmap(backgroundManager.getBackgroundImage(), new Rect(0, 0, backgroundManager.getBackgroundImage().getWidth(), backgroundManager.getBackgroundImage().getHeight()), new Rect(0, 0, result.getWidth(), result.getHeight()), paint);
             } else {
-                canvas.drawColor(mBackgroundColor);
+                canvas.drawColor(backgroundManager.getBackgroundColor());
             }
 
             // Draw template and stickers
@@ -487,10 +399,10 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         mFramePhotoLayout.setQuickActionClickListener(this);
 
         // Set background
-        if (mBackgroundImage != null && !mBackgroundImage.isRecycled()) {
-            mContainerLayout.setBackground(new BitmapDrawable(getResources(), mBackgroundImage));
+        if (backgroundManager.getBackgroundImage() != null && !backgroundManager.getBackgroundImage().isRecycled()) {
+            mContainerLayout.setBackground(new BitmapDrawable(getResources(), backgroundManager.getBackgroundImage()));
         } else {
-            mContainerLayout.setBackgroundColor(mBackgroundColor);
+            mContainerLayout.setBackgroundColor(backgroundManager.getBackgroundColor());
         }
 
         // Apply ratio
@@ -601,20 +513,9 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         }
     }
 
-    private void recycleBackgroundImage() {
-        if (mBackgroundImage != null && !mBackgroundImage.isRecycled()) {
-            mBackgroundImage.recycle();
-            mBackgroundImage = null;
-            System.gc();
-        }
-    }
-
     @Override
     protected void resultBackground(Uri uri) {
-        recycleBackgroundImage();
-        mBackgroundUri = uri;
-        mBackgroundImage = ImageDecoder.decodeUriToBitmap(this, uri);
-        mContainerLayout.setBackground(new BitmapDrawable(getResources(), mBackgroundImage));
+        backgroundManager.setBackgroundFromUri(uri);
     }
 
     @Override
@@ -631,7 +532,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
 
     @Override
     public void finish() {
-        recycleBackgroundImage();
+        backgroundManager.recycleBackgroundImage();
         if (mFramePhotoLayout != null) {
             mFramePhotoLayout.recycleImages();
         }
@@ -657,43 +558,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         setHeaderPressed(R.id.tv_header_border);
         mLayoutHeaders.setVisibility(VISIBLE);
         showBorderUI();
-    }
-
-    @Override
-    public void onSolidColorClick(String colorCode) {
-        recycleBackgroundImage();
-        mBackgroundColor = Color.parseColor(colorCode);
-        mContainerLayout.setBackgroundColor(mBackgroundColor);
-    }
-
-    @Override
-    public void onGradientColorClick(String startColor, String endColor) {
-        recycleBackgroundImage();
-
-        int startColorValue = Color.parseColor(startColor);
-        int endColorValue = Color.parseColor(endColor);
-
-        GradientDrawable gradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{startColorValue, endColorValue});
-
-        mContainerLayout.setBackground(gradientDrawable);
-        mBackgroundImage = gradientDrawableToBitmap(gradientDrawable, 500, 500);
-    }
-
-    private Bitmap gradientDrawableToBitmap(GradientDrawable drawable, int width, int height) {
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, width, height);
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
-    @Override
-    public void onColorChanged(int color) {
-        recycleBackgroundImage();
-        mBackgroundColor = color;
-        mContainerLayout.setBackgroundColor(mBackgroundColor);
     }
 
     // Helper class for simplified SeekBar listeners
