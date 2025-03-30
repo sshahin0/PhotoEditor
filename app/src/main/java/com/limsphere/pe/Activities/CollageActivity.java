@@ -26,29 +26,24 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import com.limsphere.pe.Activities.managers.StickerManager;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.BgColorAdapter;
 import com.limsphere.pe.adapter.BgGradientAdapter;
 import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
-import com.limsphere.pe.adapter.StickerTabAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerDialog;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
 import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.model.RatioItem;
-import com.limsphere.pe.model.StickerCategory;
 import com.limsphere.pe.model.TemplateItem;
 import com.limsphere.pe.utils.AdManager;
 import com.limsphere.pe.utils.FileUtils;
 import com.limsphere.pe.utils.ImageDecoder;
 import com.limsphere.pe.utils.ImageUtils;
-import com.limsphere.pe.utils.StickerLoader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -89,7 +84,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
 
     // UI Views
     private ImageView back, save;
-    private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView, mBgColorView;
+    private LinearLayout layout, sticker, bgcolor, textBtn, mBgColorView;
     private ColorPickerViewParent mColorChooser;
     private RecyclerView mBgColorRecycler, mBgCatRecycler;
     private BgGradientAdapter gradientColorAdapter;
@@ -97,11 +92,10 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
     private RatioAdapter mRatioAdapter;
     private List<RatioItem> mRatioItemList;
     private LinearLayout mLayoutHeaders;
-    private ViewPager2 mStickerViewPager;
-    private TabLayout mStickerTablayout;
-    private StickerTabAdapter mStickerTabAdapter;
-    private List<StickerCategory> stickerCategories;
     private BgColorAdapter solidColorAdapter;
+
+    // Sticker Manager
+    private StickerManager stickerManager;
 
     // Layout parameters
     private float mSpace;
@@ -156,11 +150,8 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         back = findViewById(R.id.btnBack);
         save = findViewById(R.id.save);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
-        mStickerLayoutView = findViewById(R.id.sticker_view_ll);
-        mStickerViewPager = findViewById(R.id.viewPager);
-        mStickerTablayout = findViewById(R.id.tabLayout);
-        layout = findViewById(R.id.layout);
         mLayoutHeaders = findViewById(R.id.layout_headers);
+        layout = findViewById(R.id.layout);
         sticker = findViewById(R.id.sticker);
         mSpaceLayout = findViewById(R.id.border_layout);
         mMainMenuLayout = findViewById(R.id.main_menu);
@@ -169,6 +160,14 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         mBgCatRecycler = findViewById(R.id.collage_bg_cat_rv);
         bgcolor = findViewById(R.id.bgcolor);
         textBtn = findViewById(R.id.textBtn);
+
+        // Initialize StickerManager
+        stickerManager = new StickerManager(this);
+        stickerManager.initializeViews(
+                findViewById(R.id.sticker_view_ll),
+                findViewById(R.id.viewPager),
+                findViewById(R.id.tabLayout)
+        );
     }
 
     private void setupSeekBars() {
@@ -317,46 +316,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         setUnpressAllButtons();
         setTabPressed(R.id.tabIV2, R.id.tabTxt2);
         hideControls();
-        mStickerLayoutView.setVisibility(VISIBLE);
-
-        setupStickerViewPager();
-    }
-
-    private void setupStickerViewPager() {
-        stickerCategories = StickerLoader.loadStickers(this);
-        mStickerTabAdapter = new StickerTabAdapter(this, stickerCategories);
-
-        mStickerViewPager.setClipToPadding(false);
-        mStickerViewPager.setClipChildren(false);
-        mStickerViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
-        mStickerViewPager.setPageTransformer((page, position) -> {
-            float scale = Math.max(0.85f, 1 - Math.abs(position));
-            page.setScaleY(scale);
-            page.setTranslationX(-position * page.getWidth() * 0.1f);
-        });
-
-        mStickerViewPager.setAdapter(mStickerTabAdapter);
-
-        new TabLayoutMediator(mStickerTablayout, mStickerViewPager, (tab, position) -> {
-            String categoryName = mStickerTabAdapter.getCategoryName(position);
-            tab.setIcon(getStickerCategoryIcon(categoryName));
-        }).attach();
-    }
-
-    private int getStickerCategoryIcon(String categoryName) {
-        switch (categoryName) {
-            case "activity":
-                return R.drawable.sticker_category_1;
-            case "birthday":
-                return R.drawable.sticker_category_2;
-            case "celebration":
-                return R.drawable.sticker_category_3;
-            case "comic":
-                return R.drawable.sticker_category_4;
-            default:
-                return R.drawable.sticker_category_5;
-        }
+        stickerManager.setupStickerUI();
     }
 
     private void showBackgroundColorUI() {
@@ -461,7 +421,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements
         mRatioRecycleView.setVisibility(View.GONE);
         mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
-        mStickerLayoutView.setVisibility(View.GONE);
+        stickerManager.hideStickerUI();
         mColorChooser.setVisibility(View.GONE);
     }
 
