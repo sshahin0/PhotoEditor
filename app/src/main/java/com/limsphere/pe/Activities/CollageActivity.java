@@ -37,6 +37,7 @@ import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.adapter.StickerTabAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerDialog;
+import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
 import com.limsphere.pe.gallery.CustomGalleryActivity;
@@ -80,6 +81,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
     private ImageView back, save;
     private LinearLayout layout, sticker, bgcolor, textBtn, mStickerLayoutView, mBgColorView;
+    private ColorPickerViewParent mColorChooser;
     private RecyclerView mBgColorRecycler, mBgCatRecycler;
     private BgGradientAdapter gradientColorAdapter;
 
@@ -122,6 +124,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         }
 
         mSpaceBar = (SeekBar) findViewById(R.id.spaceBar);
+        mColorChooser = findViewById(R.id.color_picker_view_parent);
 //        mSubMenuParent = findViewById(R.id.sub_menu_parent);
         mSpaceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -308,15 +311,26 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     }
 
     private void loadColorPicker() {
-        ColorPickerDialog mColorPickerDialog;
-        mColorPickerDialog = new ColorPickerDialog(CollageActivity.this, Color.RED);
-        mColorPickerDialog.setOnColorChangedListener(CollageActivity.this);
+        hideControls();
+        mColorChooser.setVisibility(VISIBLE);
+        mColorChooser.setOnColorChangedListener(new ColorPickerViewParent.OnColorChangedListener() {
+            @Override
+            public void onColorChanged(int color) {
+                recycleBackgroundImage();
+                mBackgroundColor = color;
+                mContainerLayout.setBackgroundColor(mBackgroundColor);
+                mBgColorView.setVisibility(View.VISIBLE);
+            }
 
-
-        mColorPickerDialog.setOldColor(Color.RED);
-        if (!mColorPickerDialog.isShowing()) {
-            mColorPickerDialog.show();
-        }
+            /**
+             *
+             */
+            @Override
+            public void onCrossPressed() {
+                hideControls();
+                mBgColorView.setVisibility(VISIBLE);
+            }
+        });
     }
 
     private void loadGallaryForBg() {
@@ -437,6 +451,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mLayoutHeaders.setVisibility(View.GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
         mStickerLayoutView.setVisibility(View.GONE);
+        mColorChooser.setVisibility(View.GONE);
     }
 
     @Override
