@@ -84,6 +84,8 @@ public class BackgroundManager {
             @Override
             public void onColorChanged(int color) {
                 setSolidColor(color);
+                hideColorPicker();
+                bgColorView.setVisibility(View.VISIBLE);
             }
 
             @Override
