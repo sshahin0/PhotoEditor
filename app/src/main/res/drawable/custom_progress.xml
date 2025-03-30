@@ -1,0 +1,27 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background track - reduced height -->
+    <item
+        android:id="@android:id/background"
+        android:bottom="@dimen/_4sdp"
+        android:top="@dimen/_4sdp">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/_1sdp" />
+            <solid android:color="@color/gray" />
+            <size android:height="@dimen/_2sdp" /> <!-- Very thin track -->
+        </shape>
+    </item>
+
+    <!-- Progress track - reduced height -->
+    <item
+        android:id="@android:id/progress"
+        android:bottom="@dimen/_4sdp"
+        android:top="@dimen/_4sdp">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="@dimen/_1sdp" />
+                <solid android:color="@color/btn_icon_color" />
+                <size android:height="@dimen/_2sdp" /> <!-- Matches background height -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

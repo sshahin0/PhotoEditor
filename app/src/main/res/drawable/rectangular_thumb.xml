@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/btn_icon_color" />
+    <size
+        android:width="@dimen/_5sdp"
+        android:height="@dimen/_10sdp" /> <!-- Reduced height -->
+    <corners android:radius="@dimen/_1sdp" /> <!-- Smaller corners -->
+</shape>
