@@ -198,6 +198,8 @@
             android:id="@+id/collage_bg_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -205,8 +207,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/collage_bg_colors_rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_height="wrap_content" />
 
             <!-- Category RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
@@ -220,7 +221,7 @@
             android:id="@+id/color_picker_view_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

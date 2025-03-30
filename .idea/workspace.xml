@@ -106,28 +106,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="Color chooser icon added">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/colorpicker/ColorPickerViewParent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_color_picker.xml" afterDir="false" />
+    <list default="true" id="e8c7c9e7-337b-442f-8795-e5a2d7693d14" name="Changes" comment="Color picker view updated">
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/PhotoEditor.app.androidTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/imageeditlibrary/PhotoEditor.imageeditlibrary.androidTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/privacy_policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/privacy_policy.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/Activities/CollageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/colorpicker/ColorPickerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/colorpicker/ColorPickerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_collage_maker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_collage_maker.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_color_picker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_color_picker.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -605,7 +593,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743197934542</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Color picker view updated">
+      <option name="closed" value="true" />
+      <created>1743293269432</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1743293269432</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -619,7 +615,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Border icon added on collage" />
     <MESSAGE value="Issue fixed : Sticker list empt space remove" />
     <MESSAGE value="Implemented ratio UI" />
     <MESSAGE value="Implemented ratio functionalities" />
@@ -644,7 +639,8 @@
     <MESSAGE value="Category for bg image choose Ui implemented" />
     <MESSAGE value="Implemented color chooser" />
     <MESSAGE value="Color chooser icon added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Color chooser icon added" />
+    <MESSAGE value="Color picker view updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Color picker view updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -656,7 +652,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/limsphere/pe/colorpicker/ColorPickerView.java</url>
-          <line>635</line>
+          <line>633</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
       </breakpoints>

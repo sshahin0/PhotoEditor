@@ -268,44 +268,28 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
         mBgCatRecycler.setAdapter(categoryAdapter);
 
-        // Setup default color RecyclerView
-//        mBgColorRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         loadSolidColors();
-//        List<Integer> colors = new ArrayList<>();
-//        // Convert Hex Strings to Color Integers
-//        for (String color : mBgSolidColorsStrings) {
-//            colors.add(Color.parseColor(color));
-//        }
-//
-//        ColorAdapter adapter = new ColorAdapter(this, colors);
-//        bgColorRecycler.setAdapter(adapter);
 
         bgcolor = findViewById(R.id.bgcolor);
-        bgcolor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUnpressBtn();
-                ((ImageView) findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView) findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        bgcolor.setOnClickListener(v -> {
+            setUnpressBtn();
+            ((ImageView) findViewById(R.id.tabIV3)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+            ((TextView) findViewById(R.id.tabTxt3)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
-                hideControls();
-                mBgColorView.setVisibility(VISIBLE);
+            hideControls();
+            mBgColorView.setVisibility(VISIBLE);
 
 //                startActivityes(null, 0);
-            }
         });
 
         textBtn = findViewById(R.id.textBtn);
-        textBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUnpressBtn();
-                ((ImageView) findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
-                ((TextView) findViewById(R.id.tabTxt4)).setTextColor(getResources().getColor(R.color.btn_icon_color));
+        textBtn.setOnClickListener(v -> {
+            setUnpressBtn();
+            ((ImageView) findViewById(R.id.tabIV4)).setColorFilter(ContextCompat.getColor(CollageActivity.this, R.color.btn_icon_color), android.graphics.PorterDuff.Mode.MULTIPLY);
+            ((TextView) findViewById(R.id.tabTxt4)).setTextColor(getResources().getColor(R.color.btn_icon_color));
 
-                hideControls();
-                textButtonClick();
-            }
+            hideControls();
+            textButtonClick();
         });
         showLayoutUI();
     }
