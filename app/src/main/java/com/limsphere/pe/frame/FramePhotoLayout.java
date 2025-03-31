@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+
 import com.limsphere.pe.appconfig.Logger;
 import com.limsphere.pe.quickaction.QuickAction;
 import com.limsphere.pe.template.PhotoItem;
@@ -78,6 +79,11 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
     private int mViewWidth, mViewHeight;
     private float mOutputScaleRatio = 1;
     private OnQuickActionClickListener mQuickActionClickListener;
+    private float mCurrentZoom = 1.0f;
+    private float mMinZoom = 1.0f;
+    private float mMaxZoom = 0.30f;
+    private float mPivotX = 0.5f; // Default pivot point (center)
+    private float mPivotY = 0.5f; // Default pivot point (center)
 
     public FramePhotoLayout(Context context, List<PhotoItem> photoItems) {
         super(context);
@@ -165,6 +171,43 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
             img.setSpace(space, corner);
     }
 
+    // Add this method to update the zoom level for the entire layout
+    public void setZoomLevel(float progress) {
+        // Convert progress (0-100) to zoom level (mMinZoom - mMaxZoom)
+        mCurrentZoom = mMinZoom + (progress / 100f) * (mMaxZoom - mMinZoom);
+
+        // Apply zoom to the entire layout
+        setScaleX(mCurrentZoom);
+        setScaleY(mCurrentZoom);
+
+        // Set pivot point to center (for smoother zoom)
+        setPivotX(getWidth() * 0.5f);
+        setPivotY(getHeight() * 0.5f);
+
+        requestLayout();
+        invalidate();
+    }
+
+    // Optionally add method to set pivot point
+    public void setZoomPivot(float pivotX, float pivotY) {
+        mPivotX = pivotX;
+        mPivotY = pivotY;
+        setPivotX(getWidth() * mPivotX);
+        setPivotY(getHeight() * mPivotY);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+
+        // Store original dimensions
+        mViewWidth = width;
+        mViewHeight = height;
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     private FrameImageView addPhotoItemView(PhotoItem item, float outputScaleRatio, final float space, final float corner) {
         final FrameImageView imageView = new FrameImageView(getContext(), item);
         int leftMargin = (int) (mViewWidth * item.bound.left);
@@ -199,6 +242,7 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
         try {
             Bitmap template = Bitmap.createBitmap((int) (mOutputScaleRatio * mViewWidth), (int) (mOutputScaleRatio * mViewHeight), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(template);
+            canvas.scale(mOutputScaleRatio, mOutputScaleRatio);
             for (FrameImageView view : mItemImageViews)
                 if (view.getImage() != null && !view.getImage().isRecycled()) {
                     final int left = (int) (view.getLeft() * mOutputScaleRatio);
@@ -218,7 +262,6 @@ public class FramePhotoLayout extends RelativeLayout implements FrameImageView.O
             throw error;
         }
     }
-
 
 
     public void recycleImages() {

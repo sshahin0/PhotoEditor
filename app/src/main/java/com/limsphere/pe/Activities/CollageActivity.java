@@ -62,8 +62,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     private FramePhotoLayout mFramePhotoLayout;
     private LinearLayout mSpaceLayout;
     private LinearLayout mMainMenuLayout;
-    private SeekBar mSpaceBar;
-    private SeekBar mCornerBar;
+    private SeekBar mSpaceBar, mCornerBar, zoomSeekBar;
 
     // State management
     private Bundle mSavedInstanceState;
@@ -124,6 +123,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     private void initializeViews() {
         mSpaceBar = findViewById(R.id.spaceBar);
         mCornerBar = findViewById(R.id.cornerBar);
+        zoomSeekBar = findViewById(R.id.zoomSeekBar);
         back = findViewById(R.id.btnBack);
         save = findViewById(R.id.save);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
@@ -175,6 +175,15 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mCorner = MAX_CORNER * progress / MAX_CORNER_PROGRESS;
                 updateFrameLayoutSpacing();
+            }
+        });
+
+        zoomSeekBar.setOnSeekBarChangeListener(new SimpleSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    mFramePhotoLayout.setZoomLevel(progress);
+                }
             }
         });
     }
