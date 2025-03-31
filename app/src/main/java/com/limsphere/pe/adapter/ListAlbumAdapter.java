@@ -12,15 +12,15 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.limsphere.pe.R;
-import com.limsphere.pe.model.ImageModel;
+import com.limsphere.pe.model.GalleryImageModel;
 import com.limsphere.pe.myinterface.OnListAlbum;
 
 import java.util.ArrayList;
 
 
-public class ListAlbumAdapter extends ArrayAdapter<ImageModel> {
+public class ListAlbumAdapter extends ArrayAdapter<GalleryImageModel> {
     Context context;
-    ArrayList<ImageModel> data = new ArrayList();
+    ArrayList<GalleryImageModel> data = new ArrayList();
     int layoutResourceId;
     OnListAlbum onListAlbum;
     int pHeightItem = 0;
@@ -34,7 +34,7 @@ public class ListAlbumAdapter extends ArrayAdapter<ImageModel> {
         }
     }
 
-    public ListAlbumAdapter(Context context, int layoutResourceId, ArrayList<ImageModel> data) {
+    public ListAlbumAdapter(Context context, int layoutResourceId, ArrayList<GalleryImageModel> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -60,7 +60,7 @@ public class ListAlbumAdapter extends ArrayAdapter<ImageModel> {
         } else {
             holder = (RecordHolder) row.getTag();
         }
-        final ImageModel item = (ImageModel) this.data.get(position);
+        final GalleryImageModel item = (GalleryImageModel) this.data.get(position);
 
         Glide.with(context).load(item.getPathFile()).placeholder(R.drawable.piclist_icon_default).into(holder.imageItem);
 

@@ -38,7 +38,7 @@ import com.bumptech.glide.Glide;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.AlbumAdapter;
 import com.limsphere.pe.adapter.ListAlbumAdapter;
-import com.limsphere.pe.model.ImageModel;
+import com.limsphere.pe.model.GalleryImageModel;
 import com.limsphere.pe.myinterface.IHandler;
 import com.limsphere.pe.myinterface.OnAlbum;
 import com.limsphere.pe.myinterface.OnListAlbum;
@@ -58,8 +58,8 @@ public class CustomGalleryActivity extends AppCompatActivity implements
     public static final int PICKER_REQUEST_CODE = 1001;
     private final String TAG = "PickImageActivity";
     AlbumAdapter albumAdapter;
-    ArrayList<ImageModel> dataAlbum = new ArrayList();
-    ArrayList<ImageModel> dataListPhoto = new ArrayList();
+    ArrayList<GalleryImageModel> dataAlbum = new ArrayList();
+    ArrayList<GalleryImageModel> dataListPhoto = new ArrayList();
     GridView gridViewAlbum;
     GridView gridViewListAlbum;
     HorizontalScrollView horizontalScrollView;
@@ -67,7 +67,7 @@ public class CustomGalleryActivity extends AppCompatActivity implements
     int limitImageMax = 15;
     int limitImageMin = 2;
     ListAlbumAdapter listAlbumAdapter;
-    ArrayList<ImageModel> listItemSelect = new ArrayList();
+    ArrayList<GalleryImageModel> listItemSelect = new ArrayList();
     int pWHBtnDelete;
     int pWHItemSelected;
     ArrayList<String> pathList = new ArrayList();
@@ -103,7 +103,7 @@ public class CustomGalleryActivity extends AppCompatActivity implements
                         boolean check = CustomGalleryActivity.this.checkFile(file);
                         if (!CustomGalleryActivity.this.Check(file.getParent(), CustomGalleryActivity.this.pathList) && check) {
                             CustomGalleryActivity.this.pathList.add(file.getParent());
-                            CustomGalleryActivity.this.dataAlbum.add(new ImageModel(file.getParentFile().getName(), pathFile, file.getParent()));
+                            CustomGalleryActivity.this.dataAlbum.add(new GalleryImageModel(file.getParentFile().getName(), pathFile, file.getParent()));
                         }
                     }
                 }
@@ -139,7 +139,7 @@ public class CustomGalleryActivity extends AppCompatActivity implements
                     if (fileTmp.exists()) {
                         boolean check = CustomGalleryActivity.this.checkFile(fileTmp);
                         if (!fileTmp.isDirectory() && check) {
-                            CustomGalleryActivity.this.dataListPhoto.add(new ImageModel(fileTmp.getName(), fileTmp.getAbsolutePath(), fileTmp.getAbsolutePath()));
+                            CustomGalleryActivity.this.dataListPhoto.add(new GalleryImageModel(fileTmp.getName(), fileTmp.getAbsolutePath(), fileTmp.getAbsolutePath()));
                             publishProgress(new Void[0]);
                         }
                     }
@@ -150,9 +150,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
 
         protected void onPostExecute(String result) {
             try {
-                Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<ImageModel>() {
+                Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<GalleryImageModel>() {
                     @Override
-                    public int compare(ImageModel item, ImageModel t1) {
+                    public int compare(GalleryImageModel item, GalleryImageModel t1) {
                         File fileI = new File(item.getPathFolder());
                         File fileJ = new File(t1.getPathFolder());
                         if (fileI.lastModified() > fileJ.lastModified()) {
@@ -226,9 +226,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
         };
 
         try {
-            Collections.sort(this.dataAlbum, new Comparator<ImageModel>() {
+            Collections.sort(this.dataAlbum, new Comparator<GalleryImageModel>() {
                 @Override
-                public int compare(ImageModel lhs, ImageModel rhs) {
+                public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                     return lhs.getName().compareToIgnoreCase(rhs.getName());
                 }
             });
@@ -324,9 +324,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
                 switch (i) {
                     case 0:
                         position = i;
-                        Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<ImageModel>() {
+                        Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<GalleryImageModel>() {
                             @Override
-                            public int compare(ImageModel lhs, ImageModel rhs) {
+                            public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                                 return lhs.getName().compareToIgnoreCase(rhs.getName());
                             }
                         });
@@ -340,9 +340,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
                         break;
                     case 2:
                         position = i;
-                        Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<ImageModel>() {
+                        Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<GalleryImageModel>() {
                             @Override
-                            public int compare(ImageModel lhs, ImageModel rhs) {
+                            public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                                 File fileI = new File(lhs.getPathFolder());
                                 File fileJ = new File(rhs.getPathFolder());
                                 long totalSizeFileI = CustomGalleryActivity.getFolderSize(fileI);
@@ -437,7 +437,7 @@ public class CustomGalleryActivity extends AppCompatActivity implements
     }
 
 
-    void addItemSelect(final ImageModel item) {
+    void addItemSelect(final GalleryImageModel item) {
         item.setId(this.listItemSelect.size());
         this.listItemSelect.add(item);
         updateTxtTotalImage();
@@ -548,10 +548,10 @@ public class CustomGalleryActivity extends AppCompatActivity implements
     }
 
 
-    ArrayList<String> getListString(ArrayList<ImageModel> listItemSelect) {
+    ArrayList<String> getListString(ArrayList<GalleryImageModel> listItemSelect) {
         ArrayList<String> listString = new ArrayList();
         for (int i = 0; i < listItemSelect.size(); i++) {
-            listString.add(((ImageModel) listItemSelect.get(i)).getPathFile());
+            listString.add(((GalleryImageModel) listItemSelect.get(i)).getPathFile());
         }
         return listString;
     }
@@ -617,9 +617,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
 
                 if (position == 0) {
                     try {
-                        Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<ImageModel>() {
+                        Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<GalleryImageModel>() {
                             @Override
-                            public int compare(ImageModel lhs, ImageModel rhs) {
+                            public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                                 return lhs.getName().compareToIgnoreCase(rhs.getName());
                             }
                         });
@@ -628,9 +628,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
 
                     }
                 } else if (position == 1) {
-                    Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<ImageModel>() {
+                    Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<GalleryImageModel>() {
                         @Override
-                        public int compare(ImageModel lhs, ImageModel rhs) {
+                        public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                             File fileI = new File(lhs.getPathFolder());
                             File fileJ = new File(rhs.getPathFolder());
                             long totalSizeFileI = CustomGalleryActivity.getFolderSize(fileI);
@@ -646,9 +646,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
                     });
                 } else if (position == 2) {
                     try {
-                        Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<ImageModel>() {
+                        Collections.sort(CustomGalleryActivity.this.dataListPhoto, new Comparator<GalleryImageModel>() {
                             @Override
-                            public int compare(ImageModel lhs, ImageModel rhs) {
+                            public int compare(GalleryImageModel lhs, GalleryImageModel rhs) {
                                 File fileI = new File(lhs.getPathFolder());
                                 File fileJ = new File(rhs.getPathFolder());
                                 if (fileI.lastModified() > fileJ.lastModified()) {
@@ -686,9 +686,9 @@ public class CustomGalleryActivity extends AppCompatActivity implements
 
             @Override
             protected Void doInBackground(String... strings) {
-                Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<ImageModel>() {
+                Collections.sort(CustomGalleryActivity.this.dataAlbum, new Comparator<GalleryImageModel>() {
                     @Override
-                    public int compare(ImageModel item, ImageModel t1) {
+                    public int compare(GalleryImageModel item, GalleryImageModel t1) {
                         File fileI = new File(item.getPathFolder());
                         File fileJ = new File(t1.getPathFolder());
                         if (fileI.lastModified() > fileJ.lastModified()) {
@@ -713,10 +713,10 @@ public class CustomGalleryActivity extends AppCompatActivity implements
     }
 
     public void OnItemAlbumClick(int position) {
-        showListAlbum(((ImageModel) this.dataAlbum.get(position)).getPathFolder());
+        showListAlbum(((GalleryImageModel) this.dataAlbum.get(position)).getPathFolder());
     }
 
-    public void OnItemListAlbumClick(ImageModel item) {
+    public void OnItemListAlbumClick(GalleryImageModel item) {
         if (this.listItemSelect.size() < limitImageMax) {
             addItemSelect(item);
         } else {

@@ -1,12 +1,14 @@
 package com.limsphere.pe.Activities.managers;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -15,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.BgColorGradientAdapter;
+import com.limsphere.pe.adapter.BgPatternImageAdapter;
 import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
+import com.limsphere.pe.model.BgPatternImageModel;
 import com.limsphere.pe.utils.ColorUtils;
 import com.limsphere.pe.utils.ImageDecoder;
 
@@ -34,26 +38,31 @@ public class BackgroundManager {
     private final LinearLayout bgColorView;
     private final RecyclerView bgColorRecycler;
     private final RecyclerView bgCatRecycler;
+    private final RecyclerView mBgPatternRecyler;
     private final ColorPickerViewParent colorChooser;
 
     private int backgroundColor = Color.BLACK;
     private Bitmap backgroundImage;
     private Uri backgroundUri = null;
+    private BgPatternImageAdapter mPatternImageAdapter;
+    private List<BgPatternImageModel> mPatternImageList;
 
-    public BackgroundManager(Context context, RelativeLayout containerLayout, LinearLayout bgColorView, RecyclerView bgColorRecycler, RecyclerView bgCatRecycler, ColorPickerViewParent colorChooser) {
+    public BackgroundManager(Context context, RelativeLayout containerLayout, LinearLayout bgColorView, RecyclerView bgColorRecycler, RecyclerView bgCatRecycler, RecyclerView pattern_rv, ColorPickerViewParent colorChooser) {
         this.context = context;
         this.containerLayout = containerLayout;
         this.bgColorView = bgColorView;
         this.bgColorRecycler = bgColorRecycler;
         this.bgCatRecycler = bgCatRecycler;
         this.colorChooser = colorChooser;
+        this.mBgPatternRecyler = pattern_rv;
     }
 
-    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener, BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener, BgColorGradientAdapter.OnColorClickListener colorClickListener, BgPatternImageAdapter.OnImageClickListener patternClickListener) {
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         bgCatRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        mBgPatternRecyler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat, R.drawable.bg_color_chooser_cat);
+        List<Integer> categoryImages = Arrays.asList(R.drawable.bg_gallery_cat, R.drawable.bg_solid_cat, R.drawable.bg_gradient_cat, R.drawable.bg_color_chooser_cat, R.drawable.bg_pattern_cat);
 
         CollageBgCategoryAdapter categoryAdapter = new CollageBgCategoryAdapter(context, categoryImages, position -> {
             switch (position) {
@@ -69,6 +78,9 @@ public class BackgroundManager {
                 case 3:
                     loadColorPicker();
                     break;
+                case 4:
+                    loadPatternImages(patternClickListener);
+                    break;
             }
         });
 
@@ -77,21 +89,21 @@ public class BackgroundManager {
     }
 
     private void loadColorPicker() {
-        bgColorView.setVisibility(View.GONE); // Hide color list
-        colorChooser.setVisibility(View.VISIBLE);
+        bgColorView.setVisibility(GONE); // Hide color list
+        colorChooser.setVisibility(VISIBLE);
 
         colorChooser.setOnColorChangedListener(new ColorPickerViewParent.OnColorChangedListener() {
             @Override
             public void onColorChanged(int color) {
                 setSolidColor(color);
                 hideColorPicker();
-                bgColorView.setVisibility(View.VISIBLE);
+                bgColorView.setVisibility(VISIBLE);
             }
 
             @Override
             public void onCrossPressed() {
                 hideColorPicker();
-                bgColorView.setVisibility(View.VISIBLE); // Show color list again
+                bgColorView.setVisibility(VISIBLE); // Show color list again
             }
         });
     }
@@ -103,18 +115,27 @@ public class BackgroundManager {
         containerLayout.setBackground(new BitmapDrawable(context.getResources(), backgroundImage));
     }
 
+    public void setBackgroundBitmap(Bitmap bitmap) {
+        recycleBackgroundImage();
+        backgroundImage = bitmap;
+        containerLayout.setBackground(new BitmapDrawable(context.getResources(), backgroundImage));
+    }
+
     private void loadSolidColors(BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+        bgColorRecycler.setVisibility(VISIBLE);
+        mBgPatternRecyler.setVisibility(GONE);
         List<Object> colorItems = new ArrayList<>(ColorUtils.loadSolidColors(context));
         showColorList(colorItems, colorClickListener);
     }
 
     private void showColorList(List<Object> colorItems, BgColorGradientAdapter.OnColorClickListener colorClickListener) {
         BgColorGradientAdapter adapter = new BgColorGradientAdapter(context, colorItems, colorClickListener);
-
         bgColorRecycler.setAdapter(adapter);
     }
 
     private void loadGradientColors(BgColorGradientAdapter.OnColorClickListener colorClickListener) {
+        bgColorRecycler.setVisibility(VISIBLE);
+        mBgPatternRecyler.setVisibility(GONE);
         List<Object> colorItems = new ArrayList<>(ColorUtils.loadGradientColors(context));
         showColorList(colorItems, colorClickListener);
     }
@@ -145,6 +166,28 @@ public class BackgroundManager {
         return bitmap;
     }
 
+    private void loadPatternImages(BgPatternImageAdapter.OnImageClickListener patternClickListener) {
+        bgColorRecycler.setVisibility(GONE);
+        mBgPatternRecyler.setVisibility(VISIBLE);
+        mPatternImageList = new ArrayList<>();
+
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_1.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_2.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_3.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_4.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_5.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_6.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_7.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_8.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_9.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_10.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_11.jpg"));
+        mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_12.jpg"));
+
+        mPatternImageAdapter = new BgPatternImageAdapter(context, mPatternImageList, patternClickListener);
+        mBgPatternRecyler.setAdapter(mPatternImageAdapter);
+    }
+
     public void recycleBackgroundImage() {
         if (backgroundImage != null && !backgroundImage.isRecycled()) {
             backgroundImage.recycle();
@@ -154,16 +197,16 @@ public class BackgroundManager {
     }
 
     public void hideBackgroundUI() {
-        colorChooser.setVisibility(View.GONE);
-        bgColorView.setVisibility(View.GONE);
+        colorChooser.setVisibility(GONE);
+        bgColorView.setVisibility(GONE);
     }
 
     public void showBackgroundUI() {
-        bgColorView.setVisibility(View.VISIBLE);
+        bgColorView.setVisibility(VISIBLE);
     }
 
     public void hideColorPicker() {
-        colorChooser.setVisibility(View.GONE);
+        colorChooser.setVisibility(GONE);
         colorChooser.setOnColorChangedListener(null); // Remove listener
     }
 

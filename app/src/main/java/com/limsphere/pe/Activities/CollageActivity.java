@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +23,14 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.limsphere.pe.Activities.managers.BackgroundManager;
 import com.limsphere.pe.Activities.managers.StickerManager;
 import com.limsphere.pe.R;
@@ -141,7 +146,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mColorChooser = findViewById(R.id.color_picker_view_parent);
         mBgColorView = findViewById(R.id.collage_bg_ll);
 
-        backgroundManager = new BackgroundManager(this, mContainerLayout, mBgColorView, findViewById(R.id.collage_bg_colors_rv), findViewById(R.id.collage_bg_cat_rv), mColorChooser);
+        backgroundManager = new BackgroundManager(this, mContainerLayout, mBgColorView, findViewById(R.id.collage_bg_colors_rv), findViewById(R.id.collage_bg_cat_rv), findViewById(R.id.collage_bg_pattern), mColorChooser);
         mColorChooser.setVisibility(View.GONE);
 
         backgroundManager.setupBackgroundOptions(this, new BgColorGradientAdapter.OnColorClickListener() {
@@ -154,6 +159,19 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             public void onGradientColorClick(String startColor, String endColor) {
                 backgroundManager.setGradientColor(startColor, endColor);
             }
+        }, (BgPatternImageModel, position) -> {
+            backgroundManager.setBackgroundFromUri(Uri.parse(BgPatternImageModel.getImageUrl()));
+            Glide.with(this).asBitmap().load(BgPatternImageModel.getImageUrl()).into(new CustomTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                    backgroundManager.setBackgroundBitmap(bitmap);
+                }
+
+                @Override
+                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                }
+            });
         });
 
         // Initialize StickerManager

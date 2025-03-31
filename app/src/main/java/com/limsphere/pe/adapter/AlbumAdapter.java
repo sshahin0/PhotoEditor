@@ -13,16 +13,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.limsphere.pe.R;
-import com.limsphere.pe.model.ImageModel;
+import com.limsphere.pe.model.GalleryImageModel;
 import com.limsphere.pe.myinterface.OnAlbum;
 
 import java.io.File;
 import java.util.ArrayList;
 
 
-public class AlbumAdapter extends ArrayAdapter<ImageModel> {
+public class AlbumAdapter extends ArrayAdapter<GalleryImageModel> {
     Context context;
-    ArrayList<ImageModel> data = new ArrayList();
+    ArrayList<GalleryImageModel> data = new ArrayList();
     int layoutResourceId;
     OnAlbum onItem;
 
@@ -36,7 +36,7 @@ public class AlbumAdapter extends ArrayAdapter<ImageModel> {
         }
     }
 
-    public AlbumAdapter(Context context, int layoutResourceId, ArrayList<ImageModel> data) {
+    public AlbumAdapter(Context context, int layoutResourceId, ArrayList<GalleryImageModel> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -57,7 +57,7 @@ public class AlbumAdapter extends ArrayAdapter<ImageModel> {
         } else {
             holder = (RecordHolder) row.getTag();
         }
-        ImageModel item = (ImageModel) this.data.get(position);
+        GalleryImageModel item = (GalleryImageModel) this.data.get(position);
         holder.txtTitle.setText(item.getName());
         Glide.with(this.context).load(new File(item.getPathFile())).placeholder(R.drawable.piclist_icon_default).into(holder.imageItem);
         File dir = new File(item.getPathFolder());
