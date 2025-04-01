@@ -35,6 +35,7 @@ import com.limsphere.pe.Activities.managers.BackgroundManager;
 import com.limsphere.pe.Activities.managers.StickerManager;
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.BgColorGradientAdapter;
+import com.limsphere.pe.adapter.BgPatternAdapter;
 import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
@@ -150,16 +151,33 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mColorChooser.setVisibility(View.GONE);
 
         backgroundManager.setupBackgroundOptions(this, new BgColorGradientAdapter.OnColorClickListener() {
-            @Override
-            public void onSolidColorClick(String colorCode) {
-                backgroundManager.setSolidColor(Color.parseColor(colorCode));
-            }
+                    @Override
+                    public void onSolidColorClick(String colorCode) {
+                        backgroundManager.setSolidColor(Color.parseColor(colorCode));
+                    }
 
-            @Override
-            public void onGradientColorClick(String startColor, String endColor) {
-                backgroundManager.setGradientColor(startColor, endColor);
-            }
-        }, (BgPatternImageModel, position) -> {
+                    @Override
+                    public void onGradientColorClick(String startColor, String endColor) {
+                        backgroundManager.setGradientColor(startColor, endColor);
+                    }
+                }, new BgPatternAdapter.OnPatternClickListener() {
+                    @Override
+                    public void onPatternClick(String url) {
+                        Glide.with(CollageActivity.this).asBitmap().load(url).into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                                backgroundManager.setBackgroundBitmap(bitmap);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        });
+                    }
+                }
+
+                /*(BgPatternImageModel, position) -> {
             backgroundManager.setBackgroundFromUri(Uri.parse(BgPatternImageModel.getImageUrl()));
             Glide.with(this).asBitmap().load(BgPatternImageModel.getImageUrl()).into(new CustomTarget<Bitmap>() {
                 @Override
@@ -172,7 +190,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
                 }
             });
-        });
+        }*/);
 
         // Initialize StickerManager
         stickerManager = new StickerManager(this);

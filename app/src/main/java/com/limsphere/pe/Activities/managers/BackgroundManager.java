@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.limsphere.pe.R;
 import com.limsphere.pe.adapter.BgColorGradientAdapter;
-import com.limsphere.pe.adapter.BgPatternImageAdapter;
 import com.limsphere.pe.adapter.CollageBgCategoryAdapter;
+import com.limsphere.pe.adapter.BgPatternAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.model.BgPatternImageModel;
 import com.limsphere.pe.utils.ColorUtils;
@@ -44,7 +44,7 @@ public class BackgroundManager {
     private int backgroundColor = Color.BLACK;
     private Bitmap backgroundImage;
     private Uri backgroundUri = null;
-    private BgPatternImageAdapter mPatternImageAdapter;
+    private BgPatternAdapter mPatternImageAdapter;
     private List<BgPatternImageModel> mPatternImageList;
 
     public BackgroundManager(Context context, RelativeLayout containerLayout, LinearLayout bgColorView, RecyclerView bgColorRecycler, RecyclerView bgCatRecycler, RecyclerView pattern_rv, ColorPickerViewParent colorChooser) {
@@ -57,7 +57,7 @@ public class BackgroundManager {
         this.mBgPatternRecyler = pattern_rv;
     }
 
-    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener, BgColorGradientAdapter.OnColorClickListener colorClickListener, BgPatternImageAdapter.OnImageClickListener patternClickListener) {
+    public void setupBackgroundOptions(BackgroundGalleryListener galleryListener, BgColorGradientAdapter.OnColorClickListener colorClickListener, BgPatternAdapter.OnPatternClickListener patternClickListener) {
         bgColorRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         bgCatRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         mBgPatternRecyler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -166,7 +166,7 @@ public class BackgroundManager {
         return bitmap;
     }
 
-    private void loadPatternImages(BgPatternImageAdapter.OnImageClickListener patternClickListener) {
+    private void loadPatternImages(BgPatternAdapter.OnPatternClickListener patternClickListener) {
         bgColorRecycler.setVisibility(GONE);
         mBgPatternRecyler.setVisibility(VISIBLE);
         mPatternImageList = new ArrayList<>();
@@ -184,7 +184,7 @@ public class BackgroundManager {
         mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_11.jpg"));
         mPatternImageList.add(new BgPatternImageModel("https://raw.githubusercontent.com/sshahin0/pe-storage/refs/heads/main/PatternImages/pattern_12.jpg"));
 
-        mPatternImageAdapter = new BgPatternImageAdapter(context, mPatternImageList, patternClickListener);
+        mPatternImageAdapter = new BgPatternAdapter(mPatternImageList, patternClickListener);
         mBgPatternRecyler.setAdapter(mPatternImageAdapter);
     }
 

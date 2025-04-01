@@ -260,7 +260,9 @@
                 android:id="@+id/collage_bg_pattern"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_8sdp" />
 
             <!-- Category RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
