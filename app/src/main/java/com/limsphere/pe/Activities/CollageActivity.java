@@ -1,5 +1,6 @@
 package com.limsphere.pe.Activities;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.content.Intent;
@@ -68,7 +69,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     private FramePhotoLayout mFramePhotoLayout;
     private LinearLayout mSpaceLayout;
     private LinearLayout mMainMenuLayout;
-    private SeekBar mSpaceBar, mCornerBar, zoomSeekBar;
+    private SeekBar mSpaceBar, mCornerBar, mZoomSeekBar;
 
     // State management
     private Bundle mSavedInstanceState;
@@ -129,7 +130,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     private void initializeViews() {
         mSpaceBar = findViewById(R.id.spaceBar);
         mCornerBar = findViewById(R.id.cornerBar);
-        zoomSeekBar = findViewById(R.id.zoomSeekBar);
+        mZoomSeekBar = findViewById(R.id.zoomSeekBar);
         back = findViewById(R.id.btnBack);
         save = findViewById(R.id.save);
         mRatioRecycleView = findViewById(R.id.ratio_recycle_View);
@@ -148,7 +149,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mBgColorView = findViewById(R.id.collage_bg_ll);
 
         backgroundManager = new BackgroundManager(this, mContainerLayout, mBgColorView, findViewById(R.id.collage_bg_colors_rv), findViewById(R.id.collage_bg_cat_rv), findViewById(R.id.collage_bg_pattern), mColorChooser);
-        mColorChooser.setVisibility(View.GONE);
+        mColorChooser.setVisibility(GONE);
 
         backgroundManager.setupBackgroundOptions(this, new BgColorGradientAdapter.OnColorClickListener() {
                     @Override
@@ -214,7 +215,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             }
         });
 
-        zoomSeekBar.setOnSeekBarChangeListener(new SimpleSeekBarChangeListener() {
+        mZoomSeekBar.setOnSeekBarChangeListener(new SimpleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
@@ -297,7 +298,8 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
         mLayoutHeaders.setVisibility(VISIBLE);
         mRatioRecycleView.setVisibility(VISIBLE);
-        mTemplateView.setVisibility(View.GONE);
+        mTemplateView.setVisibility(GONE);
+        mSpaceLayout.setVisibility(GONE);
 
         setupRatioRecyclerView();
     }
@@ -367,11 +369,11 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     }
 
     private void hideControls() {
-        mTemplateView.setVisibility(View.GONE);
+        mTemplateView.setVisibility(GONE);
         backgroundManager.hideBackgroundUI();
-        mSpaceLayout.setVisibility(View.GONE);
-        mRatioRecycleView.setVisibility(View.GONE);
-        mLayoutHeaders.setVisibility(View.GONE);
+        mSpaceLayout.setVisibility(GONE);
+        mRatioRecycleView.setVisibility(GONE);
+        mLayoutHeaders.setVisibility(GONE);
         mMainMenuLayout.setVisibility(VISIBLE);
         stickerManager.hideStickerUI();
     }
