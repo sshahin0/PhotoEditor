@@ -120,8 +120,8 @@ public class BaseFragment extends Fragment {
 
     public void pickMultipleImageFromGallery() {
         if (!already()) return;
-        customGalleryPicker.setLimits(MAX_NEEDED_PHOTOS, 1);
-        customGalleryPicker.launch();
+        customGalleryPicker.setLimits(1, 1);
+        customGalleryPicker.launchSingle();
     }
 
     public void addTextItem() {
