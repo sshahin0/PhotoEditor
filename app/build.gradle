@@ -17,7 +17,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
     defaultConfig {
         applicationId "com.limsphere.pe"
 
@@ -27,7 +27,7 @@ android {
                 onesignal_google_project_number: 'REMOTE'
         ]
 
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "0.0.2"
@@ -44,6 +44,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.limsphere.pe'
 }
 
 dependencies {
@@ -69,7 +70,7 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 
     /*admob*/
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.google.android.gms:play-services-ads:24.1.0'
 
     // FB + Applovin/MAX ads
     implementation 'com.applovin:applovin-sdk:13.1.0'
