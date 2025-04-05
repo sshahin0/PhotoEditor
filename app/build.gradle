@@ -72,7 +72,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:20.4.0'
 
     // FB + Applovin/MAX ads
-    implementation 'com.applovin:applovin-sdk:11.0.0'
+    implementation 'com.applovin:applovin-sdk:13.1.0'
     //implementation 'com.applovin.mediation:facebook-adapter:+'
     implementation 'com.applovin.mediation:unityads-adapter:+'
     implementation 'com.google.android.material:material:1.9.0'
