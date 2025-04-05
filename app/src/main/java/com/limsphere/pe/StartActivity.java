@@ -53,11 +53,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private int imageWidth, imageHeight;
     private boolean doubleBackToExitPressedOnce = false;
     private PopupWindow mPopupWindow;
+    private int currentRequest = -1;
 
-    String[] permissions = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
+
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     ImageView menuBtn;
     LinearLayout clgMakerBtn;
@@ -156,11 +155,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View customView = inflater.inflate(R.layout.custom_popup, null);
 
-        mPopupWindow = new PopupWindow(
-                customView,
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
+        mPopupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         if (Build.VERSION.SDK_INT >= 21) {
             mPopupWindow.setElevation(5.0f);
@@ -188,9 +183,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         TextView moreTxt = customView.findViewById(R.id.moreTxt);
         moreTxt.setOnClickListener(v -> {
             mPopupWindow.dismiss();
-            startActivity(new Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/dev?id=7081479513420377164&hl=en")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7081479513420377164&hl=en")));
         });
 
         TextView privacyTxt = customView.findViewById(R.id.privacyTxt);
@@ -219,23 +212,31 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
+            currentRequest = ACTION_REQUEST_EDITIMAGE; // <-- Track request
             customGalleryPicker.setLimits(1, 1);
             customGalleryPicker.launch();
         }
     }
 
+
     private void handleGalleryResult(ArrayList<String> filePaths) {
         if (filePaths == null || filePaths.isEmpty()) return;
 
-        fileName = DateTimeUtils.getCurrentDateTime().replaceAll(":", "-").concat(".png");
-        File collageFolder = new File(ImageUtils.OUTPUT_COLLAGE_FOLDER);
-        if (!collageFolder.exists()) {
-            collageFolder.mkdirs();
+        if (currentRequest == shapeRequest) {
+            // Start Shape Editor
+            loadImage(filePaths.get(0)); // Load the image and go to BodyShapeEditor
+        } else if (currentRequest == ACTION_REQUEST_EDITIMAGE) {
+            // Start Photo Editor
+            fileName = DateTimeUtils.getCurrentDateTime().replaceAll(":", "-").concat(".png");
+            File collageFolder = new File(ImageUtils.OUTPUT_COLLAGE_FOLDER);
+            if (!collageFolder.exists()) {
+                collageFolder.mkdirs();
+            }
+            File outputFile = new File(collageFolder, fileName);
+            EditImageActivity.start(this, filePaths.get(0), outputFile.getAbsolutePath(), ACTION_REQUEST_EDITIMAGE);
         }
-        File outputFile = new File(collageFolder, fileName);
-
-        EditImageActivity.start(this, filePaths.get(0), outputFile.getAbsolutePath(), ACTION_REQUEST_EDITIMAGE);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -318,10 +319,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
+            currentRequest = shapeRequest; // <-- Track request
             customGalleryPicker.setLimits(1, 1);
             customGalleryPicker.launch();
         }
     }
+
 
     public void scrapBook() {
         if (hasPermissions(permissions)) {
