@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -42,6 +41,8 @@ import com.xinlan.imageeditlibrary.editimage.utils.BitmapUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     int perRequest = 1;
@@ -49,12 +50,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private int ACTION_REQUEST_EDITIMAGE = 9;
     private int shapeRequest = 101;
     private String fileName;
-    private LoadImageTask mLoadImageTask;
     private int imageWidth, imageHeight;
     private boolean doubleBackToExitPressedOnce = false;
-    private PopupWindow mPopupWindow;
     private int currentRequest = -1;
 
+    private PopupWindow mPopupWindow;
 
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -189,7 +189,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         TextView privacyTxt = customView.findViewById(R.id.privacyTxt);
         privacyTxt.setOnClickListener(v -> {
             mPopupWindow.dismiss();
-            startActivityes(new Intent(StartActivity.this, PrivacyActivity.class), 0);
+            startActivity(new Intent(StartActivity.this, PrivacyActivity.class));
         });
 
         mPopupWindow.setOutsideTouchable(true);
@@ -214,10 +214,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             currentRequest = ACTION_REQUEST_EDITIMAGE; // <-- Track request
             customGalleryPicker.setLimits(1, 1);
-            customGalleryPicker.launch();
+            customGalleryPicker.launchSingle();
         }
     }
-
 
     private void handleGalleryResult(ArrayList<String> filePaths) {
         if (filePaths == null || filePaths.isEmpty()) return;
@@ -238,61 +237,27 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTION_REQUEST_EDITIMAGE && resultCode == RESULT_OK) {
-            handleEditorImage(data);
-        }
-    }
-
     public void loadImage(String filepath) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         imageWidth = metrics.widthPixels / 2;
         imageHeight = metrics.heightPixels / 2;
-        if (mLoadImageTask != null) {
-            mLoadImageTask.cancel(true);
-        }
-        mLoadImageTask = new LoadImageTask();
-        mLoadImageTask.execute(filepath);
-    }
 
-    private final class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
-        Dialog dialog;
+        Dialog dialog = ProgressDialog.show(StartActivity.this, getString(R.string.app_name), "Loading...");
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = ProgressDialog.show(StartActivity.this, getString(R.string.app_name), "Loading...");
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            return BitmapUtils.getSampledBitmap(params[0], imageWidth, imageHeight);
-        }
+        executor.execute(() -> {
+            // Background work
+            Bitmap bitmap = BitmapUtils.getSampledBitmap(filepath, imageWidth, imageHeight);
 
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            dialog.dismiss();
-            Utils.mBitmap = result;
-            startActivityes(new Intent(StartActivity.this, BodyShapeEditor.class), 0);
-        }
-    }
-
-    private void handleEditorImage(Intent data) {
-        String newFilePath = data.getStringExtra(EditImageActivity.EXTRA_OUTPUT);
-        Utils.mediaScanner(StartActivity.this, ImageUtils.OUTPUT_COLLAGE_FOLDER + "/", fileName);
-        Intent intent = new Intent(StartActivity.this, ShareActivity.class);
-        intent.putExtra("path", newFilePath);
-        intent.putExtra("isCreation", false);
-        if (!AdManager.isloadMAX) {
-            AdManager.adCounter = 5;
-            AdManager.showInterAd(StartActivity.this, intent, 0);
-        } else {
-            AdManager.adCounter = 5;
-            AdManager.showMaxInterstitial(StartActivity.this, intent, 0);
-        }
-        Toast.makeText(StartActivity.this, "Saved Successfully...", Toast.LENGTH_LONG).show();
+            handler.post(() -> {
+                // UI thread
+                dialog.dismiss();
+                Utils.mBitmap = bitmap;
+                startActivity(new Intent(StartActivity.this, BodyShapeEditor.class));
+            });
+        });
     }
 
     public void collageMaker() {
@@ -301,7 +266,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Intent intent = new Intent(StartActivity.this, ThumbListActivity.class);
             intent.putExtra(ThumbListActivity.EXTRA_IS_FRAME_IMAGE, true);
-            startActivityes(intent, 0);
+            startActivity(intent);
         }
     }
 
@@ -311,7 +276,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Intent intent = new Intent(StartActivity.this, ThumbListActivity.class);
             intent.putExtra(ScrapBookActivity.EXTRA_CREATED_METHOD_TYPE, ScrapBookActivity.FRAME_TYPE);
-            startActivityes(intent, 0);
+            startActivity(intent);
         }
     }
 
@@ -321,7 +286,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             currentRequest = shapeRequest; // <-- Track request
             customGalleryPicker.setLimits(1, 1);
-            customGalleryPicker.launch();
+            customGalleryPicker.launchSingle();
         }
     }
 
@@ -332,7 +297,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Intent intent = new Intent(StartActivity.this, ScrapBookActivity.class);
             intent.putExtra(ScrapBookActivity.EXTRA_CREATED_METHOD_TYPE, ScrapBookActivity.PHOTO_TYPE);
-            startActivityes(intent, 0);
+            startActivity(intent);
         }
     }
 
@@ -341,17 +306,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
             Intent intent = new Intent(StartActivity.this, CreationActivity.class);
-            startActivityes(intent, 0);
-        }
-    }
-
-    void startActivityes(Intent intent, int requestCode) {
-        if (!AdManager.isloadMAX) {
-            AdManager.adCounter++;
-            AdManager.showInterAd(StartActivity.this, intent, requestCode);
-        } else {
-            AdManager.adCounter++;
-            AdManager.showMaxInterstitial(StartActivity.this, intent, requestCode);
+            startActivity(intent);
         }
     }
 
