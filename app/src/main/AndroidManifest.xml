@@ -76,12 +76,6 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name="com.limsphere.pe.gallery.CustomGalleryActivity"
-            android:screenOrientation="nosensor"
-            android:exported="false"
-            android:launchMode="singleTask"/>
-
-        <activity
             android:name="com.limsphere.pe.Activities.ScrapBookActivity"
             android:screenOrientation="nosensor"
             android:exported="false"
