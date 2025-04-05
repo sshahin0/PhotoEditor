@@ -2,13 +2,14 @@ package com.limsphere.pe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.limsphere.pe.R;
-import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.adapter.TemplateAdapter;
 import com.limsphere.pe.adapter.TemplateViewHolder;
 import com.limsphere.pe.model.TemplateItem;
@@ -16,6 +17,7 @@ import com.limsphere.pe.quickaction.QuickAction;
 import com.limsphere.pe.quickaction.QuickActionItem;
 import com.limsphere.pe.template.PhotoItem;
 import com.limsphere.pe.utils.AdManager;
+import com.limsphere.pe.utils.CustomGalleryPicker;
 import com.limsphere.pe.utils.TemplateImageUtils;
 import com.limsphere.pe.utils.collagelayout.FrameImageUtils;
 import com.tonicartos.superslim.LayoutManager;
@@ -52,27 +54,22 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
     public static final String EXTRA_SELECTED_TEMPLATE_INDEX = "selectedTemplateIndex";
     public static final String EXTRA_IS_FRAME_IMAGE = "frameImage";
 
-    private static final int REQUEST_SELECT_PHOTO = 1001;
-
-
     private ViewHolder mViews;
-
     private TemplateAdapter mAdapter;
-
     private int mHeaderDisplay;
-
     private boolean mAreMarginsFixed;
+    private CustomGalleryPicker customGalleryPicker;
 
     //Template views
     private ArrayList<TemplateItem> mTemplateItemList = new ArrayList<TemplateItem>();
     private ArrayList<TemplateItem> mAllTemplateItemList = new ArrayList<TemplateItem>();
     private boolean mFrameImages = false;
+
     //Frame filter Quick Action
     private QuickAction mQuickAction;
     private TextView mFilterView;
     private int mImageInTemplateCount = 0;
     private int mSelectedTemplateIndex = 0;
-
     private ImageView back;
 
     @Override
@@ -80,12 +77,25 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thumb_list);
 
-
         mHeaderDisplay = getResources().getInteger(R.integer.default_header_display);
         mAreMarginsFixed = getResources().getBoolean(R.bool.default_margins_fixed);
 
         mViews = new ViewHolder((RecyclerView) findViewById(R.id.recycler_view));
         mViews.initViews(new LayoutManager(this));
+
+        // Initialize gallery picker
+        customGalleryPicker = new CustomGalleryPicker(this, new CustomGalleryPicker.GalleryResultCallback() {
+            @Override
+            public void onGalleryResult(ArrayList<String> filePaths) {
+                handleGalleryResult(filePaths);
+            }
+
+            @Override
+            public void onGalleryCanceled() {
+                Toast.makeText(ThumbListActivity.this, "Image selection canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //show templates
         mFrameImages = getIntent().getBooleanExtra(EXTRA_IS_FRAME_IMAGE, false);
         if (mFrameImages) {
@@ -93,31 +103,22 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
         } else {
             loadFrameImages(true);
         }
+
         mAdapter = new TemplateAdapter(this, mHeaderDisplay, mTemplateItemList, this, mFrameImages);
         mAdapter.setMarginsFixed(mAreMarginsFixed);
         mAdapter.setHeaderDisplay(mHeaderDisplay);
         mViews.setAdapter(mAdapter);
+
         //Frame count filter
         createFilterQuickAction();
 
         back = findViewById(R.id.btnBack);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        back.setOnClickListener(v -> onBackPressed());
 
         mFilterView = findViewById(R.id.frameCountView);
-        mFilterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mQuickAction.show(mFilterView);
-            }
-        });
+        mFilterView.setOnClickListener(v -> mQuickAction.show(mFilterView));
 
         LinearLayout adContainer = findViewById(R.id.banner_container);
-
         if (!AdManager.isloadMAX) {
             //admob
             AdManager.initAd(ThumbListActivity.this);
@@ -131,6 +132,49 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
         }
     }
 
+    private void handleGalleryResult(ArrayList<String> filePaths) {
+        try {
+            final TemplateItem selectedTemplateItem = mTemplateItemList.get(mSelectedTemplateIndex);
+            int itemSize = selectedTemplateItem.getPhotoItemList().size();
+            int size = Math.min(itemSize, filePaths.size());
+
+            for (int idx = 0; idx < size; idx++) {
+                selectedTemplateItem.getPhotoItemList().get(idx).imagePath = filePaths.get(idx);
+            }
+
+            Intent intent = null;
+            if (mFrameImages) {
+                intent = new Intent(this, CollageActivity.class);
+            } else {
+                intent = new Intent(this, PIPActivity.class);
+            }
+
+            intent.putExtra(EXTRA_IMAGE_IN_TEMPLATE_COUNT, selectedTemplateItem.getPhotoItemList().size());
+            intent.putExtra(EXTRA_IS_FRAME_IMAGE, mFrameImages);
+
+            if (mImageInTemplateCount == 0) {
+                ArrayList<TemplateItem> tmp = new ArrayList<>();
+                for (TemplateItem item : mTemplateItemList)
+                    if (item.getPhotoItemList().size() == selectedTemplateItem.getPhotoItemList().size()) {
+                        tmp.add(item);
+                    }
+                intent.putExtra(EXTRA_SELECTED_TEMPLATE_INDEX, tmp.indexOf(selectedTemplateItem));
+            } else {
+                intent.putExtra(EXTRA_SELECTED_TEMPLATE_INDEX, mSelectedTemplateIndex);
+            }
+
+            ArrayList<String> imagePaths = new ArrayList<>();
+            for (PhotoItem item : selectedTemplateItem.getPhotoItemList()) {
+                if (item.imagePath == null) item.imagePath = "";
+                imagePaths.add(item.imagePath);
+            }
+            intent.putExtra(EXTRA_IMAGE_PATHS, imagePaths);
+
+            startActivityes(intent, 0);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private void loadFrameImages(boolean template) {
         mAllTemplateItemList.clear();
@@ -192,12 +236,11 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
             }
         });
 
-        //set listnener for on dismiss event, this listener will be called only if QuickAction dialog was dismissed
-        //by clicking the area outside the dialog.
+        //set listener for on dismiss event
         mQuickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
             @Override
             public void onDismiss() {
-                    //for dismiss
+                //for dismiss
             }
         });
     }
@@ -205,56 +248,8 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
     @Override
     public void onTemplateItemClick(TemplateItem templateItem) {
         mSelectedTemplateIndex = mTemplateItemList.indexOf(templateItem);
-
-        Intent mIntent = new Intent(this, CustomGalleryActivity.class);
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MAX_IMAGE, templateItem.getPhotoItemList().size());
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MIN_IMAGE, templateItem.getPhotoItemList().size());
-        startActivityes(mIntent, CustomGalleryActivity.PICKER_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            try {
-                ArrayList<String> mSelectedImages = data.getStringArrayListExtra("result");
-                final TemplateItem selectedTemplateItem = mTemplateItemList.get(mSelectedTemplateIndex);
-                int itemSize = selectedTemplateItem.getPhotoItemList().size();
-                int size = Math.min(itemSize, mSelectedImages.size());
-                for (int idx = 0; idx < size; idx++) {
-                    selectedTemplateItem.getPhotoItemList().get(idx).imagePath = mSelectedImages.get(idx);
-                }
-                Intent intent = null;
-                if (mFrameImages) {
-                    intent = new Intent(this, CollageActivity.class);
-                } else {
-                    intent = new Intent(this, PIPActivity.class);
-                }
-
-                intent.putExtra(EXTRA_IMAGE_IN_TEMPLATE_COUNT, selectedTemplateItem.getPhotoItemList().size());
-                intent.putExtra(EXTRA_IS_FRAME_IMAGE, mFrameImages);
-                if (mImageInTemplateCount == 0) {
-                    ArrayList<TemplateItem> tmp = new ArrayList<>();
-                    for (TemplateItem item : mTemplateItemList)
-                        if (item.getPhotoItemList().size() == selectedTemplateItem.getPhotoItemList().size()) {
-                            tmp.add(item);
-                        }
-                    intent.putExtra(EXTRA_SELECTED_TEMPLATE_INDEX, tmp.indexOf(selectedTemplateItem));
-                } else {
-                    intent.putExtra(EXTRA_SELECTED_TEMPLATE_INDEX, mSelectedTemplateIndex);
-                }
-                ArrayList<String> imagePaths = new ArrayList<>();
-                for (PhotoItem item : selectedTemplateItem.getPhotoItemList()) {
-                    if (item.imagePath == null) item.imagePath = "";
-                    imagePaths.add(item.imagePath);
-                }
-                intent.putExtra(EXTRA_IMAGE_PATHS, imagePaths);
-
-                startActivityes(intent,0);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
+        customGalleryPicker.setLimits(templateItem.getPhotoItemList().size(), templateItem.getPhotoItemList().size());
+        customGalleryPicker.launch();
     }
 
     void startActivityes(Intent intent, int requestCode) {

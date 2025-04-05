@@ -7,18 +7,18 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.limsphere.pe.R;
-import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.Activities.AddTextItemActivity;
-
+import com.limsphere.pe.R;
+import com.limsphere.pe.utils.CustomGalleryPicker;
 
 import java.io.File;
 import java.util.ArrayList;
-
 
 public class BaseFragment extends Fragment {
     protected static final int REQUEST_ADD_TEXT_ITEM = 1000;
@@ -36,15 +36,38 @@ public class BaseFragment extends Fragment {
     protected static final int BACKGROUND_ITEM = 0;
     protected static final int STICKER_ITEM = 1;
     protected static final int NORMAL_IMAGE_ITEM = 2;
+
     protected Activity mActivity;
     private String mTitle = null;
-
+    private CustomGalleryPicker customGalleryPicker;
+    private ActivityResultLauncher<Intent> galleryLauncher;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = activity;
         setTitle();
+
+        // Initialize gallery picker
+        customGalleryPicker = new CustomGalleryPicker((AppCompatActivity) mActivity, new CustomGalleryPicker.GalleryResultCallback() {
+            @Override
+            public void onGalleryResult(ArrayList<String> filePaths) {
+                if (filePaths != null && filePaths.size() > 0) {
+                    final int len = filePaths.size();
+                    Uri[] result = new Uri[len];
+                    for (int idx = 0; idx < len; idx++) {
+                        Uri uri = Uri.fromFile(new File(filePaths.get(idx)));
+                        result[idx] = uri;
+                    }
+                    resultPickMultipleImages(result);
+                }
+            }
+
+            @Override
+            public void onGalleryCanceled() {
+                Toast.makeText(activity, "Image selection canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -93,38 +116,26 @@ public class BaseFragment extends Fragment {
         if (!already()) {
             return;
         }
-
     }
-
 
     public void pickMultipleImageFromGallery() {
-        Intent mIntent = new Intent(getActivity(), CustomGalleryActivity.class);
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MAX_IMAGE, MAX_NEEDED_PHOTOS);
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MIN_IMAGE, 1);
-        startActivityForResult(mIntent, CustomGalleryActivity.PICKER_REQUEST_CODE);
+        if (!already()) return;
+        customGalleryPicker.setLimits(MAX_NEEDED_PHOTOS, 1);
+        customGalleryPicker.launch();
     }
-
-
 
     public void addTextItem() {
         if (!already()) {
             return;
         }
-
         Intent intent = new Intent(getActivity(), AddTextItemActivity.class);
         startActivityForResult(intent, REQUEST_ADD_TEXT_ITEM);
     }
 
-
-
-
     protected Uri getImageUri() {
         // Store image in dcim
-        File file = new File(Environment.getExternalStorageDirectory()
-                + "/DCIM", CAPTURE_TITLE);
-        Uri imgUri = Uri.fromFile(file);
-
-        return imgUri;
+        File file = new File(Environment.getExternalStorageDirectory() + "/DCIM", CAPTURE_TITLE);
+        return Uri.fromFile(file);
     }
 
     @Override
@@ -150,26 +161,12 @@ public class BaseFragment extends Fragment {
                     }
                     break;
                 case PICK_BACKGROUND_REQUEST_CODE:
-
                     break;
                 case REQUEST_EDIT_IMAGE:
                     uri = data.getData();
-//                    resultEditImage(uri);
+                    // resultEditImage(uri);
                     break;
                 case PICK_STICKER_REQUEST_CODE:
-                    break;
-                case PICK_MULTIPLE_IMAGE_REQUEST_CODE:
-                    ArrayList<String> allPaths = data.getStringArrayListExtra("result");
-                    if (allPaths != null && allPaths.size() > 0) {
-                        final int len = allPaths.size();
-                        Uri[] result = new Uri[len];
-                        for (int idx = 0; idx < len; idx++) {
-                            uri = Uri.fromFile(new File(allPaths.get(idx)));
-                            result[idx] = uri;
-                        }
-
-                        resultPickMultipleImages(result);
-                    }
                     break;
                 case REQUEST_EDIT_TEXT_ITEM:
                     break;
@@ -180,41 +177,31 @@ public class BaseFragment extends Fragment {
                     resultAddTextItem(text, color, fontPath);
                     break;
             }
-
         }
     }
 
-
     protected void resultFromPhotoEditor(Uri image) {
-
     }
 
     protected void resultSticker(Uri uri) {
-
     }
 
     protected void resultStickers(Uri[] uri) {
-
     }
 
     protected void resultBackground(Uri uri) {
-
     }
 
     protected void resultEditImage(Uri uri) {
-
     }
 
     protected void resultAddTextItem(String text, int color, String fontPath) {
-
     }
 
     public void resultPickMultipleImages(Uri[] uri) {
-
     }
 
     public boolean already() {
         return (isAdded() && getActivity() != null);
     }
-
 }

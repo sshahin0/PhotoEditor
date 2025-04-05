@@ -3,7 +3,6 @@ package com.limsphere.pe.Activities;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -41,10 +41,9 @@ import com.limsphere.pe.adapter.RatioAdapter;
 import com.limsphere.pe.colorpicker.ColorPickerViewParent;
 import com.limsphere.pe.frame.FrameImageView;
 import com.limsphere.pe.frame.FramePhotoLayout;
-import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.model.RatioItem;
 import com.limsphere.pe.model.TemplateItem;
-import com.limsphere.pe.utils.AdManager;
+import com.limsphere.pe.utils.CustomGalleryPicker;
 import com.limsphere.pe.utils.FileUtils;
 import com.limsphere.pe.utils.ImageUtils;
 
@@ -53,11 +52,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollageActivity extends BaseTemplateDetailActivity implements FramePhotoLayout.OnQuickActionClickListener, RatioAdapter.OnItemClickListener, BackgroundManager.BackgroundGalleryListener {
-
-    // Constants
-    private static final int REQUEST_SELECT_PHOTO = 1001;
-    private static final float MAX_SPACE_PROGRESS = 300.0f;
-    private static final float MAX_CORNER_PROGRESS = 200.0f;
 
     // Layout dimensions
     private float MAX_SPACE;
@@ -73,6 +67,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
 
     // State management
     private Bundle mSavedInstanceState;
+    private CustomGalleryPicker customGalleryPicker;
 
     // UI Views
     private ImageView back, save;
@@ -107,6 +102,22 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         restoreInstanceState(savedInstanceState);
         initializeViews();
         setupManagers();
+
+        // Initialize gallery picker
+        customGalleryPicker = new CustomGalleryPicker(this, new CustomGalleryPicker.GalleryResultCallback() {
+            @Override
+            public void onGalleryResult(ArrayList<String> filePaths) {
+                if (mSelectedFrameImageView != null && filePaths != null && !filePaths.isEmpty()) {
+                    mSelectedFrameImageView.setImagePath(filePaths.get(0));
+                }
+            }
+
+            @Override
+            public void onGalleryCanceled() {
+                Toast.makeText(CollageActivity.this, "Image selection canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         setupSeekBars();
         setupButtons();
         showLayoutUI();
@@ -152,46 +163,30 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mColorChooser.setVisibility(GONE);
 
         backgroundManager.setupBackgroundOptions(this, new BgColorGradientAdapter.OnColorClickListener() {
+            @Override
+            public void onSolidColorClick(String colorCode) {
+                backgroundManager.setSolidColor(Color.parseColor(colorCode));
+            }
+
+            @Override
+            public void onGradientColorClick(String startColor, String endColor) {
+                backgroundManager.setGradientColor(startColor, endColor);
+            }
+        }, new BgPatternAdapter.OnPatternClickListener() {
+            @Override
+            public void onPatternClick(String url) {
+                Glide.with(CollageActivity.this).asBitmap().load(url).into(new CustomTarget<Bitmap>() {
                     @Override
-                    public void onSolidColorClick(String colorCode) {
-                        backgroundManager.setSolidColor(Color.parseColor(colorCode));
+                    public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                        backgroundManager.setBackgroundBitmap(bitmap);
                     }
 
                     @Override
-                    public void onGradientColorClick(String startColor, String endColor) {
-                        backgroundManager.setGradientColor(startColor, endColor);
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
                     }
-                }, new BgPatternAdapter.OnPatternClickListener() {
-                    @Override
-                    public void onPatternClick(String url) {
-                        Glide.with(CollageActivity.this).asBitmap().load(url).into(new CustomTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-                                backgroundManager.setBackgroundBitmap(bitmap);
-                            }
-
-                            @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                            }
-                        });
-                    }
-                }
-
-                /*(BgPatternImageModel, position) -> {
-            backgroundManager.setBackgroundFromUri(Uri.parse(BgPatternImageModel.getImageUrl()));
-            Glide.with(this).asBitmap().load(BgPatternImageModel.getImageUrl()).into(new CustomTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
-                    backgroundManager.setBackgroundBitmap(bitmap);
-                }
-
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                }
-            });
-        }*/);
+                });
+            }
+        });
 
         // Initialize StickerManager
         stickerManager = new StickerManager(this);
@@ -202,7 +197,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mSpaceBar.setOnSeekBarChangeListener(new SimpleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mSpace = MAX_SPACE * progress / MAX_SPACE_PROGRESS;
+                mSpace = MAX_SPACE * progress / 300.0f;
                 updateFrameLayoutSpacing();
             }
         });
@@ -210,7 +205,7 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mCornerBar.setOnSeekBarChangeListener(new SimpleSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mCorner = MAX_CORNER * progress / MAX_CORNER_PROGRESS;
+                mCorner = MAX_CORNER * progress / 200.0f;
                 updateFrameLayoutSpacing();
             }
         });
@@ -241,7 +236,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         textBtn.setOnClickListener(v -> showTextUI());
     }
 
-    // Implement BackgroundGalleryListener
     @Override
     public void onGalleryRequested() {
         mPickMediaLauncher.launch(new androidx.activity.result.PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
@@ -279,8 +273,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         setTabPressed(R.id.tabIV3, R.id.tabTxt3);
         hideControls();
         backgroundManager.showBackgroundUI();
-
-        // Ensure color picker is hidden when showing background UI
         backgroundManager.hideColorPicker();
     }
 
@@ -327,16 +319,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         items.add(new RatioItem("2 : 3", R.drawable.ratio_2_3, RATIO_2_3));
         items.add(new RatioItem("x", R.drawable.ratio_x, RATIO_3_1));
         return items;
-    }
-
-    private void startActivityWithAds(Intent intent, int requestCode) {
-        if (!AdManager.isloadMAX) {
-            AdManager.adCounter++;
-            AdManager.showInterAd(this, intent, requestCode);
-        } else {
-            AdManager.adCounter++;
-            AdManager.showMaxInterstitial(this, intent, requestCode);
-        }
     }
 
     private void setUnpressAllButtons() {
@@ -405,19 +387,16 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
             Canvas canvas = new Canvas(result);
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-            // Draw background
             if (backgroundManager.getBackgroundImage() != null && !backgroundManager.getBackgroundImage().isRecycled()) {
                 canvas.drawBitmap(backgroundManager.getBackgroundImage(), new Rect(0, 0, backgroundManager.getBackgroundImage().getWidth(), backgroundManager.getBackgroundImage().getHeight()), new Rect(0, 0, result.getWidth(), result.getHeight()), paint);
             } else {
                 canvas.drawColor(backgroundManager.getBackgroundColor());
             }
 
-            // Draw template and stickers
             canvas.drawBitmap(template, 0, 0, paint);
             Bitmap stickers = mPhotoView.getImage(mOutputScale);
             canvas.drawBitmap(stickers, 0, 0, paint);
 
-            // Clean up
             template.recycle();
             stickers.recycle();
             System.gc();
@@ -434,19 +413,16 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mFramePhotoLayout = new FramePhotoLayout(this, item.getPhotoItemList());
         mFramePhotoLayout.setQuickActionClickListener(this);
 
-        // Set background
         if (backgroundManager.getBackgroundImage() != null && !backgroundManager.getBackgroundImage().isRecycled()) {
             mContainerLayout.setBackground(new BitmapDrawable(getResources(), backgroundManager.getBackgroundImage()));
         } else {
             mContainerLayout.setBackgroundColor(backgroundManager.getBackgroundColor());
         }
 
-        // Apply ratio
         applyLayoutRatio();
 
-        // Reset seek bars
-        mSpaceBar.setProgress((int) (MAX_SPACE_PROGRESS * mSpace / MAX_SPACE));
-        mCornerBar.setProgress((int) (MAX_CORNER_PROGRESS * mCorner / MAX_CORNER));
+        mSpaceBar.setProgress((int) (300.0f * mSpace / MAX_SPACE));
+        mCornerBar.setProgress((int) (200.0f * mCorner / MAX_CORNER));
     }
 
     private void applyLayoutRatio() {
@@ -529,10 +505,8 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     @Override
     public void onChangeActionClick(FrameImageView v) {
         mSelectedFrameImageView = v;
-        Intent mIntent = new Intent(this, CustomGalleryActivity.class);
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MAX_IMAGE, 1);
-        mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MIN_IMAGE, 1);
-        startActivityForResult(mIntent, CustomGalleryActivity.PICKER_REQUEST_CODE);
+        customGalleryPicker.setLimits(1, 1);
+        customGalleryPicker.launch();
     }
 
     @Override
@@ -552,18 +526,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
     @Override
     protected void resultBackground(Uri uri) {
         backgroundManager.setBackgroundFromUri(uri);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_PHOTO && resultCode == RESULT_OK) {
-            ArrayList<String> mSelectedImages = data.getStringArrayListExtra("result");
-            if (mSelectedFrameImageView != null && mSelectedImages != null && !mSelectedImages.isEmpty()) {
-                mSelectedFrameImageView.setImagePath(mSelectedImages.get(0));
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     @Override
@@ -596,7 +558,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         showBorderUI();
     }
 
-    // Helper class for simplified SeekBar listeners
     private abstract static class SimpleSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {

@@ -29,11 +29,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.limsphere.pe.gallery.CustomGalleryActivity;
 import com.limsphere.pe.Activities.ScrapBookActivity;
 import com.limsphere.pe.Activities.ThumbListActivity;
 import com.limsphere.pe.shape.BodyShapeEditor;
 import com.limsphere.pe.utils.AdManager;
+import com.limsphere.pe.utils.CustomGalleryPicker;
 import com.limsphere.pe.utils.DateTimeUtils;
 import com.limsphere.pe.utils.ImageUtils;
 import com.limsphere.pe.utils.Utils;
@@ -45,6 +45,14 @@ import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     int perRequest = 1;
+    private CustomGalleryPicker customGalleryPicker;
+    private int ACTION_REQUEST_EDITIMAGE = 9;
+    private int shapeRequest = 101;
+    private String fileName;
+    private LoadImageTask mLoadImageTask;
+    private int imageWidth, imageHeight;
+    private boolean doubleBackToExitPressedOnce = false;
+    private PopupWindow mPopupWindow;
 
     String[] permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -64,26 +72,21 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        //AppLovinSdk.getInstance( this ).showMediationDebugger();
+        // Initialize gallery picker
+        customGalleryPicker = new CustomGalleryPicker(this, new CustomGalleryPicker.GalleryResultCallback() {
+            @Override
+            public void onGalleryResult(ArrayList<String> filePaths) {
+                handleGalleryResult(filePaths);
+            }
+
+            @Override
+            public void onGalleryCanceled() {
+                Toast.makeText(StartActivity.this, "Image selection canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("isloadMAX");
-
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-////               Boolean value = dataSnapshot.getValue(Boolean.class);
-////               AdManager.isloadMAX= value;
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("TAG", "Failed to read value.", error.toException());
-//            }
-//        });
-
 
         menuBtn = findViewById(R.id.menuBtn);
         menuBtn.setOnClickListener(this);
@@ -107,11 +110,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         shapeBtn.setOnClickListener(this);
 
         if (!AdManager.isloadMAX) {
-            //admob
             AdManager.initAd(StartActivity.this);
             AdManager.loadInterAd(StartActivity.this);
         } else {
-            //MAX + Fb Ads
             AdManager.initMAX(StartActivity.this);
             AdManager.maxInterstital(StartActivity.this);
         }
@@ -123,46 +124,36 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.menuBtn:
                 showMenu();
                 break;
-
             case R.id.clgMakerBtn:
                 collageMaker();
                 break;
-
             case R.id.photoEditBtn:
                 photoEditor();
                 break;
-
             case R.id.pipMakerBtn:
                 pipMaker();
                 break;
-
             case R.id.shapeBtn:
                 shapeEditor();
                 break;
-
             case R.id.scrapBtn:
                 scrapBook();
                 break;
-
             case R.id.albumBtn:
                 gotoCreation();
                 break;
-
             default:
                 break;
         }
     }
 
-    PopupWindow mPopupWindow;
-
-    void showMenu()  {
+    void showMenu() {
         if (mPopupWindow != null && mPopupWindow.isShowing()) {
             mPopupWindow.dismiss();
             return;
         }
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
         View customView = inflater.inflate(R.layout.custom_popup, null);
 
         mPopupWindow = new PopupWindow(
@@ -175,57 +166,42 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             mPopupWindow.setElevation(5.0f);
         }
 
-
         TextView rateTxt = customView.findViewById(R.id.rateTxt);
-        rateTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopupWindow.dismiss();
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
-                }
+        rateTxt.setOnClickListener(v -> {
+            mPopupWindow.dismiss();
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
             }
         });
 
         TextView shareTxt = customView.findViewById(R.id.shareTxt);
-        shareTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopupWindow.dismiss();
-                Intent myapp = new Intent(Intent.ACTION_SEND);
-                myapp.setType("text/plain");
-                myapp.putExtra(Intent.EXTRA_TEXT, "Click here and check out this amazing app\n https://play.google.com/store/apps/details?id=" + getPackageName() + " \n");
-                startActivity(myapp);
-            }
+        shareTxt.setOnClickListener(v -> {
+            mPopupWindow.dismiss();
+            Intent myapp = new Intent(Intent.ACTION_SEND);
+            myapp.setType("text/plain");
+            myapp.putExtra(Intent.EXTRA_TEXT, "Click here and check out this amazing app\n https://play.google.com/store/apps/details?id=" + getPackageName() + " \n");
+            startActivity(myapp);
         });
 
         TextView moreTxt = customView.findViewById(R.id.moreTxt);
-        moreTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopupWindow.dismiss();
-                startActivity(new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/dev?id=7081479513420377164&hl=en")));
-            }
+        moreTxt.setOnClickListener(v -> {
+            mPopupWindow.dismiss();
+            startActivity(new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/dev?id=7081479513420377164&hl=en")));
         });
 
         TextView privacyTxt = customView.findViewById(R.id.privacyTxt);
-        privacyTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopupWindow.dismiss();
-                startActivityes(new Intent(StartActivity.this, PrivacyActivity.class),0);
-            }
+        privacyTxt.setOnClickListener(v -> {
+            mPopupWindow.dismiss();
+            startActivityes(new Intent(StartActivity.this, PrivacyActivity.class), 0);
         });
 
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
         mPopupWindow.showAsDropDown(menuBtn, 0, 0);
-
-
     }
 
     public boolean hasPermissions(String... permissions) {
@@ -239,51 +215,36 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         return false;
     }
 
-    public void photoEditor(){
+    public void photoEditor() {
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = false;
-            Intent mIntent = new Intent(this, CustomGalleryActivity.class);
-            mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MAX_IMAGE, 1);
-            mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MIN_IMAGE, 1);
-            startActivityes(mIntent, CustomGalleryActivity.PICKER_REQUEST_CODE);
+            customGalleryPicker.setLimits(1, 1);
+            customGalleryPicker.launch();
         }
     }
 
-    private int ACTION_REQUEST_EDITIMAGE = 9;
-    String fileName;
+    private void handleGalleryResult(ArrayList<String> filePaths) {
+        if (filePaths == null || filePaths.isEmpty()) return;
+
+        fileName = DateTimeUtils.getCurrentDateTime().replaceAll(":", "-").concat(".png");
+        File collageFolder = new File(ImageUtils.OUTPUT_COLLAGE_FOLDER);
+        if (!collageFolder.exists()) {
+            collageFolder.mkdirs();
+        }
+        File outputFile = new File(collageFolder, fileName);
+
+        EditImageActivity.start(this, filePaths.get(0), outputFile.getAbsolutePath(), ACTION_REQUEST_EDITIMAGE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CustomGalleryActivity.PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-            try {
-                ArrayList<String> mSelectedImages = data.getStringArrayListExtra("result");
-                fileName = DateTimeUtils.getCurrentDateTime().replaceAll(":", "-").concat(".png");
-                File collageFolder = new File(ImageUtils.OUTPUT_COLLAGE_FOLDER);
-                if (!collageFolder.exists()) {
-                    collageFolder.mkdirs();
-                }
-                File outputFile = new File(collageFolder, fileName);
-
-                EditImageActivity.start(this,mSelectedImages.get(0),outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
-            }catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }else if (requestCode == ACTION_REQUEST_EDITIMAGE && resultCode == RESULT_OK){
+        if (requestCode == ACTION_REQUEST_EDITIMAGE && resultCode == RESULT_OK) {
             handleEditorImage(data);
-        }else if (requestCode == shapeRequest && resultCode == RESULT_OK){
-            try {
-                ArrayList<String> mSelectedImages = data.getStringArrayListExtra("result");
-                loadImage(mSelectedImages.get(0));
-            }catch (Exception ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
-    LoadImageTask mLoadImageTask;
-    int imageWidth, imageHeight;
     public void loadImage(String filepath) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         imageWidth = metrics.widthPixels / 2;
@@ -295,9 +256,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         mLoadImageTask.execute(filepath);
     }
 
-
     private final class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
         Dialog dialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -306,31 +267,29 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         @Override
         protected Bitmap doInBackground(String... params) {
-            return BitmapUtils.getSampledBitmap(params[0], imageWidth,
-                    imageHeight);
+            return BitmapUtils.getSampledBitmap(params[0], imageWidth, imageHeight);
         }
 
         @Override
         protected void onPostExecute(Bitmap result) {
             dialog.dismiss();
             Utils.mBitmap = result;
-            startActivityes(new Intent(StartActivity.this, BodyShapeEditor.class),0);
-
+            startActivityes(new Intent(StartActivity.this, BodyShapeEditor.class), 0);
         }
     }
 
     private void handleEditorImage(Intent data) {
         String newFilePath = data.getStringExtra(EditImageActivity.EXTRA_OUTPUT);
-        Utils.mediaScanner(StartActivity.this, ImageUtils.OUTPUT_COLLAGE_FOLDER+"/", fileName);
+        Utils.mediaScanner(StartActivity.this, ImageUtils.OUTPUT_COLLAGE_FOLDER + "/", fileName);
         Intent intent = new Intent(StartActivity.this, ShareActivity.class);
         intent.putExtra("path", newFilePath);
         intent.putExtra("isCreation", false);
         if (!AdManager.isloadMAX) {
             AdManager.adCounter = 5;
-            AdManager.showInterAd(StartActivity.this, intent,0);
+            AdManager.showInterAd(StartActivity.this, intent, 0);
         } else {
             AdManager.adCounter = 5;
-            AdManager.showMaxInterstitial(StartActivity.this, intent,0);
+            AdManager.showMaxInterstitial(StartActivity.this, intent, 0);
         }
         Toast.makeText(StartActivity.this, "Saved Successfully...", Toast.LENGTH_LONG).show();
     }
@@ -339,10 +298,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = false;
             Intent intent = new Intent(StartActivity.this, ThumbListActivity.class);
             intent.putExtra(ThumbListActivity.EXTRA_IS_FRAME_IMAGE, true);
-            startActivityes(intent,0);
+            startActivityes(intent, 0);
         }
     }
 
@@ -350,23 +308,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = false;
             Intent intent = new Intent(StartActivity.this, ThumbListActivity.class);
             intent.putExtra(ScrapBookActivity.EXTRA_CREATED_METHOD_TYPE, ScrapBookActivity.FRAME_TYPE);
-            startActivityes(intent,0);
+            startActivityes(intent, 0);
         }
     }
 
-    int shapeRequest = 101;
     public void shapeEditor() {
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = false;
-            Intent mIntent = new Intent(this, CustomGalleryActivity.class);
-            mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MAX_IMAGE, 1);
-            mIntent.putExtra(CustomGalleryActivity.KEY_LIMIT_MIN_IMAGE, 1);
-            startActivityes(mIntent, shapeRequest);
+            customGalleryPicker.setLimits(1, 1);
+            customGalleryPicker.launch();
         }
     }
 
@@ -374,10 +327,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = true;
             Intent intent = new Intent(StartActivity.this, ScrapBookActivity.class);
             intent.putExtra(ScrapBookActivity.EXTRA_CREATED_METHOD_TYPE, ScrapBookActivity.PHOTO_TYPE);
-            startActivityes(intent,0);
+            startActivityes(intent, 0);
         }
     }
 
@@ -385,9 +337,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (hasPermissions(permissions)) {
             ActivityCompat.requestPermissions(StartActivity.this, permissions, perRequest);
         } else {
-            CustomGalleryActivity.isScrap = false;
             Intent intent = new Intent(StartActivity.this, CreationActivity.class);
-            startActivityes(intent,0);
+            startActivityes(intent, 0);
         }
     }
 
@@ -401,8 +352,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
     public void onBackPressed() {
         if (this.doubleBackToExitPressedOnce) {
@@ -411,11 +360,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000L);
+        new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000L);
     }
-
 }
