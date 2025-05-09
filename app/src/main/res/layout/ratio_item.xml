@@ -14,7 +14,8 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_gravity="bottom"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         app:shapeAppearanceOverlay="@style/RoundedImage"
         app:strokeWidth="2dp" />
 

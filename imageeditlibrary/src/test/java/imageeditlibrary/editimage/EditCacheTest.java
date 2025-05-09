@@ -1,6 +1,7 @@
 package imageeditlibrary.editimage;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 
 import com.xinlan.imageeditlibrary.editimage.widget.EditCache;
 
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  */
 //@RunWith(JUnit4.class)
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest= Config.NONE)
+@Config(sdk = {Build.VERSION_CODES.P})
 public class EditCacheTest {
     private EditCache editCache;
 

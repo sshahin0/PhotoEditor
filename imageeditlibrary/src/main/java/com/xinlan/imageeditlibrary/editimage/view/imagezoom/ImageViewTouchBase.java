@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.xinlan.imageeditlibrary.editimage.view.imagezoom.easing.Cubic;
 import com.xinlan.imageeditlibrary.editimage.view.imagezoom.easing.Easing;
@@ -24,7 +24,7 @@ import com.xinlan.imageeditlibrary.editimage.view.imagezoom.utils.IDisposable;
  * @author alessandro
  * 
  */
-public abstract class ImageViewTouchBase extends ImageView implements
+public abstract class ImageViewTouchBase extends AppCompatImageView implements
         IDisposable {
 
 	public interface OnDrawableChangeListener {

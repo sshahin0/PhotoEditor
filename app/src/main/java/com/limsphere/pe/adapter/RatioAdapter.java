@@ -49,27 +49,47 @@ public class RatioAdapter extends RecyclerView.Adapter<RatioAdapter.ItemViewHold
 
         // Check if dimensions are already calculated
         if (currentItem.getCalculatedWidth() == -1 || currentItem.getCalculatedHeight() == -1) {
-            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), imageResId);
-            int originalWidth = bitmap.getWidth();
-            int originalHeight = bitmap.getHeight();
+            try {
+                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), imageResId);
+                if (bitmap != null) {
+                    int originalWidth = bitmap.getWidth();
+                    int originalHeight = bitmap.getHeight();
 
-            // Calculate aspect ratio
-            float aspectRatio = (float) originalWidth / originalHeight;
+                    // Calculate aspect ratio
+                    float aspectRatio = (float) originalWidth / originalHeight;
 
-            holder.imageView.post(() -> {
-                int parentWidth = ((View) holder.imageView.getParent()).getWidth();
-                int targetHeight = (int) (parentWidth / aspectRatio);
+                    holder.imageView.post(() -> {
+                        try {
+                            View parent = (View) holder.imageView.getParent();
+                            if (parent != null) {
+                                int parentWidth = parent.getWidth();
+                                if (parentWidth > 0) {
+                                    int targetHeight = (int) (parentWidth / aspectRatio);
 
-                // Save calculated dimensions
-                currentItem.setCalculatedWidth(parentWidth);
-                currentItem.setCalculatedHeight(targetHeight);
+                                    // Save calculated dimensions
+                                    currentItem.setCalculatedWidth(parentWidth);
+                                    currentItem.setCalculatedHeight(targetHeight);
 
-                // Apply calculated dimensions
-                ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
-                params.width = parentWidth;
-                params.height = targetHeight;
-                holder.imageView.setLayoutParams(params);
-            });
+                                    // Apply calculated dimensions
+                                    ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
+                                    params.width = parentWidth;
+                                    params.height = targetHeight;
+                                    holder.imageView.setLayoutParams(params);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    
+                    // Clean up bitmap
+                    if (!bitmap.isRecycled()) {
+                        bitmap.recycle();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // Use saved dimensions to prevent resizing
             ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();

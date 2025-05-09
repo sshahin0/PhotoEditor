@@ -63,7 +63,7 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
     //Template views
     private ArrayList<TemplateItem> mTemplateItemList = new ArrayList<TemplateItem>();
     private ArrayList<TemplateItem> mAllTemplateItemList = new ArrayList<TemplateItem>();
-    private boolean mFrameImages = false;
+    private boolean mFrameImages = true;
 
     //Frame filter Quick Action
     private QuickAction mQuickAction;
@@ -96,8 +96,10 @@ public class ThumbListActivity extends BaseFragmentActivity implements TemplateV
             }
         });
 
+        // Get frame images flag from intent
+        mFrameImages = getIntent().getBooleanExtra("is_frame_images", true);
+        
         //show templates
-        mFrameImages = getIntent().getBooleanExtra(EXTRA_IS_FRAME_IMAGE, false);
         if (mFrameImages) {
             loadFrameImages(false);
         } else {

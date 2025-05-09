@@ -152,6 +152,12 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mMainMenuLayout = findViewById(R.id.main_menu);
         bgcolor = findViewById(R.id.bgcolor);
         textBtn = findViewById(R.id.textBtn);
+        
+        // Initialize ratio recycler view
+        mRatioRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mRatioItemList = createRatioItems();
+        mRatioAdapter = new RatioAdapter(this, mRatioItemList, this);
+        mRatioRecycleView.setAdapter(mRatioAdapter);
     }
 
     private void setupManagers() {
@@ -292,8 +298,6 @@ public class CollageActivity extends BaseTemplateDetailActivity implements Frame
         mRatioRecycleView.setVisibility(VISIBLE);
         mTemplateView.setVisibility(GONE);
         mSpaceLayout.setVisibility(GONE);
-
-        setupRatioRecyclerView();
     }
 
     private void setupRatioRecyclerView() {

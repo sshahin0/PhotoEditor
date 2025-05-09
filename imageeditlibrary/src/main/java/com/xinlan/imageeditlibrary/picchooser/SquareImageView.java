@@ -2,11 +2,15 @@ package com.xinlan.imageeditlibrary.picchooser;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
-public class SquareImageView extends ImageView {
+public class SquareImageView extends AppCompatImageView {
 
-    public SquareImageView(final Context context, final AttributeSet attrs) {
+    public SquareImageView(Context context) {
+        super(context);
+    }
+
+    public SquareImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

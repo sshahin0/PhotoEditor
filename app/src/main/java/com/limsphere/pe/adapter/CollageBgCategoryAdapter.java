@@ -42,7 +42,10 @@ public class CollageBgCategoryAdapter extends RecyclerView.Adapter<CollageBgCate
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        holder.categoryImage.setImageResource(images.get(position));
+        final int adapterPosition = holder.getBindingAdapterPosition();
+        if (adapterPosition == RecyclerView.NO_POSITION) return;
+
+        holder.categoryImage.setImageResource(images.get(adapterPosition));
 
         float radiusInPx = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -55,7 +58,7 @@ public class CollageBgCategoryAdapter extends RecyclerView.Adapter<CollageBgCate
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setCornerRadius(radiusInPx);
 
-        if (position == selectedPosition) {
+        if (adapterPosition == selectedPosition) {
             drawable.setStroke(8, context.getResources().getColor(R.color.btn_icon_color)); // Blue border when selected
         } else {
             drawable.setStroke(0, Color.TRANSPARENT);
@@ -65,10 +68,10 @@ public class CollageBgCategoryAdapter extends RecyclerView.Adapter<CollageBgCate
 
         holder.itemView.setOnClickListener(v -> {
             int previousPosition = selectedPosition;
-            selectedPosition = position;
+            selectedPosition = adapterPosition;
             notifyItemChanged(previousPosition);
             notifyItemChanged(selectedPosition);
-            listener.onCategoryClick(position);
+            listener.onCategoryClick(adapterPosition);
         });
     }
 

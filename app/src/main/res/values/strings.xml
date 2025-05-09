@@ -141,6 +141,10 @@
     <string name="collage_title_layout">Template</string>
     <string name="collage_title_ratio">Ratio</string>
     <string name="collage_title_border">Border</string>
-
+    
+    <!-- Collage control labels -->
+    <string name="collage_space">Space</string>
+    <string name="collage_corner">Corner</string>
+    <string name="collage_zoom">Zoom</string>
 
 </resources>

@@ -1,0 +1,1593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.8.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.8.2)" variant="all" version="8.8.2">
+
+    <issue
+        id="CanvasSize"
+        message="Calling `Canvas.getWidth()` is usually wrong; you should be calling `getWidth()` instead"
+        errorLine1="  canvas.scale(scale, scale, canvas.getWidth() >> 1,"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/RotateImageView.java"
+            line="88"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="CanvasSize"
+        message="Calling `Canvas.getHeight()` is usually wrong; you should be calling `getHeight()` instead"
+        errorLine1="    canvas.getHeight() >> 1);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/RotateImageView.java"
+            line="89"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="CanvasSize"
+        message="Calling `Canvas.getWidth()` is usually wrong; you should be calling `getWidth()` instead"
+        errorLine1="  canvas.rotate(rotateAngle, canvas.getWidth() >> 1,"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/RotateImageView.java"
+            line="91"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="CanvasSize"
+        message="Calling `Canvas.getHeight()` is usually wrong; you should be calling `getHeight()` instead"
+        errorLine1="    canvas.getHeight() >> 1);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/RotateImageView.java"
+            line="92"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ExifInterface"
+        message="Avoid using `android.media.ExifInterface`; use `androidx.exifinterface.media.ExifInterface` instead"
+        errorLine1="import android.media.ExifInterface;"
+        errorLine2="       ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/utils/BitmapUtils.java"
+            line="20"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="ExifInterface"
+        message="Avoid using `android.media.ExifInterface`; use `androidx.exifinterface.media.ExifInterface` instead"
+        errorLine1="import android.media.ExifInterface;"
+        errorLine2="       ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/imagezoom/utils/ExifUtils.java"
+            line="8"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        errorLine1="        targetSdkVersion 33"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="8"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SuspiciousIndentation"
+        message="The indentation string here is different from on the previous line (`&quot; &quot;` vs `\t`)"
+        errorLine1="  backToMenu.setOnClickListener(new BackToMenuClick());//"
+        errorLine2="~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="133"
+            column="1"/>
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="132"
+            column="1"
+            message="Previous line indentation here"/>
+    </issue>
+
+    <issue
+        id="SuspiciousIndentation"
+        message="The indentation string here is different from on the previous line (`&quot; &quot;` vs `\t`)"
+        errorLine1="  activity.mainImage.post(new Runnable() {"
+        errorLine2="~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="154"
+            column="1"/>
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="150"
+            column="1"
+            message="Previous line indentation here"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        mainView = inflater.inflate(R.layout.fragment_edit_image_add_text, null);"
+        errorLine2="                                                                           ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/AddTextFragment.java"
+            line="65"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        mainView = inflater.inflate(R.layout.fragment_edit_image_beauty, null);"
+        errorLine2="                                                                         ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/BeautyFragment.java"
+            line="57"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        View v = inflater.inflate(R.layout.gallery, null);"
+        errorLine2="                                                    ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/picchooser/BucketsFragment.java"
+            line="30"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  mainView = inflater.inflate(R.layout.fragment_edit_image_crop, null);"
+        errorLine2="                                                                 ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="78"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        mainView = inflater.inflate(R.layout.fragment_edit_image_fliter, null);"
+        errorLine2="                                                                         ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/FilterListFragment.java"
+            line="51"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                convertView = mInflater.inflate(R.layout.bucketitem, null);"
+        errorLine2="                                                                     ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/picchooser/GalleryAdapter.java"
+            line="61"
+            column="70"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                convertView =  mInflater.inflate(R.layout.imagegallery, null);"
+        errorLine2="                                                                        ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/picchooser/GalleryAdapter.java"
+            line="78"
+            column="73"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="  View v = inflater.inflate(R.layout.galleryimages, null);"
+        errorLine2="                                                    ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/picchooser/ImagesFragment.java"
+            line="29"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                null);"
+        errorLine2="                ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/MainMenuFragment.java"
+            line="42"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        mainView = inflater.inflate(R.layout.fragment_edit_paint, null);"
+        errorLine2="                                                                  ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/PaintFragment.java"
+            line="69"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                inflate(R.layout.view_set_stoke_width, null);"
+        errorLine2="                                                       ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/PaintFragment.java"
+            line="219"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        mainView = inflater.inflate(R.layout.fragment_edit_image_rotate, null);"
+        errorLine2="                                                                         ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/RotateFragment.java"
+            line="45"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                null);"
+        errorLine2="                ~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="73"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InvalidSetHasFixedSize"
+        message="When using `setHasFixedSize() in an `RecyclerView`, `wrap_content` cannot be used as a value for `size` in the scrolling direction."
+        errorLine1="        typeList.setHasFixedSize(true);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="91"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="InvalidSetHasFixedSize"
+        message="When using `setHasFixedSize() in an `RecyclerView`, `wrap_content` cannot be used as a value for `size` in the scrolling direction."
+        errorLine1="        typeList.setHasFixedSize(true);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="91"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="InvalidSetHasFixedSize"
+        message="When using `setHasFixedSize() in an `RecyclerView`, `wrap_content` cannot be used as a value for `size` in the scrolling direction."
+        errorLine1="        stickerList.setHasFixedSize(true);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="100"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="InvalidSetHasFixedSize"
+        message="When using `setHasFixedSize() in an `RecyclerView`, `wrap_content` cannot be used as a value for `size` in the scrolling direction."
+        errorLine1="        stickerList.setHasFixedSize(true);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="100"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of `compileSdkVersion` than 33 is available: 34"
+        errorLine1="    compileSdkVersion 33"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="4"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test:core than 1.5.0 is available: 1.6.1"
+        errorLine1="    testImplementation &apos;androidx.test:core:1.5.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="36"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.2.1"
+        errorLine1="    testImplementation &apos;androidx.test.ext:junit:1.1.5&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="37"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.0"
+        errorLine1="    implementation &apos;androidx.appcompat:appcompat:1.6.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="40"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0"
+        errorLine1="    implementation &apos;androidx.recyclerview:recyclerview:1.3.2&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="42"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@color/primary_text_default_material_light` is marked as private in androidx.appcompat:appcompat:1.6.1"
+        errorLine1="            android:textColor=&quot;@color/primary_text_default_material_light&quot;"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="102"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@color/primary_text_default_material_light` is marked as private in androidx.appcompat:appcompat:1.6.1"
+        errorLine1="            android:textColor=&quot;@color/primary_text_default_material_light&quot;"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="102"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:password` is deprecated: Use `inputType` instead"
+        errorLine1="            android:password=&quot;false&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:password` is deprecated: Use `inputType` instead"
+        errorLine1="            android:password=&quot;false&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseCompatLoadingForDrawables"
+        message="Use `ResourcesCompat.getDrawable()`"
+        errorLine1="  setImageDrawable(getContext().getResources().getDrawable(resId));"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/imagezoom/ImageViewTouchBase.java"
+            line="359"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;images&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;images&quot;>%d images&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        this.notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/adapter/StickerAdapter.java"
+            line="94"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Recycle"
+        message="This `ContentProviderClient` should be freed up after use with `#release()`"
+        errorLine1="      .acquireContentProviderClient(uri);"
+        errorLine2="       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/imagezoom/utils/ExifUtils.java"
+            line="161"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 11"
+        errorLine1="        @TargetApi(Build.VERSION_CODES.HONEYCOMB)"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/BeautyFragment.java"
+            line="194"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 23"
+        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="73"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 11"
+        errorLine1="  @TargetApi(Build.VERSION_CODES.HONEYCOMB)"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="200"
+            column="3"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 21"
+        errorLine1="    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/CustomPaintView.java"
+            line="46"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 11"
+        errorLine1="        @TargetApi(Build.VERSION_CODES.HONEYCOMB)"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/FilterListFragment.java"
+            line="183"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 21"
+        errorLine1="    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/PaintModeView.java"
+            line="37"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 11"
+        errorLine1="    @TargetApi(Build.VERSION_CODES.HONEYCOMB)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/task/StickerTask.java"
+            line="65"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.AddTextFragment.SaveTextStickerTask)"
+        errorLine1="    private final class SaveTextStickerTask extends StickerTask {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/AddTextFragment.java"
+            line="195"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.BeautyFragment.BeautyTask)"
+        errorLine1="    private final class BeautyTask extends AsyncTask&lt;Integer, Void, Bitmap> {"
+        errorLine2="                        ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/BeautyFragment.java"
+            line="159"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.CropFragment.CropImageTask)"
+        errorLine1=" private final class CropImageTask extends AsyncTask&lt;Bitmap, Void, Bitmap> {"
+        errorLine2="                     ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/CropFragment.java"
+            line="191"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.EditImageActivity.LoadImageTask)"
+        errorLine1="    private final class LoadImageTask extends AsyncTask&lt;String, Void, Bitmap> {"
+        errorLine2="                        ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/EditImageActivity.java"
+            line="265"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.EditImageActivity.SaveImageTask)"
+        errorLine1="    private final class SaveImageTask extends AsyncTask&lt;Bitmap, Void, Boolean> {"
+        errorLine2="                        ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/EditImageActivity.java"
+            line="448"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.FilterListFragment.ProcessingImage)"
+        errorLine1="    private final class ProcessingImage extends AsyncTask&lt;Integer, Void, Bitmap> {"
+        errorLine2="                        ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/FilterListFragment.java"
+            line="161"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.PaintFragment.SaveCustomPaintTask)"
+        errorLine1="    private final class SaveCustomPaintTask extends StickerTask {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/PaintFragment.java"
+            line="266"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.RotateFragment.SaveRotateImageTask)"
+        errorLine1="    private final class SaveRotateImageTask extends"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/RotateFragment.java"
+            line="133"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.StickerFragment.LoadStickersTask)"
+        errorLine1="    private final class LoadStickersTask extends AsyncTask&lt;Integer, Void, Void> {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="143"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This `AsyncTask` class should be static or leaks might occur (com.xinlan.imageeditlibrary.editimage.fragment.StickerFragment.SaveStickersTask)"
+        errorLine1="    private final class SaveStickersTask extends StickerTask {"
+        errorLine2="                        ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/fragment/StickerFragment.java"
+            line="245"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="This field leaks a context object"
+        errorLine1="    private EditImageActivity mContext;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/task/StickerTask.java"
+            line="19"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `fill_parent` for better performance"
+        errorLine1="        android:layout_width=&quot;fill_parent&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_crop.xml"
+            line="23"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `fill_parent` for better performance"
+        errorLine1="        android:layout_width=&quot;fill_parent&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_fliter.xml"
+            line="23"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#000` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        errorLine1="    android:background=&quot;#000&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/bucketitem.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#000` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        errorLine1="    android:background=&quot;#000&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/imagegallery.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/main_backgroud` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
+        errorLine1="    android:background=&quot;@color/main_backgroud&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/view_set_stoke_width.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="    &lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/materialcolorpicker__color_button.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;saving_image&quot;>Creating...&lt;/string>"
+        errorLine2="                                ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="25"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;input_hint&quot;>input text ...&lt;/string>"
+        errorLine2="                              ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="26"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;handing&quot;>loading...&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-hdpi`: b_day.png, beauty_pressed.png, beauty_unpressed.png, beautyy.png, btm_bg.png... (47 more)">
+        <location
+            file="src/main/res/drawable-hdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-mdpi`: b_day.png, back_arrow.png, backm.xml, beauty.xml, beauty_pressed.png... (59 more)">
+        <location
+            file="src/main/res/drawable-mdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xhdpi`: backm.xml, beauty.xml, crop.xml, draw.xml, filter.xml... (7 more)">
+        <location
+            file="src/main/res/drawable-xhdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xxhdpi`: b_day.png, back_arrow.png, backm.xml, beauty.xml, beauty_pressed.png... (58 more)">
+        <location
+            file="src/main/res/drawable-xxhdpi"/>
+    </issue>
+
+    <issue
+        id="TextFields"
+        message="This text field does not specify an `inputType`"
+        errorLine1="    &lt;EditText"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_add_text.xml"
+            line="21"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="TextFields"
+        message="This text field does not specify an `inputType`"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="85"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="TextFields"
+        message="This text field does not specify an `inputType`"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="85"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="    &lt;EditText"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_add_text.xml"
+            line="21"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="85"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="85"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ButtonCase"
+        message="The standard Android way to capitalize cancel is &quot;Cancel&quot; (tip: use `@android:string/cancel` instead)"
+        errorLine1="    &lt;string name=&quot;cancel&quot;>cancel&lt;/string>"
+        errorLine2="                          ~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="52"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view `CropImageView` overrides `onTouchEvent` but not `performClick`"
+        errorLine1=" public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/CropImageView.java"
+            line="147"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view `CustomPaintView` overrides `onTouchEvent` but not `performClick`"
+        errorLine1="    public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/CustomPaintView.java"
+            line="104"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view `ImageViewTouch` overrides `onTouchEvent` but not `performClick`"
+        errorLine1="    public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/imagezoom/ImageViewTouch.java"
+            line="95"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view `StickerView` overrides `onTouchEvent` but not `performClick`"
+        errorLine1="    public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/StickerView.java"
+            line="90"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view `TextStickerView` overrides `onTouchEvent` but not `performClick`"
+        errorLine1="    public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/view/TextStickerView.java"
+            line="252"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_image_edit.xml"
+            line="20"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_image_edit.xml"
+            line="134"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_image_edit.xml"
+            line="143"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_add_text.xml"
+            line="7"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_add_text.xml"
+            line="13"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_add_text.xml"
+            line="42"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_beauty.xml"
+            line="7"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_beauty.xml"
+            line="13"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_beauty.xml"
+            line="34"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_beauty.xml"
+            line="63"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_crop.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_crop.xml"
+            line="14"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_fliter.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_fliter.xml"
+            line="14"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="14"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="20"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="29"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="37"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="45"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="53"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_main_menu.xml"
+            line="61"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_rotate.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_rotate.xml"
+            line="14"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_sticker_type.xml"
+            line="14"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_sticker_type.xml"
+            line="20"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_sticker_type.xml"
+            line="43"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_image_sticker_type.xml"
+            line="49"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_paint.xml"
+            line="7"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_paint.xml"
+            line="13"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_edit_paint.xml"
+            line="38"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/gallery.xml"
+            line="18"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/galleryimages.xml"
+            line="18"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="&lt;ImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/view_color_panel.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="&lt;ImageView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/view_sticker_item.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/view_sticker_type_item.xml"
+            line="7"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/view_sticker_type_item.xml"
+            line="21"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        errorLine1="            android:clickable=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="114"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        errorLine1="            android:clickable=&quot;true&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="114"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            redToolTip.setText(&quot;  &quot; + red);"
+        errorLine2="                               ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="156"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            redToolTip.setText(&quot; &quot; + red);"
+        errorLine2="                               ~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="158"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            redToolTip.setText(red + &quot;&quot;);"
+        errorLine2="                               ~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="160"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            greenToolTip.setText(&quot;  &quot; + green);"
+        errorLine2="                                 ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="166"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            greenToolTip.setText(&quot; &quot; + green);"
+        errorLine2="                                 ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="168"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            greenToolTip.setText(green + &quot;&quot;);"
+        errorLine2="                                 ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="170"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            blueToolTip.setText(&quot;  &quot; + blue);"
+        errorLine2="                                ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="176"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            blueToolTip.setText(&quot; &quot; + blue);"
+        errorLine2="                                ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="178"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            blueToolTip.setText(blue + &quot;&quot;);"
+        errorLine2="                                ~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="180"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                redToolTip.setText(&quot;  &quot; + red);"
+        errorLine2="                                   ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="202"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                redToolTip.setText(&quot; &quot; + red);"
+        errorLine2="                                   ~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="204"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                redToolTip.setText(red + &quot;&quot;);"
+        errorLine2="                                   ~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="206"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                greenToolTip.setText(&quot;  &quot; + green);"
+        errorLine2="                                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="215"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                greenToolTip.setText(&quot; &quot; + green);"
+        errorLine2="                                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="217"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                greenToolTip.setText(green + &quot;&quot;);"
+        errorLine2="                                     ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="219"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                blueToolTip.setText(&quot;  &quot; + blue);"
+        errorLine2="                                    ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="228"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                blueToolTip.setText(&quot; &quot; + blue);"
+        errorLine2="                                    ~~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="230"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                blueToolTip.setText(blue + &quot;&quot;);"
+        errorLine2="                                    ~~~~~~~~~">
+        <location
+            file="src/main/java/com/xinlan/imageeditlibrary/editimage/ui/ColorPicker.java"
+            line="232"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Photo Editor&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Photo Editor&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_image_edit.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Select Album&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Select Album&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/gallery.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Select Image&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Select Image&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/galleryimages.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;2c45ff&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;2c45ff&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;#123456&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;#123456&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker.xml"
+            line="100"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;2c45ff&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;2c45ff&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;#123456&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;#123456&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/materialcolorpicker__layout_color_picker_old_android.xml"
+            line="100"
+            column="13"/>
+    </issue>
+
+</issues>

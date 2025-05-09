@@ -145,4 +145,12 @@ public abstract class BasePhotoActivity extends BaseFragmentActivity {
     public void resultStickers(Uri[] uri) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Cleanup any bitmaps to prevent memory leaks
+        System.gc();
+        Runtime.getRuntime().gc();
+    }
 }

@@ -244,10 +244,10 @@ public class CropFragment extends BaseEditFragment {
 		protected void onPostExecute(Bitmap result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-			if (result == null)
+			if (result == null) {
 				return;
-
-            activity.changeMainBitmap(result,true);
+			}
+			activity.changeMainBitmap(result, true);
 			activity.mCropPanel.setCropRect(activity.mainImage.getBitmapRect());
 			backToMain();
 		}
